@@ -6,5 +6,5 @@ Followed this guide: http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-t
 
 TODO:
 
-# Check this out: http://whattheemacsd.com/project-defuns.el-01.html
-# Check out: http://inclojurewetrust.blogspot.de/2013/01/duplicating-s-expressions-on-line.html
+- # Check this out: http://whattheemacsd.com/project-defuns.el-01.html
+- # Check out: http://inclojurewetrust.blogspot.de/2013/01/duplicating-s-expressions-on-line.html
