@@ -1,0 +1,7 @@
+*.*~
+recentf
+idolast
+emacs/.emacs.d/elpa/*
+emacs/.emacs.d/eshell/*
+emacs/.emacs.d/auto-save-list
+emacs/.emacs.d/ac-comphist.dat
