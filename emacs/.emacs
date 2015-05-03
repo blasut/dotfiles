@@ -33,11 +33,6 @@
 (sp-pair "'" nil :actions :rem) ; Remove pairing for qoutes.
 (sp-pair "`" nil :actions :rem) ; Remove pairing for backticks.
 
-(defun open-notes () 
-  "Opens the file notes.txt"
-  (interactive)
-  (switch-to-buffer (find-file-noselect "~/notes.txt")))
-
 ;; Mac-stuff
 (setq mac-option-modifier nil
       mac-command-modifier 'meta
