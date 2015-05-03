@@ -20,7 +20,7 @@
 (define-key paredit-mode-map (kbd "C-<right>")   'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "C-<left>")    'paredit-forward-barf-sexp)
 (define-key paredit-mode-map (kbd "C-M-<right>") 'paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kdb "C-M-<left>")  'paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-M-<left>")  'paredit-backward-barf-sexp)
 
 (provide 'setup-paredit)
 
