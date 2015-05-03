@@ -1,0 +1,30 @@
+[core]
+  editor = emacs
+  excludesfile = ~/.gitignore
+
+[color]
+  ui = auto
+
+[alias]
+  st = status
+  ci = commit
+  cm = commit -m
+  co = checkout
+  di = diff
+  dc = diff --cached
+  b = branch
+  aa = add --all
+  sync = pull --rebase 
+  p = push
+  pu = push
+  psuh = push
+
+[format]
+  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
+
+[push]
+  default = simple
+
+[user]
+  email = oklaridentitet@gmail.com
+  name = oklaridentitet
