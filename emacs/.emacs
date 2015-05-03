@@ -1,18 +1,14 @@
 (package-initialize)
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "/usr/local/bin/sbcl"
-      list-indent-function 'common-lisp-indent-function
-      slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-
 (setq settings-dir
       (expand-file-name "settings" user-emacs-directory))
 (add-to-list 'load-path settings-dir)
 
 (require 'defaults)
 (require 'setup-paredit)
+(require 'setup-lisp)
 
-(slime-setup)
+;;; Old config below
 
 (require 'helm-config)
 (helm-mode 1)
@@ -85,7 +81,6 @@
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
-
 
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
