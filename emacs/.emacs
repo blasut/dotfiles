@@ -16,6 +16,10 @@
   (when (file-regular-p file)
     (load file)))
 
+;; Are we on a mac?
+(setq is-mac (equal system-type 'darwin))
+(when is-mac (require 'mac))
+
 ;;; Old config below
 
 (require 'pretty-lambdada)
@@ -32,11 +36,6 @@
 (smartparens-global-mode t)
 (sp-pair "'" nil :actions :rem) ; Remove pairing for qoutes.
 (sp-pair "`" nil :actions :rem) ; Remove pairing for backticks.
-
-;; Mac-stuff
-(setq mac-option-modifier nil
-      mac-command-modifier 'meta
-      x-select-enable-clipboard t)
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
