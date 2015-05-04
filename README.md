@@ -10,3 +10,4 @@ TODO:
 - # Check out: http://inclojurewetrust.blogspot.de/2013/01/duplicating-s-expressions-on-line.html
 - # Check out: http://batsov.com/projectile/
 - # Check out: http://tuhdo.github.io/helm-projectile.html
+- # Check out: https://github.com/magnars/.emacs.d/blob/master/settings/key-bindings.el#L30-L43

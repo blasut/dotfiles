@@ -8,4 +8,11 @@
 
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 
+;; Clever newlines
+(global-set-key (kbd "<C-return>") 'open-line-below)
+(global-set-key (kbd "<M-return>") 'open-line-above)
+
+;; Duplicate region
+(global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
+
 (provide 'key-bindings)
