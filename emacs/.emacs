@@ -40,6 +40,7 @@
      helm
      projectile
      helm-projectile
+     rainbow-identifiers
      )))
 
 (condition-case nil
@@ -64,7 +65,6 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 (when is-mac (require 'mac))
-
 
 
 ;;; Old config below
