@@ -12,6 +12,12 @@
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<M-return>") 'open-line-above)
 
+;; Rebind transpose words
+(global-set-key (kbd "C-t") 'transpose-words) ; more useful than transpose chars
+
+; Easier access for commonly used command
+(global-set-key (kbd "M-t") 'helm-projectile-ack) ; search in project 
+
 ;; Duplicate region
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
