@@ -1,5 +1,8 @@
 (require 'projectile)
 
+(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'git)
+
 (projectile-global-mode)
 
 (require 'helm-projectile)
