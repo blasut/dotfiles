@@ -56,6 +56,8 @@
 (require 'key-bindings)
 (require 'setup-helm)
 (require 'setup-projectile)
+(require 'setup-scheme)
+(require 'mode-mappings)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
@@ -87,20 +89,6 @@
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
-
-(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
-
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-
-;; Scheme config
-;; Enable Quack mode
-;; The binary of your interpreter
-(setq scheme-program-name "mit-scheme")
-;; This hook lets you use your theme colours instead of quack's ones.
-(defun scheme-mode-quack-hook ()
-  (require 'quack)
-  (setq quack-fontify-style 'emacs))
-(add-hook 'scheme-mode-hook 'scheme-mode-quack-hook)
 
 ;; C-stuff
 (setq c-default-style "linux"
