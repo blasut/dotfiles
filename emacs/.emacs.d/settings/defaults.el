@@ -62,4 +62,6 @@
 
 (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
 
+(setq inhibit-startup-message t)
+
 (provide 'defaults)
