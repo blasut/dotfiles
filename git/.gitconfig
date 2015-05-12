@@ -1,6 +1,6 @@
 [core]
   editor = emacs
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore_global
 
 [color]
   ui = auto
