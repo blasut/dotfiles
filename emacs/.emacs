@@ -42,6 +42,7 @@
      helm-projectile
      rainbow-identifiers
      jade-mode
+     slim-mode
      )))
 
 (condition-case nil
