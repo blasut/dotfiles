@@ -11,6 +11,7 @@
 (define-key key-translation-map (kbd "s-)") (kbd "}"))
 (define-key key-translation-map (kbd "s-7") (kbd "|"))
 (define-key key-translation-map (kbd "s-/") (kbd "\\"))
+(define-key key-translation-map (kbd "s-2") (kbd "@"))
 
 ;; Open files
 (defun mac-open-current-file ()
