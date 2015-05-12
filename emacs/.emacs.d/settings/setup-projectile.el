@@ -1,7 +1,10 @@
 (require 'projectile)
 
 (setq projectile-enable-caching t)
-(setq projectile-indexing-method 'git)
+(setq projectile-indexing-method 'alien)
+
+(add-to-list 'projectile-globally-ignored-directories "node_modules")
+(add-to-list 'grep-find-ignored-directories "node_modules")
 
 (projectile-global-mode)
 
