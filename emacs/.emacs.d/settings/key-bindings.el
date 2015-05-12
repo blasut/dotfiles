@@ -12,8 +12,8 @@
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "<M-return>") 'open-line-above)
 
-;; Rebind transpose words
-(global-set-key (kbd "C-t") 'transpose-words) ; more useful than transpose chars
+;; Finding files more often than using transpose-words...
+(global-set-key (kbd "C-t") 'helm-projectile-find-file)
 
 ;; Easier access for commonly used command
 (global-set-key (kbd "M-t") 'helm-projectile-ack) ; search in project 
