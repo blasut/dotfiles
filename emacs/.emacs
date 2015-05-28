@@ -52,6 +52,7 @@
    (init--install-packages)))
 
 (require 'defaults)
+(require 'misc)
 (require 'setup-paredit)
 (require 'setup-lisp)
 (require 'key-bindings)
