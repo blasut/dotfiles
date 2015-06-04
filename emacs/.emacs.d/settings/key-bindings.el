@@ -34,4 +34,7 @@
 ;; Duplicate region
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
+;; Rebind compose-email to mark sexp
+(global-set-key (kbd "C-x m") 'mark-sexp)
+
 (provide 'key-bindings)
