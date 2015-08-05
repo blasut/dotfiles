@@ -4,7 +4,7 @@
 (setq projectile-indexing-method 'alien)
 
 (add-to-list 'projectile-globally-ignored-directories "node_modules")
-(add-to-list 'grep-find-ignored-directories "node_modules")
+;(add-to-list 'grep-find-ignored-directories "node_modules")
 
 (projectile-global-mode)
 
