@@ -43,6 +43,7 @@
      rainbow-identifiers
      jade-mode
      slim-mode
+     simplezen
      )))
 
 (condition-case nil
@@ -59,6 +60,7 @@
 (require 'setup-helm)
 (require 'setup-projectile)
 (require 'setup-scheme)
+(require 'setup-simplezen)
 (require 'mode-mappings)
 
 ;; Functions (load all files in defuns-dir)
