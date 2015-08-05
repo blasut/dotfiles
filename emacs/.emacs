@@ -43,6 +43,7 @@
      rainbow-identifiers
      jade-mode
      slim-mode
+     common-lisp-snippets
      simplezen
      )))
 
@@ -61,6 +62,7 @@
 (require 'setup-projectile)
 (require 'setup-scheme)
 (require 'setup-simplezen)
+(require 'setup-yasnippet)
 (require 'mode-mappings)
 
 ;; Functions (load all files in defuns-dir)
