@@ -5,7 +5,8 @@
 (setq slime-net-coding-system 'utf-8-unix)
 
 (fset 'copy-sexp-to-repl
-   "\C-xM\367\C-xO\C-y")
+   [?\C-  ?\M-x ?m ?a ?r ?k ?s backspace ?- ?s ?e ?x ?c ?p backspace backspace ?p return ?\M-w ?\C-x ?o ?\C-y])
+
 
 (provide 'misc)
 
