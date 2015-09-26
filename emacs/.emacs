@@ -63,6 +63,7 @@
 (require 'setup-scheme)
 (require 'setup-simplezen)
 (require 'setup-yasnippet)
+(require 'setup-command-frequency)
 (require 'mode-mappings)
 
 ;; Functions (load all files in defuns-dir)
