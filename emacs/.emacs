@@ -45,6 +45,11 @@
      slim-mode
      common-lisp-snippets
      simplezen
+     evil
+     evil-cleverparens
+     evil-leader
+     evil-matchit
+     evil-mc
      )))
 
 (condition-case nil
