@@ -50,6 +50,7 @@
      evil-leader
      evil-matchit
      evil-mc
+     keyfreq
      )))
 
 (condition-case nil
@@ -62,13 +63,11 @@
 (require 'misc)
 (require 'setup-paredit)
 (require 'setup-lisp)
-(require 'key-bindings)
 (require 'setup-helm)
 (require 'setup-projectile)
 (require 'setup-scheme)
 (require 'setup-simplezen)
 (require 'setup-yasnippet)
-(require 'setup-command-frequency)
 (require 'mode-mappings)
 
 ;; Functions (load all files in defuns-dir)
