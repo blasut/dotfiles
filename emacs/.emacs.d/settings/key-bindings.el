@@ -39,9 +39,11 @@
 (evil-leader/set-leader ",")
 
 (evil-leader/set-key
-  "f" 'helm-find-files
-  "b" 'helm-mini
-  "k" 'kill-buffer
-  "p" 'helm-projectile-switch-project)
+  "f"  'helm-find-files
+  "b"  'helm-mini
+  "k"  'kill-buffer
+  "p"  'helm-projectile-switch-project)
+
+(define-key evil-normal-state-map (kbd "<SPC>") 'helm-M-x)
 
 (provide 'key-bindings)
