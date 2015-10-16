@@ -16,7 +16,7 @@
 (global-set-key (kbd "C-t") 'helm-projectile-find-file)
 
 ;; Easier access for commonly used command
-(global-set-key (kbd "M-t") 'helm-projectile-ack) ; search in project 
+(global-set-key (kbd "M-t") 'helm-projectile-grep) ; search in project 
 
 ;; Helm
 (global-set-key (kbd "M-x") 'helm-M-x)
