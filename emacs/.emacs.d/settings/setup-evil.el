@@ -6,13 +6,6 @@
 
 (global-evil-leader-mode)
 
-(evil-leader/set-leader ",")
-
-(evil-leader/set-key
-  "f" 'helm-find-files
-  "b" 'helm-mini
-  "k" 'kill-buffer)
-
 (evil-mode 1)
 
 (add-hook 'Emacs-Lisp #'evil-cleverparens-mode)

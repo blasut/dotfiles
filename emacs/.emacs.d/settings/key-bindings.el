@@ -36,4 +36,12 @@
 
 (global-set-key (kbd "C-x m") 'copy-sexp-to-repl)
 
+(evil-leader/set-leader ",")
+
+(evil-leader/set-key
+  "f" 'helm-find-files
+  "b" 'helm-mini
+  "k" 'kill-buffer
+  "p" 'helm-projectile-switch-project)
+
 (provide 'key-bindings)
