@@ -51,6 +51,7 @@
      evil-matchit
      evil-mc
      keyfreq
+     key-chord 
      )))
 
 (condition-case nil
@@ -68,7 +69,11 @@
 (require 'setup-scheme)
 (require 'setup-simplezen)
 (require 'setup-yasnippet)
+(require 'setup-keyfreq)
+(require 'setup-evil)
+(require 'setup-key-chord)
 (require 'mode-mappings)
+(require 'key-bindings)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
