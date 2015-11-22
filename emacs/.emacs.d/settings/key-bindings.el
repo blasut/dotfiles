@@ -43,7 +43,8 @@
   "b"  'helm-mini
   "k"  'kill-buffer
   "p"  'helm-projectile-switch-project
-  "x"  'helm-M-x)
+  "x"  'helm-M-x
+  "m"  'copy-sexp-to-repl)
 
 (define-key evil-normal-state-map (kbd "<SPC>") 'evil-ex)
 

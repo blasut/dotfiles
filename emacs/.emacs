@@ -51,7 +51,7 @@
      evil-matchit
      evil-mc
      keyfreq
-     key-chord 
+     key-chord
      )))
 
 (condition-case nil
