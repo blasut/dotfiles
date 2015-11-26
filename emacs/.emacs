@@ -53,7 +53,7 @@
      evil-org
      keyfreq
      key-chord
-     org-pomodoro
+     ;;org-pomodoro
      )))
 
 (condition-case nil
@@ -74,6 +74,7 @@
 (require 'setup-keyfreq)
 (require 'setup-evil)
 (require 'setup-key-chord)
+(require 'setup-org)
 (require 'mode-mappings)
 (require 'key-bindings)
 
