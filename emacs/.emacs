@@ -107,6 +107,7 @@
 (sp-pair "`" nil :actions :rem) ; Remove pairing for backticks.
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;; C-stuff
