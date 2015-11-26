@@ -53,6 +53,7 @@
      evil-org
      keyfreq
      key-chord
+     org-pomodoro
      )))
 
 (condition-case nil
