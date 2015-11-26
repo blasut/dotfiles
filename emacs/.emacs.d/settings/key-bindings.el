@@ -44,7 +44,8 @@
   "k"  'kill-buffer
   "p"  'helm-projectile-switch-project
   "x"  'helm-M-x
-  "m"  'copy-sexp-to-repl)
+  "m"  'copy-sexp-to-repl
+  "n"  'org-capture)
 
 (define-key evil-normal-state-map (kbd "<SPC>") 'evil-ex)
 
