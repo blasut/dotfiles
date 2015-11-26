@@ -1,6 +1,7 @@
 (require 'evil)
 (require 'evil-leader)
 (require 'evil-matchit)
+(require 'evil-org)
 
 (global-evil-matchit-mode 1)
 

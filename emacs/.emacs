@@ -50,6 +50,7 @@
      evil-leader
      evil-matchit
      evil-mc
+     evil-org
      keyfreq
      key-chord
      )))
