@@ -45,7 +45,8 @@
   "p"  'helm-projectile-switch-project
   "x"  'helm-M-x
   "m"  'copy-sexp-to-repl
-  "n"  'org-capture)
+  "n"  'org-capture
+  "gt"  'org-todo-list)
 
 (define-key evil-normal-state-map (kbd "<SPC>") 'evil-ex)
 
