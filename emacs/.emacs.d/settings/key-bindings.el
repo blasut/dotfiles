@@ -48,7 +48,8 @@
   "x"  'helm-M-x
   "m"  'copy-sexp-to-repl
   "n"  'org-capture
-  "gt"  'org-todo-list)
+  "gt"  'org-todo-list
+  "g"  'helm-projectile-grep)
 
 
 (provide 'key-bindings)
