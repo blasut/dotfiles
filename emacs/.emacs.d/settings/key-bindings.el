@@ -36,7 +36,9 @@
 
 (global-set-key (kbd "C-x m") 'copy-sexp-to-repl)
 
-(evil-leader/set-leader ",")
+(define-key evil-normal-state-map (kbd ",") 'evil-ex)
+
+(evil-leader/set-leader "<SPC>")
 
 (evil-leader/set-key
   "f"  'helm-projectile-find-file
@@ -48,6 +50,5 @@
   "n"  'org-capture
   "gt"  'org-todo-list)
 
-(define-key evil-normal-state-map (kbd "<SPC>") 'evil-ex)
 
 (provide 'key-bindings)
