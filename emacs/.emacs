@@ -53,7 +53,9 @@
      evil-org
      keyfreq
      key-chord
-     ;;org-pomodoro
+     powerline
+     powerline-evil
+    ;;org-pomodoro
      )))
 
 (condition-case nil
@@ -75,6 +77,7 @@
 (require 'setup-evil)
 (require 'setup-key-chord)
 (require 'setup-org)
+;(require 'setup-powerline)
 (require 'mode-mappings)
 (require 'key-bindings)
 
