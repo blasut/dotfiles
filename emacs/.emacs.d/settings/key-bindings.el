@@ -46,7 +46,7 @@
   "k"  'kill-buffer
   "p"  'helm-projectile-switch-project
   "x"  'helm-M-x
-  "m"  'copy-sexp-to-repl
+  "m"  'magit-status
   "n"  'org-capture
   "gt"  'org-todo-list
   "g"  'helm-projectile-grep)

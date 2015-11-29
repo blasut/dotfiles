@@ -55,6 +55,7 @@
      key-chord
      powerline
      powerline-evil
+     magit
     ;;org-pomodoro
      )))
 
@@ -77,6 +78,7 @@
 (require 'setup-evil)
 (require 'setup-key-chord)
 (require 'setup-org)
+(require 'setup-magit)
 ;(require 'setup-powerline)
 (require 'mode-mappings)
 (require 'key-bindings)
