@@ -49,7 +49,7 @@
   "m"  'magit-status
   "n"  'org-capture
   "gt"  'org-todo-list
-  "g"  'helm-projectile-grep)
+  "s"  'helm-projectile-grep)
 
 
 (provide 'key-bindings)
