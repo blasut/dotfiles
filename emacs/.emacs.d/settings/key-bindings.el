@@ -47,7 +47,7 @@
   "p"  'helm-projectile-switch-project
   "x"  'helm-M-x
   "m"  'magit-status
-  "n"  'org-capture
+  "n"  'open-notes
   "gt"  'org-todo-list
   "s"  'helm-projectile-grep)
 
