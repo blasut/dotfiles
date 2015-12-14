@@ -139,7 +139,7 @@
  '(menu-bar-mode t)
  '(org-modules
    (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-invoice)))
+    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
  '(package-archives
    (quote
     (("gnu" . "https://elpa.gnu.org/packages/")
