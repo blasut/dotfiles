@@ -61,8 +61,8 @@
      powerline
      powerline-evil
      magit
-     
-    ;;org-pomodoro
+     edts
+     flycheck-tip
      )))
 
 (condition-case nil
@@ -85,6 +85,7 @@
 (require 'setup-key-chord)
 (require 'setup-org)
 (require 'setup-magit)
+(require 'setup-erlang)
 ;(require 'setup-powerline)
 (require 'mode-mappings)
 (require 'key-bindings)
