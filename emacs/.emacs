@@ -4,6 +4,11 @@
 (setq settings-dir
       (expand-file-name "settings" user-emacs-directory))
 
+;; Set path
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
+
 ; Set up load path
 (add-to-list 'load-path settings-dir)
 (add-to-list 'load-path site-lisp-dir)
@@ -111,10 +116,6 @@
 (smartparens-global-mode t)
 (sp-pair "'" nil :actions :rem) ; Remove pairing for qoutes.
 (sp-pair "`" nil :actions :rem) ; Remove pairing for backticks.
-
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin/"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;; C-stuff
 (setq c-default-style "linux"
