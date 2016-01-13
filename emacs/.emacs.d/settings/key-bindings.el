@@ -51,5 +51,6 @@
   "gt"  'org-todo-list
   "s"  'helm-projectile-grep)
 
+(evil-leader/set-key-for-mode 'elixir-mode "t" 'alchemist-mix-test)
 
 (provide 'key-bindings)

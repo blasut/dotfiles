@@ -63,6 +63,7 @@
      magit
      edts
      flycheck-tip
+     alchemist
      )))
 
 (condition-case nil
@@ -86,6 +87,7 @@
 (require 'setup-org)
 (require 'setup-magit)
 (require 'setup-erlang)
+(require 'setup-elixir)
 ;(require 'setup-powerline)
 (require 'mode-mappings)
 (require 'key-bindings)
@@ -99,6 +101,8 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 (when is-mac (require 'mac))
+
+(setq js-indent-level 2)
 
 
 ;;; Old config below
@@ -156,4 +160,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 160 :width normal :foundry "unknown" :family "Monospace")))))
+ '(default ((t (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 180 :width normal :foundry "unknown" :family "Monospace")))))
