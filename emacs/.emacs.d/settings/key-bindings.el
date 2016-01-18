@@ -48,9 +48,27 @@
   "x"  'helm-M-x
   "m"  'magit-status
   "n"  'open-notes
-  "gt"  'org-todo-list
+  "at"  'org-todo-list
   "s"  'helm-projectile-grep)
 
-(evil-leader/set-key-for-mode 'elixir-mode "t" 'alchemist-mix-test)
+;; nnoremap <leader>f :call SelectaFile(".")<cr>
+;; nnoremap <leader>gv :call SelectaFile("app/views")<cr>
+;; nnoremap <leader>gc :call SelectaFile("app/controllers")<cr>
+;; nnoremap <leader>gm :call SelectaFile("app/models")<cr>
+;; nnoremap <leader>gh :call SelectaFile("app/helpers")<cr>
+;; nnoremap <leader>gl :call SelectaFile("lib")<cr>
+;; nnoremap <leader>gp :call SelectaFile("public")<cr>
+;; nnoremap <leader>gs :call SelectaFile("public/stylesheets")<cr>
+;; nnoremap <leader>gf :call SelectaFile("features")<cr>
+
+(evil-leader/set-key-for-mode 'elixir-mode
+  "t"  'alchemist-mix-test
+  "gf" 'alchemist-project-toggle-file-and-tests ; TODO: new key
+  "gv" 'alchemist-phoenix-find-views
+  "gr" 'alchemist-phoenix-router
+  "gl" 'alchemist-phoenix-find-channels
+  "gm" 'alchemist-phoenix-find-models
+  "gc" 'alchemist-phoenix-find-controllers
+  "gt" 'alchemist-phoenix-find-templates)
 
 (provide 'key-bindings)
