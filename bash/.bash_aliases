@@ -44,6 +44,3 @@ alias gpa='gpa --disable-x509'
 alias vm='ssh vagrant@127.0.0.1 -p 2222'
 
 alias ls='ls -la'
-
-alias kboff='sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext'
-alias kbon='sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext'
