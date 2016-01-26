@@ -9,3 +9,5 @@ emacs/.emacs.d/projectile-bookmarks.eld
 emacs/.emacs.d/projectile.cache
 emacs/.emacs.d/org-clock-save.el
 *.xref
+
+spacemacs
