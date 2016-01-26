@@ -13,6 +13,10 @@ else:
 stow -D spacemacs
 stow emacs
 
+# Notes
+- Install ag and use that for helm searching
+- Figure this out: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#replacing-text-in-several-files
+
 
 
 TODO:
