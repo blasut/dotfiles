@@ -38,6 +38,9 @@ values."
      erlang
      elixir
      themes-megapack
+     ;;java
+     react
+     company
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -251,6 +254,26 @@ layers configuration. You are free to put any user code."
   (setq-default evil-escape-key-sequence "jj")
   (setq-default evil-escape-delay 0.2)
   (golden-ratio-mode 1)
+  (setq eclim-eclipse-dirs "/opt/homebrew-cask/Caskroom/eclipse-java/4.5.1/Eclipse.app/Contents/Eclipse"
+        eclim-executable "/opt/homebrew-cask/Caskroom/eclipse-java/4.5.1/Eclipse.app/Contents/Eclipse/eclim")
+
+  ; Fix keybindings for mac with swedish keyboard
+  (setq mac-command-modifier 'meta)  ; set command to meta
+  (setq mac-option-modifier 'super)  ; set option to super
+  (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
+  (define-key key-translation-map (kbd "s-8") (kbd "["))
+  (define-key key-translation-map (kbd "s-(") (kbd "{"))
+  (define-key key-translation-map (kbd "s-9") (kbd "]"))
+  (define-key key-translation-map (kbd "s-)") (kbd "}"))
+  (define-key key-translation-map (kbd "s-7") (kbd "|"))
+  (define-key key-translation-map (kbd "s-/") (kbd "\\"))
+  (define-key key-translation-map (kbd "s-2") (kbd "@"))
+  (define-key key-translation-map (kbd "s-4") (kbd "$"))
+
+  (add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil))) 
+  (setq erlang-indent-level 2)
+  (setq-default js2-basic-offset 2)
+  (setq-default js-indent-level 2)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
