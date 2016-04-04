@@ -14,4 +14,7 @@ for file in ~/.{bash_prompt}; do
 done
 unset file
 
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
+
 source ~/dotfiles/mix_autocomplete/mix_autocomplete.sh
