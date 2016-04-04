@@ -41,6 +41,8 @@ values."
      ;;java
      react
      company
+     dockerfile
+     go
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -251,7 +253,7 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq-default evil-escape-key-sequence "jj")
+  (setq-default evil-escape-key-sequence "fj")
   (setq-default evil-escape-delay 0.2)
   (golden-ratio-mode 1)
   (setq eclim-eclipse-dirs "/opt/homebrew-cask/Caskroom/eclipse-java/4.5.1/Eclipse.app/Contents/Eclipse"
