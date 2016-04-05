@@ -279,6 +279,13 @@ layers configuration. You are free to put any user code."
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
   (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
+  (defun insert-my-files ()
+    (interactive)
+    (let ((dir (read-directory-name "Directory to insert: ")))
+      (mapc #'(lambda (file) 
+                (let ((file-full (concat dir file)))
+                  (insert-file-contents file-full)))
+            (cddr (directory-files dir)))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
