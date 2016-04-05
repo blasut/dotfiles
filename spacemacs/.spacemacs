@@ -43,6 +43,8 @@ values."
      company
      dockerfile
      go
+     (ruby :variables ruby-enable-enh-ruby-mode t ruby-version-manager 'rbenv ruby-test-runner 'rspec)
+     javascript
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -276,6 +278,7 @@ layers configuration. You are free to put any user code."
   (setq erlang-indent-level 2)
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
+  (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
