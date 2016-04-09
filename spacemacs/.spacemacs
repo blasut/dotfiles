@@ -50,7 +50,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      edts
+                                      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -286,6 +288,7 @@ layers configuration. You are free to put any user code."
                 (let ((file-full (concat dir file)))
                   (insert-file-contents file-full)))
             (cddr (directory-files dir)))))
+  (require 'edts-start)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
