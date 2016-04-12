@@ -14,9 +14,6 @@ for file in ~/.{bash_prompt}; do
 done
 unset file
 
-export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-
 source ~/dotfiles/mix_autocomplete/mix_autocomplete.sh
 
 # From spacemacs
@@ -27,3 +24,5 @@ export PATH=~/.local/bin:$PATH
 export GOPATH=$HOME/code/golang
 export PATH=$PATH:/usr/local/go/bin
 
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
