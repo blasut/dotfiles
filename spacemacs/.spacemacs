@@ -278,9 +278,24 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil))) 
   (setq erlang-indent-level 2)
-  (setq-default js2-basic-offset 2)
-  (setq-default js-indent-level 2)
+
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   js-indent-level 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
   (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
+  ;; react config
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
   (defun insert-my-files ()
     (interactive)
     (let ((dir (read-directory-name "Directory to insert: ")))
