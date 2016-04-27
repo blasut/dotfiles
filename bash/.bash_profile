@@ -28,4 +28,6 @@ export PATH=$PATH:~/.cache/rebar3/bin
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix nvm)/nvm.sh"
 
+export HOMEBREW_NO_ANALYTICS=1
+
 source ~/dotfiles/mix_autocomplete/mix_autocomplete.sh
