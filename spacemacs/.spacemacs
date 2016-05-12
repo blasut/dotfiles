@@ -307,6 +307,11 @@ layers configuration. You are free to put any user code."
                   (insert-file-contents file-full)))
             (cddr (directory-files dir)))))
   (require 'edts-start)
+  (sp-pair "'" nil :actions :rem)
+  (sp-pair "\"" nil :actions :rem)
+  (sp-pair "[" nil :actions :rem)
+  (sp-pair "{" nil :actions :rem)
+  (sp-pair "(" nil :actions :rem)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
