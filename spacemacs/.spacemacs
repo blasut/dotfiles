@@ -29,9 +29,10 @@ values."
      git
      markdown
      org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-shell 'eshell
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
      ;; version-control
@@ -48,6 +49,7 @@ values."
      php
      swift
      c-c++
+     haskell
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -321,6 +323,8 @@ layers configuration. You are free to put any user code."
       (setq c-basic-indent my-tab-width)
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
+
+  (add-hook 'haskell-mode '(turn-off-smartparens-mode))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
