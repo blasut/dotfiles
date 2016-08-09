@@ -327,7 +327,6 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'haskell-mode '(turn-off-smartparens-mode))
   (remove-hook 'haskell-mode #'smartparens-mode)
-  (setq debug-on-error t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
