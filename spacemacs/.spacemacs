@@ -49,7 +49,7 @@ values."
      php
      swift
      c-c++
-     haskell
+     (haskell :variables haskell-process-type 'stack-ghci)
      (osx :variables osx-use-option-as-meta nil)
      )
    ;; List of additional packages that will be installed without being
