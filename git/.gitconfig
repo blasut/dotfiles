@@ -4,12 +4,17 @@
 
 [color]
   ui = auto
+	branch = auto
+	diff = auto
+	status = auto
 
 [alias]
-  st = status
-  ci = commit
-  cm = commit -m
+	st = status
+	ci = commit
+	cm = commit -m
   co = checkout
+	chkecout = checkout
+	cehckout = checkout
   di = diff
   dc = diff --cached
   b = branch
