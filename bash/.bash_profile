@@ -30,4 +30,3 @@ export NVM_DIR="$HOME/.nvm"
 
 export HOMEBREW_NO_ANALYTICS=1
 
-source ~/dotfiles/mix_autocomplete/mix_autocomplete.sh
