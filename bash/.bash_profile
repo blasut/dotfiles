@@ -34,4 +34,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
     GIT_PS1_SHOWDIRTYSTATE=true
     export PS1='[\u@mbp \w$(__git_ps1)]\$ '
+
+    # Add git completion to aliases
+    __git_complete g __git_main
+    __git_complete gc _git_checkout
+    __git_complete gr _git_rebase
 fi

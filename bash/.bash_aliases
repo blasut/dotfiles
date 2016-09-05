@@ -46,6 +46,8 @@ alias gsy='git pull --rebase'
 alias gph='git push heroku master'
 alias pwn='git push; git push heroku'
 alias gb='git reset --hard HEAD^1'
+alias gc="git checkout"
+alias gr="git rebase"
 
 alias gpa='gpa --disable-x509'
 
