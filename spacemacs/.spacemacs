@@ -18,6 +18,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     python
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -325,8 +326,6 @@ layers configuration. You are free to put any user code."
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
 
-  (add-hook 'haskell-mode '(turn-off-smartparens-mode))
-  (remove-hook 'haskell-mode #'smartparens-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
