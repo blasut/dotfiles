@@ -18,19 +18,16 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     python
-     csv
-     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     themes-megapack
      ;; better-defaults
+     (osx :variables osx-use-option-as-meta nil)
      emacs-lisp
+     ;; version-control
      git
-     markdown
      org
      markdown
 
@@ -47,29 +44,27 @@ values."
             shell-default-shell 'eshell
             shell-default-height 30
             shell-default-position 'bottom)
-     ;; spell-checking
-     syntax-checking
-     ;; version-control
-     erlang
-     elixir
+
      themes-megapack
-     ;;java
-     react
-     go
-     (ruby :variables ruby-enable-enh-ruby-mode t ruby-version-manager 'rbenv ruby-test-runner 'rspec)
-     javascript
-     php
-     swift
-     c-c++
+     ;; programming languages
      (haskell :variables haskell-process-type 'stack-ghci)
-     (osx :variables osx-use-option-as-meta nil)
+     ; erlang
+     ; elixir
+     ; react
+     ; go
+     ; (ruby :variables ruby-enable-enh-ruby-mode t ruby-version-manager 'rbenv ruby-test-runner 'rspec)
+     ; javascript
+     ; php
+     ; swift
+     ; c-c++
+     ; python
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      edts
+                                      ;;edts
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
