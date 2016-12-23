@@ -26,12 +26,23 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     themes-megapack
      ;; better-defaults
      emacs-lisp
      git
      markdown
      org
+     markdown
+
+     ;; syntax
+     syntax-checking
+
+     ;; auto-complete
+     auto-completion
+
+     ;; Misc
+     ; csv
+     yaml
      (shell :variables
             shell-default-shell 'eshell
             shell-default-height 30
@@ -44,8 +55,6 @@ values."
      themes-megapack
      ;;java
      react
-     company
-     dockerfile
      go
      (ruby :variables ruby-enable-enh-ruby-mode t ruby-version-manager 'rbenv ruby-test-runner 'rspec)
      javascript
