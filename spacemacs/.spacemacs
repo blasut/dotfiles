@@ -330,10 +330,10 @@ layers configuration. You are free to put any user code."
   ;; Bind back the defaults
   (require 'evil-lispy)
   (require 'lispy)
-  (define-key lispy-mode-map "o" 'lispy-other-mode)
-  (define-key lispy-mode-map "d" 'lispy-different)
-  (define-key lispy-mode-map "i" 'lispy-tab)
-  (define-key lispy-mode-map "f" 'lispy-flow)
+  (define-key lispy-mode-map "o" 'special-lispy-other-mode)
+  (define-key lispy-mode-map "d" 'special-lispy-different)
+  (define-key lispy-mode-map "i" 'special-lispy-tab)
+  (define-key lispy-mode-map "f" 'special-lispy-flow)
 
   ;; functions
   (defun insert-my-files ()
