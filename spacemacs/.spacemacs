@@ -327,13 +327,14 @@ layers configuration. You are free to put any user code."
            (number-sequence my-tab-width 200 my-tab-width))))
 
   (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
-  ;; Bind back the defaults
   (require 'evil-lispy)
   (require 'lispy)
+  ;; Bind back the defaults
   (define-key lispy-mode-map "o" 'special-lispy-other-mode)
   (define-key lispy-mode-map "d" 'special-lispy-different)
   (define-key lispy-mode-map "i" 'special-lispy-tab)
   (define-key lispy-mode-map "f" 'special-lispy-flow)
+  ;; My custom bindings
   (define-key lispy-mode-map (kbd "C-u") 'lispy-undo)
 
   ;; functions
