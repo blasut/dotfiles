@@ -47,7 +47,9 @@ values."
 
      themes-megapack
      ;; programming languages
-     (haskell :variables haskell-process-type 'stack-ghci)
+     (haskell :variables haskell-process-type 'stack-ghci
+                         haskell-completion-backend 'intero)
+     common-lisp
      javascript
      react
      ; erlang
