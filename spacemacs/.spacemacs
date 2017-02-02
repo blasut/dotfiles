@@ -334,6 +334,7 @@ layers configuration. You are free to put any user code."
   (define-key lispy-mode-map "d" 'special-lispy-different)
   (define-key lispy-mode-map "i" 'special-lispy-tab)
   (define-key lispy-mode-map "f" 'special-lispy-flow)
+  (define-key lispy-mode-map (kbd "C-u") 'lispy-undo)
 
   ;; functions
   (defun insert-my-files ()
