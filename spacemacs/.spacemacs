@@ -66,7 +66,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      ;;edts
+                                      evil-lispy
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -311,14 +311,6 @@ layers configuration. You are free to put any user code."
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
-  (defun insert-my-files ()
-    (interactive)
-    (let ((dir (read-directory-name "Directory to insert: ")))
-      (mapc #'(lambda (file) 
-                (let ((file-full (concat dir file)))
-                  (insert-file-contents file-full)))
-            (cddr (directory-files dir)))))
-  (require 'edts-start)
   (sp-pair "'" nil :actions :rem)
   (sp-pair "\"" nil :actions :rem)
   (sp-pair "[" nil :actions :rem)
@@ -333,6 +325,24 @@ layers configuration. You are free to put any user code."
       (setq c-basic-indent my-tab-width)
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
+
+  (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
+  ;; Bind back the defaults
+  (require 'evil-lispy)
+  (require 'lispy)
+  (define-key lispy-mode-map "o" 'lispy-other-mode)
+  (define-key lispy-mode-map "d" 'lispy-different)
+  (define-key lispy-mode-map "i" 'lispy-tab)
+  (define-key lispy-mode-map "f" 'lispy-flow)
+
+  ;; functions
+  (defun insert-my-files ()
+    (interactive)
+    (let ((dir (read-directory-name "Directory to insert: ")))
+      (mapc #'(lambda (file) 
+                (let ((file-full (concat dir file)))
+                  (insert-file-contents file-full)))
+            (cddr (directory-files dir)))))
 
   )
 
