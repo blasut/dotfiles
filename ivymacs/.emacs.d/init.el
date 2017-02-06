@@ -75,6 +75,17 @@
   (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
   (setq aw-ignore-current t))
 
+(use-package avy :ensure t
+  :commands (avy-goto-word-or-subword-1
+             avy-goto-word-1
+             avy-goto-char-in-line
+             avy-goto-line)
+  :config
+  (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m))
+  (setq avy-styles-alist
+        '((avy-goto-char-in-line . post)
+          (avy-goto-word-or-subword-1 . post))))
+
 (use-package general :ensure t
   :config
   (general-evil-setup t)
@@ -88,12 +99,20 @@
   (general-define-key
    :states '(normal motion emacs)
    :prefix "SPC"
+   ;; Flat keys
+   "/" '(counsel-git-grep :which-key "Find in files")
+   "TAB" '(next-buffer :which-key "Next buffer")
+   
    ;; Special keys
    "SPC" '(counsel-M-x)
 
    ;; B
    "b"  '(:ignore t :which-key "Buffer")
    "bb" '(ivy-switch-buffer :which-key "Change buffer")
+   "bd" '(ace-delete-window :which-key "Delete buffer")
+   "bn" '(next-buffer :which-key "Next buffer")
+   "bp" '(previous-buffer :which-key "Previous buffer")
+   "bR" '(revert-buffer :which-key "Revert buffer")
 
    ;; E
    "e"  '(:ignore t :which-key "Eval")
@@ -103,6 +122,7 @@
    "f"  '(:ignore t :which-key "File")
    "ff" '(counsel-find-file :which-key "Find file")  
    "fs" '(save-buffer :which-key "Save")  
+   "fl" '(counsel-locate :which-key "Locate")  
 
    ;; G
    "g"  '(:ignore t :which-key "Git")
@@ -110,17 +130,19 @@
 
    ;; H
    "h"  '(:ignore t :which-key "Help")
+   "hi"  '(ivy-help :which-key "Ivy")
    "hdf" '(counsel-describe-function :which-key "Describe function")
    "hdv" '(counsel-describe-variable :which-key "Describe variable")
    "hdk" '(describe-key :which-key "Describe key")
 
    ;; P
-   "p"  '(:ignore t :which-key "Projectile")
+   "p"  '(:ignore t :which-key "Projects")
+   "pf" '(counsel-git :which-key "Projects")
 
-   ;; W
+   
    "w"  '(:ignore t :which-key "Window")
    "ww" '(other-window :which-key "Switch window")
-   "wd" '(delete-window :which-key "Delete window")
+   "wd" '(ace-delete-window :which-key "Delete window")
    "wD" '(delete-other-windows :which-key "Delete other windows")
    "wa" '(ace-window :which-key "Ace window")
    "w-" '(split-window-below :which-key "Split window below")
