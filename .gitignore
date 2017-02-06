@@ -12,3 +12,5 @@ emacs/.emacs.d/org-clock-save.el
 *.beam
 
 spacemacs/.emacs.d/*
+
+ivymacs/.emacs.d/elpa/*
