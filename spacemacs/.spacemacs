@@ -25,7 +25,6 @@ values."
      ;; ----------------------------------------------------------------
      ;; better-defaults
      (osx :variables osx-use-option-as-meta nil)
-     emacs-lisp
      ;; version-control
      git
      org
@@ -49,9 +48,11 @@ values."
      ;; programming languages
      (haskell :variables haskell-process-type 'stack-ghci
                          haskell-completion-backend 'intero)
+     emacs-lisp
      common-lisp
      javascript
      react
+     ruby
      ; erlang
      ; elixir
      ; go
@@ -344,9 +345,7 @@ layers configuration. You are free to put any user code."
       (mapc #'(lambda (file) 
                 (let ((file-full (concat dir file)))
                   (insert-file-contents file-full)))
-            (cddr (directory-files dir)))))
-
-  )
+            (cddr (directory-files dir))))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
