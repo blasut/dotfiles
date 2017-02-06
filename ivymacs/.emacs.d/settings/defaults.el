@@ -95,4 +95,15 @@
   (package-refresh-contents) ; updage packages archive
   (package-install 'use-package)) ; and install the most recent version of use-package
 
+;; apparences
+(when window-system
+  (tooltip-mode -1)              
+  (tool-bar-mode -1)              
+  (menu-bar-mode -1)               
+  (scroll-bar-mode -1)              
+  (set-frame-font "Inconsolata 16")  
+  (blink-cursor-mode 1)               
+  (global-visual-line-mode)
+  (diminish 'visual-line-mode ""))
+
 (provide 'defaults)
