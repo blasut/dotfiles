@@ -197,6 +197,10 @@
    "wa" '(ace-window :which-key "Ace window")
    "w-" '(split-window-below :which-key "Split window below")
    "w/" '(split-window-right :which-key "Split window right")
+   "wh" '(windmove-left :which-key "Window left")
+   "wj" '(windmove-down :which-key "Window down")
+   "wk" '(windmove-up :which-key "Window up")
+   "wl" '(windmove-right :which-key "Window right")
    )
   )
 
