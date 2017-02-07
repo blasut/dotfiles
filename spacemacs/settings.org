@@ -1,0 +1,93 @@
+* Personal config
+** Defaults and simple binding
+   #+BEGIN_SRC emacs-lisp
+  (setq-default evil-escape-key-sequence "fj")
+  (setq-default evil-escape-delay 0.2)
+   #+END_SRC
+** Golden ratio
+   #+BEGIN_SRC emacs-lisp
+  (golden-ratio-mode 1)
+   #+END_SRC
+** Mac + Swedish keyboard bindings
+   #+BEGIN_SRC emacs-lisp
+  (setq mac-command-modifier 'meta)  ; set command to meta
+  (setq mac-option-modifier 'super)  ; set option to super
+  (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
+  (define-key key-translation-map (kbd "s-8") (kbd "["))
+  (define-key key-translation-map (kbd "s-(") (kbd "{"))
+  (define-key key-translation-map (kbd "s-9") (kbd "]"))
+  (define-key key-translation-map (kbd "s-)") (kbd "}"))
+  (define-key key-translation-map (kbd "s-7") (kbd "|"))
+  (define-key key-translation-map (kbd "s-/") (kbd "\\"))
+  (define-key key-translation-map (kbd "s-2") (kbd "@"))
+  (define-key key-translation-map (kbd "s-4") (kbd "$"))
+   #+END_SRC
+** Evil mode rebindings
+   I like helm swoop more for regular searches as well, it is easier to get an overview
+   #+BEGIN_SRC emacs-lisp
+  (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
+   #+END_SRC
+
+   Really nice to keep pasting after the first paste.
+   #+BEGIN_SRC emacs-lisp
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+   #+END_SRC
+** Packages
+*** Web-mode and js2-mode binding
+    #+BEGIN_SRC emacs-lisp
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   js-indent-level 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+  (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
+  ;; react config
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+    #+END_SRC
+*** Smartparens
+    Auto pairing messes with my typing flow
+    #+BEGIN_SRC emacs-lisp
+  (sp-pair "'" nil :actions :rem)
+  (sp-pair "\"" nil :actions :rem)
+  (sp-pair "[" nil :actions :rem)
+  (sp-pair "{" nil :actions :rem)
+  (sp-pair "(" nil :actions :rem)
+    #+END_SRC
+*** PHP-mode
+    #+BEGIN_SRC emacs-lisp
+  (add-hook 'php-mode-hook 'my-php-mode-hook)
+  (defun my-php-mode-hook ()
+    (setq indent-tabs-mode t)
+    (let ((my-tab-width 4))
+      (setq tab-width my-tab-width)
+      (setq c-basic-indent my-tab-width)
+      (set (make-local-variable 'tab-stop-list)
+           (number-sequence my-tab-width 200 my-tab-width))))
+    #+END_SRC
+* Defuns 
+** Insert my files
+   Used for reading all the contents of every file in a directory
+   #+BEGIN_SRC emacs-lisp 
+  (defun insert-my-files ()
+    (interactive)
+    (let ((dir (read-directory-name "Directory to insert: ")))
+      (mapc #'(lambda (file) 
+                (let ((file-full (concat dir file)))
+                  (insert-file-contents file-full)))
+            (cddr (directory-files dir)))))
+   #+END_SRC
+   
+   

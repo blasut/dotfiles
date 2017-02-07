@@ -68,7 +68,6 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      persistent-scratch
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -274,81 +273,14 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq-default evil-escape-key-sequence "fj")
-  (setq-default evil-escape-delay 0.2)
-  (golden-ratio-mode 1)
-
-  ; Fix keybindings for mac with swedish keyboard
-  (setq mac-command-modifier 'meta)  ; set command to meta
-  (setq mac-option-modifier 'super)  ; set option to super
-  (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
-  (define-key key-translation-map (kbd "s-8") (kbd "["))
-  (define-key key-translation-map (kbd "s-(") (kbd "{"))
-  (define-key key-translation-map (kbd "s-9") (kbd "]"))
-  (define-key key-translation-map (kbd "s-)") (kbd "}"))
-  (define-key key-translation-map (kbd "s-7") (kbd "|"))
-  (define-key key-translation-map (kbd "s-/") (kbd "\\"))
-  (define-key key-translation-map (kbd "s-2") (kbd "@"))
-  (define-key key-translation-map (kbd "s-4") (kbd "$"))
-
-  (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
-
-  (defun evil-paste-after-from-0 ()
-    (interactive)
-    (let ((evil-this-register ?0))
-      (call-interactively 'evil-paste-after)))
-
-  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
-
-  (add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil))) 
-  (setq erlang-indent-level 2)
-
-  (use-package persistent-scratch
+  (use-package org-plus-contrib
+    :ensure org
     :config
-    (persistent-scratch-setup-default))
-
-  (setq-default
-   ;; js2-mode
-   js2-basic-offset 2
-   js-indent-level 2
-   ;; web-mode
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
-  (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
-  ;; react config
-  (with-eval-after-load 'web-mode
-    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
-    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
-    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
-
-  (sp-pair "'" nil :actions :rem)
-  (sp-pair "\"" nil :actions :rem)
-  (sp-pair "[" nil :actions :rem)
-  (sp-pair "{" nil :actions :rem)
-  (sp-pair "(" nil :actions :rem)
-
-  (add-hook 'php-mode-hook 'my-php-mode-hook)
-  (defun my-php-mode-hook ()
-    (setq indent-tabs-mode t)
-    (let ((my-tab-width 4))
-      (setq tab-width my-tab-width)
-      (setq c-basic-indent my-tab-width)
-      (set (make-local-variable 'tab-stop-list)
-           (number-sequence my-tab-width 200 my-tab-width))))
-
-  ;; functions
-  (defun insert-my-files ()
-    (interactive)
-    (let ((dir (read-directory-name "Directory to insert: ")))
-      (mapc #'(lambda (file) 
-                (let ((file-full (concat dir file)))
-                  (insert-file-contents file-full)))
-            (cddr (directory-files dir)))))
-
-  )
+    (progn
+      ;; config stuff
+      ))
+  (org-babel-load-file
+   (expand-file-name "~/settings.org")))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
