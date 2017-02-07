@@ -39,8 +39,11 @@
              aligns)))
 
 (define-aligns
-  (("="      . "=")
-   ("single" . "'")
-   ("dot"    . "\\.")))
+  (("="       . "=")
+   ("single"  . "'")
+   ("dot"     . "\\.")
+   ("lparen"  . "(")
+   ("rparen"  . ")")
+   (":"       . ":")))
 
 (provide  'functions)

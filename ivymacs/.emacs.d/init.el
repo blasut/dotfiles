@@ -209,8 +209,12 @@
    "wl" '(windmove-right :which-key "Window right")
 
    ;; X
-   "x"  '(:ignore t :which-key "Text")
-   "xa="  '(align-by-= :which-key "=")
+   "x"    '(:ignore t        :which-key "Text")
+   "xa'"  '(align-by-single  :which-key "'")
+   "xa="  '(align-by-=       :which-key "=")
+   "xa("  '(align-by-lparen  :which-key "(")
+   "xa)"  '(align-by-lparen  :which-key ")")
+   "xa:"  '(align-by-:       :which-key ":")
    )
   )
 
