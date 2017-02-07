@@ -291,6 +291,15 @@ layers configuration. You are free to put any user code."
   (define-key key-translation-map (kbd "s-2") (kbd "@"))
   (define-key key-translation-map (kbd "s-4") (kbd "$"))
 
+  (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
+
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
   (add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil))) 
   (setq erlang-indent-level 2)
 
@@ -326,16 +335,15 @@ layers configuration. You are free to put any user code."
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
 
-  (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
-  (require 'evil-lispy)
-  (require 'lispy)
-  ;; Bind back the defaults
-  (define-key lispy-mode-map "o" 'special-lispy-other-mode)
-  (define-key lispy-mode-map "d" 'special-lispy-different)
-  (define-key lispy-mode-map "i" 'special-lispy-tab)
-  (define-key lispy-mode-map "f" 'special-lispy-flow)
-  ;; My custom bindings
-  (define-key lispy-mode-map (kbd "C-u") 'lispy-undo)
+  (with-eval-after-load 'lispy-mode
+    ;;(add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
+    ;; Bind back the defaults
+    (define-key lispy-mode-map "o" 'special-lispy-other-mode)
+    (define-key lispy-mode-map "d" 'special-lispy-different)
+    (define-key lispy-mode-map "i" 'special-lispy-tab)
+    (define-key lispy-mode-map "f" 'special-lispy-flow)
+    ;; My custom bindings
+    (define-key lispy-mode-map (kbd "C-u") 'lispy-undo))
 
   ;; functions
   (defun insert-my-files ()
