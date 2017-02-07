@@ -342,7 +342,9 @@ layers configuration. You are free to put any user code."
       (mapc #'(lambda (file) 
                 (let ((file-full (concat dir file)))
                   (insert-file-contents file-full)))
-            (cddr (directory-files dir))))))
+            (cddr (directory-files dir)))))
+
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
