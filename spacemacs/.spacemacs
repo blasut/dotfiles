@@ -275,8 +275,6 @@ layers configuration. You are free to put any user code."
   (setq-default evil-escape-key-sequence "fj")
   (setq-default evil-escape-delay 0.2)
   (golden-ratio-mode 1)
-  (setq eclim-eclipse-dirs "/opt/homebrew-cask/Caskroom/eclipse-java/4.5.1/Eclipse.app/Contents/Eclipse"
-        eclim-executable "/opt/homebrew-cask/Caskroom/eclipse-java/4.5.1/Eclipse.app/Contents/Eclipse/eclim")
 
   ; Fix keybindings for mac with swedish keyboard
   (setq mac-command-modifier 'meta)  ; set command to meta
