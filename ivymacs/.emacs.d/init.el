@@ -4,6 +4,7 @@
 (add-to-list 'load-path settings-dir)
 
 (require 'defaults)
+(require 'functions)
 
 (require 'use-package)
 
@@ -38,14 +39,18 @@
   )
 
 (use-package magit :ensure t
+  :commands magit-status
   :config
-  (global-git-commit-mode))
+  (global-git-commit-mode)
+  (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package ivy
   :ensure t
   :diminish (ivy-mode . "")
   :commands (ivy-switch-buffer
              ivy-switch-buffer-other-window)
+  :bind*
+  (("C-s"     . swiper))
   :config
   (ivy-mode 1))
 
@@ -86,6 +91,23 @@
         '((avy-goto-char-in-line . post)
           (avy-goto-word-or-subword-1 . post))))
 
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-mode-line nil)
+  (projectile-global-mode)
+  (setq projectile-project-root-files-bottom-up
+        '(".git" ".projectile"))
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-enable-caching nil)
+  (setq projectile-verbose nil)
+  :config
+  (use-package counsel-projectile :ensure t
+    :config
+    (counsel-projectile-on))
+  )
+
+
 (use-package general :ensure t
   :config
   (general-evil-setup t)
@@ -98,10 +120,15 @@
 
   (general-define-key
    :states '(normal motion emacs)
+   "/" '(swiper)
+   )
+
+  (general-define-key
+   :states '(normal motion emacs)
    :prefix "SPC"
    ;; Flat keys
    "/" '(counsel-git-grep :which-key "Find in files")
-   "TAB" '(next-buffer :which-key "Next buffer")
+   "TAB" '(projectile-project-buffers-other-buffer :which-key "Next buffer")
    
    ;; Special keys
    "SPC" '(counsel-M-x)
@@ -120,9 +147,12 @@
 
    ;; F
    "f"  '(:ignore t :which-key "File")
+   "fc" '(open-config :which-key "Open init.el file")  
    "ff" '(counsel-find-file :which-key "Find file")  
-   "fs" '(save-buffer :which-key "Save")  
    "fl" '(counsel-locate :which-key "Locate")  
+   "fs" '(save-buffer :which-key "Save")  
+   "fr" '(counsel-recentf :which-key "Recent files")  
+   "fR" '(rename-current-buffer-file :which-key "Rename file")  
 
    ;; G
    "g"  '(:ignore t :which-key "Git")
@@ -130,16 +160,36 @@
 
    ;; H
    "h"  '(:ignore t :which-key "Help")
-   "hi"  '(ivy-help :which-key "Ivy")
+   "hi"  '(info :which-key "Info")
+   "hv"  '(ivy-help :which-key "Ivy")
+   "hdb" '(counsel-descbinds :which-key "Describe bindings")
    "hdf" '(counsel-describe-function :which-key "Describe function")
-   "hdv" '(counsel-describe-variable :which-key "Describe variable")
    "hdk" '(describe-key :which-key "Describe key")
+   "hdv" '(counsel-describe-variable :which-key "Describe variable")
+   "hdm" '(describe-mode :which-key "Describe mode")
+
+   ;; J
+   "j"  '(:ignore t :which-key "Jump")
+   "jj" '(avy-goto-char :which-key "Char")
+   "jl" '(avy-goto-line :which-key "Line")
+   "jw" '(avy-goto-word-0 :which-key "Word")
 
    ;; P
    "p"  '(:ignore t :which-key "Projects")
-   "pf" '(counsel-git :which-key "Projects")
+   "pb" '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
+   "pd" '(counsel-projectile-find-dir :which-key "Find dir")
+   "pf" '(counsel-projectile-find-file :which-key "Find file")
+   "pF" '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
+   "pp" '(counsel-projectile-switch-project :which-key "Switch project")
+   "p/" '(counsel-projectile-ag :which-key "Search")
+   "ps" '(counsel-projectile-ag :which-key "Search")
 
-   
+   ;; S
+   "s"  '(:ignore t :which-key "Search")
+   "ss" '(swiper :which-key "Search in file")
+   "sS" '(swiper-all :which-key "Search in all buffers")
+
+   ;; W
    "w"  '(:ignore t :which-key "Window")
    "ww" '(other-window :which-key "Switch window")
    "wd" '(ace-delete-window :which-key "Delete window")
@@ -150,5 +200,4 @@
    )
   )
 
-(require 'functions)
 (require 'setup-org)
