@@ -183,6 +183,7 @@
    "pf"   '(counsel-projectile-find-file :which-key "Find file")
    "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
    "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
+   "pr"   '(projectile-recentf :which-key "Recent")
    "p/"   '(counsel-git-grep :which-key "Search")
    "ps"   '(counsel-git-grep :which-key "Search")
 
