@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.private/")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -53,6 +53,7 @@ values."
      javascript
      react
      ruby
+     my-lispy
      ; erlang
      ; elixir
      ; go
@@ -67,7 +68,6 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      evil-lispy
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -334,16 +334,6 @@ layers configuration. You are free to put any user code."
       (setq c-basic-indent my-tab-width)
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
-
-  (with-eval-after-load 'lispy-mode
-    ;;(add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
-    ;; Bind back the defaults
-    (define-key lispy-mode-map "o" 'special-lispy-other-mode)
-    (define-key lispy-mode-map "d" 'special-lispy-different)
-    (define-key lispy-mode-map "i" 'special-lispy-tab)
-    (define-key lispy-mode-map "f" 'special-lispy-flow)
-    ;; My custom bindings
-    (define-key lispy-mode-map (kbd "C-u") 'lispy-undo))
 
   ;; functions
   (defun insert-my-files ()
