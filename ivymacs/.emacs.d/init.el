@@ -131,7 +131,7 @@
    ;; Flat keys
    "/"    '(counsel-git-grep :which-key "Find in files")
    "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
-   
+
    ;; Special keys
    "SPC"  '(counsel-M-x)
 
@@ -149,12 +149,12 @@
 
    ;; F
    "f"    '(:ignore t :which-key "File")
-   "fc"   '(open-config :which-key "Open init.el file")  
-   "ff"   '(counsel-find-file :which-key "Find file")  
-   "fl"   '(counsel-locate :which-key "Locate")  
-   "fs"   '(save-buffer :which-key "Save")  
-   "fr"   '(counsel-recentf :which-key "Recent files")  
-   "fR"   '(rename-current-buffer-file :which-key "Rename file")  
+   "fc"   '(open-config :which-key "Open init.el file")
+   "ff"   '(counsel-find-file :which-key "Find file")
+   "fl"   '(counsel-locate :which-key "Locate")
+   "fs"   '(save-buffer :which-key "Save")
+   "fr"   '(counsel-recentf :which-key "Recent files")
+   "fR"   '(rename-current-buffer-file :which-key "Rename file")
 
    ;; G
    "g"    '(:ignore t :which-key "Git")
@@ -210,6 +210,12 @@
 
    ;; X
    "x"    '(:ignore t        :which-key "Text")
+   "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
+   "xs"   '(sort-lines :which-key "Sort lines")
+   "xu"   '(lower-case :which-key "Lower case")
+   "xU"   '(upper-case :which-key "Upper case")
+   "xc"   '(count-words :which-key "Count words")
+   ;; XA
    "xa"   '(:ignore t       :which-key "Align")
    "xa'"  '(align-by-single  :which-key "'")
    "xa="  '(align-by-=       :which-key "=")
