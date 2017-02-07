@@ -1,0 +1,413 @@
+Really liking this way of organizing the config files.
+
+Kind of weird with having the defuns first, should look into that
+
+* Defuns
+  #+BEGIN_SRC emacs-lisp
+  
+(defun open-file-in-new-buffer (filename)
+  "Opens a file in a new buffer"
+  (interactive)
+  (switch-to-buffer (find-file-noselect filename)))
+
+(defun open-config ()
+  "Opens the init.el file"
+  (interactive)
+  (open-file-in-new-buffer "~/.emacs.d/init.el"))
+
+(defun rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+
+(defun delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
+
+(defmacro define-align-by (name char)
+  (let ((func (intern (concat "align-by-" name)))
+        (doc (format "Align by %s" char)))
+    `(defun ,func (beg end) ,doc 
+            (interactive "r")
+            (align-regexp beg end ,(concat "\\(\\s-*\\) " char) 1 1))))
+
+(defmacro define-aligns (aligns)
+  `(progn ,@(mapcar
+             (lambda (a) `(define-align-by ,(car a) ,(cdr a)))
+             aligns)))
+
+(define-aligns
+  (("="       . "=")
+   ("single"  . "'")
+   ("dot"     . "\\.")
+   ("lparen"  . "(")
+   ("rparen"  . ")")
+   (":"       . ":")))
+
+  #+End_SRC
+
+  
+* Defaults
+  #+BEGIN_SRC emacs-lisp
+;; UTF-8 please
+(setq locale-coding-system 'utf-8) ; pretty
+(set-terminal-coding-system 'utf-8) ; pretty
+(set-keyboard-coding-system 'utf-8) ; pretty
+(set-selection-coding-system 'utf-8) ; please
+(prefer-coding-system 'utf-8) ; with sugar on top
+
+(setenv "LANG" "en_US.UTF-8")
+
+(defadvice y-or-n-p (around prevent-dialog-yorn activate)
+             "Prevent y-or-n-p from activating a dialog"
+               (let ((use-dialog-box nil))
+                     ad-do-it))
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(setq ring-bell-function 'ignore) ; turn off stupid bell
+
+;; Always display line and column numbers
+(setq line-number-mode t)
+(setq column-number-mode t)
+
+;; Lines should be 80 characters wide, not 72
+(setq fill-column 80)
+
+;; Never insert tabs
+(set-default 'indent-tabs-mode nil)
+
+;; Show me empty lines after buffer end
+(set-default 'indicate-empty-lines t)
+
+;; Sentences do not need double spaces to end. Period.
+(set-default 'sentence-end-double-space nil)
+
+;; 80 chars is a good width.
+(set-default 'fill-column 80)
+
+;; Offer to create parent directories if they do not exist
+;; http://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/
+(defun my-create-non-existent-directory ()
+  (let ((parent-directory (file-name-directory buffer-file-name)))
+    (when (and (not (file-exists-p parent-directory))
+               (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
+      (make-directory parent-directory t))))
+
+(add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
+
+(setq inhibit-startup-message t)
+
+(setq delete-old-versions -1 )		; delete excess backup versions silently
+(setq version-control t )		; use version control
+(setq vc-make-backup-files t )		; make backups file even when in version controlled dir
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")) ) ; which directory to put backups file
+(setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
+
+(setq x-select-enable-clipboard t)
+      
+(setq mac-command-modifier 'meta)  ; set command to meta
+(setq mac-option-modifier 'super)  ; set option to super
+(setq ns-function-modifier 'hyper) ; set FN to hyper modifier
+
+;; Swedish mac-keyboard alt-keys
+(define-key key-translation-map (kbd "s-8") (kbd "["))
+(define-key key-translation-map (kbd "s-(") (kbd "{"))
+(define-key key-translation-map (kbd "s-9") (kbd "]"))
+(define-key key-translation-map (kbd "s-)") (kbd "}"))
+(define-key key-translation-map (kbd "s-7") (kbd "|"))
+(define-key key-translation-map (kbd "s-/") (kbd "\\"))
+(define-key key-translation-map (kbd "s-2") (kbd "@"))
+(define-key key-translation-map (kbd "s-4") (kbd "$"))
+
+;; Open files
+(defun mac-open-current-file ()
+  (interactive)
+  (shell-command (concat "open " (buffer-file-name))))
+
+;; apparences
+(when window-system
+  (tooltip-mode -1)              
+  (tool-bar-mode -1)              
+  (menu-bar-mode -1)               
+  (scroll-bar-mode -1)              
+  (set-frame-font "Inconsolata 16")  
+  (blink-cursor-mode 1)               
+  (global-visual-line-mode)
+  (diminish 'visual-line-mode ""))
+
+  #+END_SRC
+
+
+* Old init.el
+  #+BEGIN_SRC emacs-lisp
+
+(require 'recentf)
+(setq recentf-max-saved-items 200
+      recentf-max-menu-items 15)
+(recentf-mode)
+
+(use-package color-theme-solarized :ensure t
+  :init
+  ;; to make the byte compiler happy.
+  ;; emacs25 has no color-themes variable
+  (setq color-themes '())
+  :config
+  ;; load the theme, don't ask for confirmation
+  (load-theme 'solarized t)
+
+  (defun solarized-switch-to-dark ()
+    (interactive)
+    (set-frame-parameter nil 'background-mode 'dark)
+    (enable-theme 'solarized)
+    (set-cursor-color "#d33682"))
+  (defun solarized-switch-to-light ()
+    (interactive)
+    (set-frame-parameter nil 'background-mode 'light)
+    (enable-theme 'solarized)
+    (set-cursor-color "#d33682"))
+
+  (solarized-switch-to-dark))
+
+(use-package evil
+  :ensure t
+  :config
+  (progn
+    (evil-mode 1)
+    (use-package evil-escape :ensure t
+      :config
+      (progn
+        (evil-escape-mode 1)
+        (setq-default evil-escape-key-sequence "fj")))))
+
+(use-package magit :ensure t
+  :commands magit-status
+  :config
+  (progn
+    (global-git-commit-mode)
+    (setq magit-completing-read-function 'ivy-completing-read)))
+
+(use-package ivy
+  :ensure t
+  :diminish (ivy-mode . "")
+  :commands (ivy-switch-buffer
+             ivy-switch-buffer-other-window)
+  :bind*
+  (("C-s"     . swiper))
+  :config
+  (ivy-mode 1))
+
+(use-package counsel :ensure t
+  :bind*
+  (("M-x"     . counsel-M-x))
+  :config
+  (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git"))
+
+(use-package which-key :ensure t
+  :diminish which-key-mode
+  :config
+  (progn
+    (which-key-mode)
+    (which-key-setup-side-window-bottom)
+    ;; simple then alphabetic order.
+    (setq which-key-sort-order 'which-key-prefix-then-key-order)
+    (setq which-key-popup-type 'side-window
+          which-key-side-window-max-height 0.5
+          which-key-side-window-max-width 0.33
+          which-key-idle-delay 0.5
+          which-key-min-display-lines 7)))
+
+(use-package ace-window :ensure t
+  :commands
+  ace-window
+  :config
+  (progn
+    (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
+    (setq aw-ignore-current t)))
+
+(use-package avy :ensure t
+  :commands (avy-goto-word-or-subword-1
+             avy-goto-word-1
+             avy-goto-char-in-line
+             avy-goto-line)
+  :config
+  (progn
+    (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m))
+    (setq avy-styles-alist
+          '((avy-goto-char-in-line . post)
+            (avy-goto-word-or-subword-1 . post)))))
+
+(use-package projectile
+  :ensure t
+  :init
+  (progn
+    (setq projectile-mode-line nil)
+    (projectile-global-mode)
+    (setq projectile-project-root-files-bottom-up
+          '(".git" ".projectile"))
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-enable-caching nil)
+    (setq projectile-verbose nil))
+  :config
+  (use-package counsel-projectile :ensure t
+    :config
+    (counsel-projectile-on))
+  )
+
+(use-package erc
+  :config
+  (progn
+    (setq erc-hide-list '("PART" "QUIT" "JOIN"))
+    (setq erc-autojoin-channels-alist '(("freenode.net"
+                                         "#org-mode"
+                                         "#hacklabto"
+                                         "#emacs"
+                                         "#emacs-beginners"
+                                         "#emacs-ops"
+                                         "#lisp"))
+          erc-server "irc.freenode.net"
+          erc-nick "blasut")))
+
+(use-package general :ensure t
+  :config
+  (general-evil-setup t)
+
+  (general-define-key
+   :states '(normal)
+   :prefix "C-SPC"
+   :non-normal-prefix "C-SPC"
+   )
+
+  (general-define-key
+   :states '(normal motion emacs)
+   "/" '(swiper)
+   )
+
+  (general-define-key
+   :states '(normal motion emacs)
+   :prefix "SPC"
+   ;; Flat keys
+   "/"    '(counsel-git-grep :which-key "Find in files")
+   "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
+
+   ;; Special keys
+   "SPC"  '(counsel-M-x)
+
+   ;; B
+   "b"    '(:ignore t :which-key "Buffer")
+   "bb"   '(ivy-switch-buffer :which-key "Change buffer")
+   "bd"   '(ace-delete-window :which-key "Delete buffer")
+   "bn"   '(next-buffer :which-key "Next buffer")
+   "bp"   '(previous-buffer :which-key "Previous buffer")
+   "bR"   '(revert-buffer :which-key "Revert buffer")
+
+   ;; E
+   "e"    '(:ignore t :which-key "Eval")
+   "eb"   '(eval-buffer :which-key "Eval Buffer")
+
+   ;; F
+   "f"    '(:ignore t :which-key "File")
+   "fc"   '(open-config :which-key "Open init.el file")
+   "ff"   '(counsel-find-file :which-key "Find file")
+   "fl"   '(counsel-locate :which-key "Locate")
+   "fs"   '(save-buffer :which-key "Save")
+   "fr"   '(counsel-recentf :which-key "Recent files")
+   "fR"   '(rename-current-buffer-file :which-key "Rename file")
+   "fd"   '(delete-current-buffer-file :which-key "Delete file")
+
+   ;; G
+   "g"    '(:ignore t :which-key "Git")
+   "gs"   '(magit-status :which-key "git status")
+
+   ;; H
+   "h"    '(:ignore t :which-key "Help")
+   "hi"   '(info :which-key "Info")
+   "hv"   '(ivy-help :which-key "Ivy")
+   "hdb"  '(counsel-descbinds :which-key "Describe bindings")
+   "hdf"  '(counsel-describe-function :which-key "Describe function")
+   "hdk"  '(describe-key :which-key "Describe key")
+   "hdv"  '(counsel-describe-variable :which-key "Describe variable")
+   "hdm"  '(describe-mode :which-key "Describe mode")
+
+   ;; J
+   "j"    '(:ignore t :which-key "Jump")
+   "jj"   '(avy-goto-char :which-key "Char")
+   "jl"   '(avy-goto-line :which-key "Line")
+   "jw"   '(avy-goto-word-0 :which-key "Word")
+
+   ;; P
+   "p"    '(:ignore t :which-key "Projects")
+   "pb"   '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
+   "pd"   '(counsel-projectile-find-dir :which-key "Find dir")
+   "pf"   '(counsel-projectile-find-file :which-key "Find file")
+   "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
+   "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
+   "pr"   '(projectile-recentf :which-key "Recent")
+   "p/"   '(counsel-git-grep :which-key "Search")
+   "ps"   '(counsel-git-grep :which-key "Search")
+
+   ;; S
+   "s"    '(:ignore t :which-key "Search")
+   "ss"   '(swiper :which-key "Search in file")
+   "sS"   '(swiper-all :which-key "Search in all buffers")
+   "sp"   '(counsel-git-grep :which-key "Grep in project")
+   "sj"   '(counsel-imenu :which-key "Imenu")
+
+   ;; W
+   "w"    '(:ignore t :which-key "Window")
+   "ww"   '(other-window :which-key "Switch window")
+   "wd"   '(ace-delete-window :which-key "Delete window")
+   "wD"   '(delete-other-windows :which-key "Delete other windows")
+   "wa"   '(ace-window :which-key "Ace window")
+   "ws"   '(split-window-below :which-key "Split window below")
+   "w-"   '(split-window-below :which-key "Split window below")
+   "wS"   '(split-window-right :which-key "Split window right")
+   "w/"   '(split-window-right :which-key "Split window right")
+   "wh"   '(windmove-left :which-key "Window left")
+   "wj"   '(windmove-down :which-key "Window down")
+   "wk"   '(windmove-up :which-key "Window up")
+   "wl"   '(windmove-right :which-key "Window right")
+
+   ;; X
+   "x"    '(:ignore t        :which-key "Text")
+   "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
+   "xs"   '(sort-lines :which-key "Sort lines")
+   "xu"   '(lower-case :which-key "Lower case")
+   "xU"   '(upper-case :which-key "Upper case")
+   "xc"   '(count-words :which-key "Count words")
+   ;; XA
+   "xa"   '(:ignore t       :which-key "Align")
+   "xa'"  '(align-by-single  :which-key "'")
+   "xa="  '(align-by-=       :which-key "=")
+   "xa("  '(align-by-lparen  :which-key "(")
+   "xa)"  '(align-by-lparen  :which-key ")")
+   "xa:"  '(align-by-:       :which-key ":")
+   )
+  )
+
+  #+END_SRC
+
+
+
