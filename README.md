@@ -13,6 +13,10 @@ else:
 stow -D spacemacs
 stow emacs
 
+# ivymacs
+
+The ivymacs folder is an expteriment with using def-package, which-key, evil, and ivy for a spacemacs inspired feeling. It's good for experimenting with different layers and sometimes spacemacs is way to big or hard to use with some special package. 
+
 # Notes
 - Install ag and use that for helm searching
 - Figure this out: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#replacing-text-in-several-files
