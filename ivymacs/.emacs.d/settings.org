@@ -326,6 +326,9 @@ Kind of weird with having the defuns first, should look into that
    ;; E
    "e"    '(:ignore t :which-key "Eval")
    "eb"   '(eval-buffer :which-key "Eval Buffer")
+   "ef"   '(eval-defun :which-key "Eval Defun")
+   "er"   '(eval-region :which-key "Eval Region")
+   "ee"   '(eval-expression :which-key "Eval Expresson")
 
    ;; F
    "f"    '(:ignore t :which-key "File")
