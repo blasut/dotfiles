@@ -207,6 +207,10 @@
    "wj" '(windmove-down :which-key "Window down")
    "wk" '(windmove-up :which-key "Window up")
    "wl" '(windmove-right :which-key "Window right")
+
+   ;; X
+   "x"  '(:ignore t :which-key "Text")
+   "xa="  '(align-by-= :which-key "=")
    )
   )
 

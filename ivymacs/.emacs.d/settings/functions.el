@@ -26,4 +26,21 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(provide 'functions)
+(defmacro define-align-by (name char)
+  (let ((func (intern (concat "align-by-" name)))
+        (doc (format "Align by %s" char)))
+    `(defun ,func (beg end) ,doc 
+            (interactive "r")
+            (align-regexp beg end ,(concat "\\(\\s-*\\) " char) 1 1))))
+
+(defmacro define-aligns (aligns)
+  `(progn ,@(mapcar
+             (lambda (a) `(define-align-by ,(car a) ,(cdr a)))
+             aligns)))
+
+(define-aligns
+  (("="      . "=")
+   ("single" . "'")
+   ("dot"    . "\\.")))
+
+(provide  'functions)
