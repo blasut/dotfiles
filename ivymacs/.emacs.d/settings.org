@@ -3,18 +3,30 @@ Really liking this way of organizing the config files.
 Kind of weird with having the defuns first, should look into that
 
 * Defuns
-  #+BEGIN_SRC emacs-lisp
   
+** open-file-in-new-buffer
+#+BEING_SRC emacs-lisp
+   
 (defun open-file-in-new-buffer (filename)
   "Opens a file in a new buffer"
   (interactive)
   (switch-to-buffer (find-file-noselect filename)))
 
+#+END_SRC emacs-lisp
+
+** open-config
+#+BEING_SRC emacs-lisp
+   
 (defun open-config ()
   "Opens the init.el file"
   (interactive)
   (open-file-in-new-buffer "~/.emacs.d/init.el"))
 
+#+END_SRC emacs-lisp
+
+** rename-current-buffer-file
+#+BEING_SRC emacs-lisp
+   
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
@@ -32,6 +44,11 @@ Kind of weird with having the defuns first, should look into that
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
+#+END_SRC emacs-lisp
+
+** delete-current-buffer-file
+#+BEING_SRC emacs-lisp
+   
 (defun delete-current-buffer-file ()
   "Removes file connected to current buffer and kills buffer."
   (interactive)
@@ -45,6 +62,10 @@ Kind of weird with having the defuns first, should look into that
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
+#+END_SRC emacs-lisp
+
+** define-align-by
+#+BEGIN_SRC emacs-lisp
 
 (defmacro define-align-by (name char)
   (let ((func (intern (concat "align-by-" name)))
@@ -53,11 +74,15 @@ Kind of weird with having the defuns first, should look into that
             (interactive "r")
             (align-regexp beg end ,(concat "\\(\\s-*\\) " char) 1 1))))
 
+#+END_SRC
+
+** define-aligns
+#+BEGIN_SRC emacs-lisp
+
 (defmacro define-aligns (aligns)
   `(progn ,@(mapcar
              (lambda (a) `(define-align-by ,(car a) ,(cdr a)))
              aligns)))
-
 (define-aligns
   (("="       . "=")
    ("single"  . "'")
@@ -66,9 +91,46 @@ Kind of weird with having the defuns first, should look into that
    ("rparen"  . ")")
    (":"       . ":")))
 
-  #+End_SRC
+#+END_SRC
 
+** make-defun-into-org-headline
+   Super-hacky function to take a defun and make it into a org-headline with a wrapping src block
+   Gotta remove the evil-backward-char and stuff to make it more general
+#+BEING_SRC emacs-lisp
+
+(defun make-defun-into-org-headline ()
+  (interactive)
+  (beginning-of-line)
+  (let ((name-of-func "")
+        (act-fun ""))
+    (save-excursion ;; save cursor position
+      (search-forward "defun")
+      (evil-visual-char)
+      (end-of-line)
+      (evil-backward-char)
+      (evil-backward-char)
+      (evil-backward-char)
+      (setq name-of-func (buffer-substring (region-beginning)
+                                           (region-end)))
+      (mark-defun)
+      (setq act-fun (buffer-substring (region-beginning)
+                                      (region-end)))
+      (kill-region (region-beginning) (region-end))
+      )
+    (insert (concat "**" name-of-func))
+    (newline-and-indent)
+    (insert "#+BEING_SRC emacs-lisp")
+    (newline-and-indent)
+    (insert act-fun)
+    (insert "#+END_SRC emacs-lisp")
+    (newline-and-indent)
+    (newline-and-indent)
+    (previous-line)
+    (newline-and-indent)))
   
+#+END_SRC emacs-lisp
+
+
 * Defaults
   #+BEGIN_SRC emacs-lisp
 ;; UTF-8 please
