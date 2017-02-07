@@ -68,6 +68,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      persistent-scratch
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -301,6 +302,10 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil))) 
   (setq erlang-indent-level 2)
+
+  (use-package persistent-scratch
+    :config
+    (persistent-scratch-setup-default))
 
   (setq-default
    ;; js2-mode
