@@ -13,7 +13,6 @@
   (package-install 'use-package)) ; and install the most recent version of use-package
 
 (use-package org
-  :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :config
   (progn
