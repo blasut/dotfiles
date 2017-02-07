@@ -183,13 +183,15 @@
    "pf" '(counsel-projectile-find-file :which-key "Find file")
    "pF" '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
    "pp" '(counsel-projectile-switch-project :which-key "Switch project")
-   "p/" '(counsel-projectile-ag :which-key "Search")
-   "ps" '(counsel-projectile-ag :which-key "Search")
+   "p/" '(counsel-git-grep :which-key "Search")
+   "ps" '(counsel-git-grep :which-key "Search")
 
    ;; S
    "s"  '(:ignore t :which-key "Search")
    "ss" '(swiper :which-key "Search in file")
    "sS" '(swiper-all :which-key "Search in all buffers")
+   "sp" '(counsel-git-grep :which-key "Grep in project")
+   "sj" '(counsel-imenu :which-key "Imenu")
 
    ;; W
    "w"  '(:ignore t :which-key "Window")
@@ -197,7 +199,9 @@
    "wd" '(ace-delete-window :which-key "Delete window")
    "wD" '(delete-other-windows :which-key "Delete other windows")
    "wa" '(ace-window :which-key "Ace window")
+   "ws" '(split-window-below :which-key "Split window below")
    "w-" '(split-window-below :which-key "Split window below")
+   "wS" '(split-window-right :which-key "Split window right")
    "w/" '(split-window-right :which-key "Split window right")
    "wh" '(windmove-left :which-key "Window left")
    "wj" '(windmove-down :which-key "Window down")
