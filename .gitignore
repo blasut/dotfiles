@@ -14,3 +14,4 @@ emacs/.emacs.d/org-clock-save.el
 spacemacs/.emacs.d/*
 
 ivymacs/.emacs.d/elpa/*
+/ivymacs/.emacs.d/projectile-bookmarks.eld
