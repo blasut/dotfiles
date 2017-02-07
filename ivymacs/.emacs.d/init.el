@@ -179,6 +179,7 @@
    "fs"   '(save-buffer :which-key "Save")
    "fr"   '(counsel-recentf :which-key "Recent files")
    "fR"   '(rename-current-buffer-file :which-key "Rename file")
+   "fd"   '(delete-current-buffer-file :which-key "Delete file")
 
    ;; G
    "g"    '(:ignore t :which-key "Git")
