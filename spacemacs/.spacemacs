@@ -273,12 +273,6 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (use-package org-plus-contrib
-    :ensure org
-    :config
-    (progn
-      ;; config stuff
-      ))
   (org-babel-load-file
    (expand-file-name "~/settings.org")))
 
