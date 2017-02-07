@@ -1,14 +1,14 @@
-* Personal config
-** Defaults and simple binding
+Trying to get some order up in here
+* Defaults and simple binding
    #+BEGIN_SRC emacs-lisp
   (setq-default evil-escape-key-sequence "fj")
   (setq-default evil-escape-delay 0.2)
    #+END_SRC
-** Golden ratio
+* Golden ratio
    #+BEGIN_SRC emacs-lisp
   (golden-ratio-mode 1)
    #+END_SRC
-** Mac + Swedish keyboard bindings
+* Mac + Swedish keyboard bindings
    #+BEGIN_SRC emacs-lisp
   (setq mac-command-modifier 'meta)  ; set command to meta
   (setq mac-option-modifier 'super)  ; set option to super
@@ -22,7 +22,7 @@
   (define-key key-translation-map (kbd "s-2") (kbd "@"))
   (define-key key-translation-map (kbd "s-4") (kbd "$"))
    #+END_SRC
-** Evil mode rebindings
+* Evil mode rebindings
    I like helm swoop more for regular searches as well, it is easier to get an overview
    #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
@@ -37,8 +37,8 @@
 
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
    #+END_SRC
-** Packages
-*** Web-mode and js2-mode binding
+* Packages
+** Web-mode and js2-mode binding
     #+BEGIN_SRC emacs-lisp
   (setq-default
    ;; js2-mode
@@ -57,7 +57,7 @@
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
     #+END_SRC
-*** Smartparens
+** Smartparens
     Auto pairing messes with my typing flow
     #+BEGIN_SRC emacs-lisp
   (sp-pair "'" nil :actions :rem)
@@ -66,7 +66,7 @@
   (sp-pair "{" nil :actions :rem)
   (sp-pair "(" nil :actions :rem)
     #+END_SRC
-*** PHP-mode
+** PHP-mode
     #+BEGIN_SRC emacs-lisp
   (add-hook 'php-mode-hook 'my-php-mode-hook)
   (defun my-php-mode-hook ()
