@@ -6,6 +6,11 @@
 (require 'defaults)
 (require 'functions)
 
+(require 'recentf)
+(setq recentf-max-saved-items 200
+      recentf-max-menu-items 15)
+(recentf-mode)
+
 (require 'use-package)
 
 (use-package color-theme-solarized :ensure t
@@ -33,18 +38,20 @@
 (use-package evil
   :ensure t
   :config
-  (evil-mode 1)
-  (use-package evil-escape :ensure t
-    :config
-    (evil-escape-mode 1)
-    (setq-default evil-escape-key-sequence "fj"))
-  )
+  (progn
+    (evil-mode 1)
+    (use-package evil-escape :ensure t
+      :config
+      (progn
+        (evil-escape-mode 1)
+        (setq-default evil-escape-key-sequence "fj")))))
 
 (use-package magit :ensure t
   :commands magit-status
   :config
-  (global-git-commit-mode)
-  (setq magit-completing-read-function 'ivy-completing-read))
+  (progn
+    (global-git-commit-mode)
+    (setq magit-completing-read-function 'ivy-completing-read)))
 
 (use-package ivy
   :ensure t
@@ -65,22 +72,24 @@
 (use-package which-key :ensure t
   :diminish which-key-mode
   :config
-  (which-key-mode)
-  (which-key-setup-side-window-bottom)
-  ;; simple then alphabetic order.
-  (setq which-key-sort-order 'which-key-prefix-then-key-order)
-  (setq which-key-popup-type 'side-window
-        which-key-side-window-max-height 0.5
-        which-key-side-window-max-width 0.33
-        which-key-idle-delay 0.5
-        which-key-min-display-lines 7))
+  (progn
+    (which-key-mode)
+    (which-key-setup-side-window-bottom)
+    ;; simple then alphabetic order.
+    (setq which-key-sort-order 'which-key-prefix-then-key-order)
+    (setq which-key-popup-type 'side-window
+          which-key-side-window-max-height 0.5
+          which-key-side-window-max-width 0.33
+          which-key-idle-delay 0.5
+          which-key-min-display-lines 7)))
 
 (use-package ace-window :ensure t
   :commands
   ace-window
   :config
-  (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
-  (setq aw-ignore-current t))
+  (progn
+    (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
+    (setq aw-ignore-current t)))
 
 (use-package avy :ensure t
   :commands (avy-goto-word-or-subword-1
@@ -88,21 +97,23 @@
              avy-goto-char-in-line
              avy-goto-line)
   :config
-  (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m))
-  (setq avy-styles-alist
-        '((avy-goto-char-in-line . post)
-          (avy-goto-word-or-subword-1 . post))))
+  (progn
+    (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m))
+    (setq avy-styles-alist
+          '((avy-goto-char-in-line . post)
+            (avy-goto-word-or-subword-1 . post)))))
 
 (use-package projectile
   :ensure t
   :init
-  (setq projectile-mode-line nil)
-  (projectile-global-mode)
-  (setq projectile-project-root-files-bottom-up
-        '(".git" ".projectile"))
-  (setq projectile-completion-system 'ivy)
-  (setq projectile-enable-caching nil)
-  (setq projectile-verbose nil)
+  (progn
+    (setq projectile-mode-line nil)
+    (projectile-global-mode)
+    (setq projectile-project-root-files-bottom-up
+          '(".git" ".projectile"))
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-enable-caching nil)
+    (setq projectile-verbose nil))
   :config
   (use-package counsel-projectile :ensure t
     :config
