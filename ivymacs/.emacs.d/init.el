@@ -9,7 +9,6 @@
 (require 'use-package)
 
 (use-package color-theme-solarized :ensure t
-  :disabled t
   :init
   ;; to make the byte compiler happy.
   ;; emacs25 has no color-themes variable
@@ -35,7 +34,10 @@
   :ensure t
   :config
   (evil-mode 1)
-  ;; More configuration goes here
+  (use-package evil-escape :ensure t
+    :config
+    (evil-escape-mode 1)
+    (setq-default evil-escape-key-sequence "fj"))
   )
 
 (use-package magit :ensure t
