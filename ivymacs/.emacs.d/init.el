@@ -120,6 +120,19 @@
     (counsel-projectile-on))
   )
 
+(use-package erc
+  :config
+  (progn
+    (setq erc-hide-list '("PART" "QUIT" "JOIN"))
+    (setq erc-autojoin-channels-alist '(("freenode.net"
+                                         "#org-mode"
+                                         "#hacklabto"
+                                         "#emacs"
+                                         "#emacs-beginners"
+                                         "#emacs-ops"
+                                         "#lisp"))
+          erc-server "irc.freenode.net"
+          erc-nick "blasut")))
 
 (use-package general :ensure t
   :config
