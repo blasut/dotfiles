@@ -8,6 +8,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 * How to
   Add :tangle no to emacs-lisp begin src block to ignore that config
 
+  
 * Links
   - http://pastebin.com/g867n8h6
   - https://github.com/abo-abo/oremacs/blob/github/modes/ora-ivy.el
@@ -317,18 +318,8 @@ The motivation for this project is twofold, one part is to try the ivy family of
 #+END_SRC
 
 
-* Packages
-
-** recentf
-  #+BEGIN_SRC emacs-lisp
-  (require 'recentf)
-  (setq recentf-max-saved-items 200
-        recentf-max-menu-items 15)
-  (recentf-mode)
-  #+END_SRC
-
-** theme
-*** solazired
+* Themes
+** solazired
 #+BEGIN_SRC emacs-lisp
 (use-package color-theme-solarized :ensure t
   :disabled t
@@ -353,7 +344,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 
   (solarized-switch-to-dark))
 #+END_SRC
-*** material
+** material
     #+BEGIN_SRC emacs-lisp
     (use-package material-theme
       :ensure t
@@ -361,6 +352,17 @@ The motivation for this project is twofold, one part is to try the ivy family of
       (progn
         (load-theme 'material-light t)))
     #+END_SRC
+
+
+* Packages
+
+** recentf
+  #+BEGIN_SRC emacs-lisp
+  (require 'recentf)
+  (setq recentf-max-saved-items 200
+        recentf-max-menu-items 15)
+  (recentf-mode)
+  #+END_SRC
 
 ** evil
 #+BEGIN_SRC emacs-lisp
