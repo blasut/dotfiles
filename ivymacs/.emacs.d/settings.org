@@ -2,6 +2,10 @@ Really liking this way of organizing the config files.
 
 Kind of weird with having the defuns first, should look into that
 
+This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
+
+The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
+
 * Links
   - http://pastebin.com/g867n8h6
   - https://github.com/abo-abo/oremacs/blob/github/modes/ora-ivy.el
@@ -241,7 +245,7 @@ Kind of weird with having the defuns first, should look into that
 (setq vc-make-backup-files t )		; make backups file even when in version controlled dir
 (setq backup-directory-alist `(("." . "~/.backups")) ) ; which directory to put backups file
 (setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
-(setq auto-save-file-name-transforms '((".*" "~/.auto-save-list/" t)) ) ;transform backups file name
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
 #+END_SRC
 
 ** enable clipboard
