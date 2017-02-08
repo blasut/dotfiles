@@ -354,7 +354,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
     #+BEGIN_SRC emacs-lisp
     (use-package material-theme
       :ensure t
-      :init
+      :config
       (progn
         (load-theme 'material-light t)))
     #+END_SRC
@@ -474,6 +474,19 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (progn
     (add-hook 'prog-mode-hook (lambda()
                                 (rainbow-delimiters-mode t)))))
+#+END_SRC
+** dashboard
+#+BEGIN_SRC emacs-lisp
+(use-package dashboard
+  :ensure t
+  :config
+  (progn
+    (dashboard-setup-startup-hook)
+    (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+    (setq dashboard-startup-banner 'logo)
+    (setq dashboard-items '((recents  . 5)
+                            (bookmarks . 5)
+                            (projects . 5)))))
 #+END_SRC
 ** eldoc
 #+BEGIN_SRC emacs-lisp
