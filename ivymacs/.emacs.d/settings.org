@@ -304,90 +304,83 @@ Kind of weird with having the defuns first, should look into that
       org-support-shift-select 'always)
 #+END_SRC
 
-* Old init.el
+* Packages
+** recentf
   #+BEGIN_SRC emacs-lisp
+  (require 'recentf)
+  (setq recentf-max-saved-items 200
+        recentf-max-menu-items 15)
+  (recentf-mode)
+  #+END_SRC
 
-(require 'recentf)
-(setq recentf-max-saved-items 200
-      recentf-max-menu-items 15)
-(recentf-mode)
+** theme
+#+BEGIN_SRC emacs-lisp
+  (use-package color-theme-solarized :ensure t
+    :init
+    ;; to make the byte compiler happy.
+    ;; emacs25 has no color-themes variable
+    (setq color-themes '())
+    :config
+    ;; load the theme, don't ask for confirmation
+    (load-theme 'solarized t)
 
-(use-package color-theme-solarized :ensure t
-  :init
-  ;; to make the byte compiler happy.
-  ;; emacs25 has no color-themes variable
-  (setq color-themes '())
-  :config
-  ;; load the theme, don't ask for confirmation
-  (load-theme 'solarized t)
+    (defun solarized-switch-to-dark ()
+      (interactive)
+      (set-frame-parameter nil 'background-mode 'dark)
+      (enable-theme 'solarized)
+      (set-cursor-color "#d33682"))
+    (defun solarized-switch-to-light ()
+      (interactive)
+      (set-frame-parameter nil 'background-mode 'light)
+      (enable-theme 'solarized)
+      (set-cursor-color "#d33682"))
 
-  (defun solarized-switch-to-dark ()
-    (interactive)
-    (set-frame-parameter nil 'background-mode 'dark)
-    (enable-theme 'solarized)
-    (set-cursor-color "#d33682"))
-  (defun solarized-switch-to-light ()
-    (interactive)
-    (set-frame-parameter nil 'background-mode 'light)
-    (enable-theme 'solarized)
-    (set-cursor-color "#d33682"))
+    (solarized-switch-to-dark))
+#+END_SRC
 
-  (solarized-switch-to-dark))
+** evil
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :config
+    (progn
+      (evil-mode 1)
+      (use-package evil-escape :ensure t
+        :config
+        (progn
+          (evil-escape-mode 1)
+          (setq-default evil-escape-key-sequence "fj")))))
+#+END_SRC
 
-(use-package evil
-  :ensure t
-  :config
-  (progn
-    (evil-mode 1)
-    (use-package evil-escape :ensure t
-      :config
-      (progn
-        (evil-escape-mode 1)
-        (setq-default evil-escape-key-sequence "fj")))))
+** magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit :ensure t
+    :commands magit-status
+    :config
+    (progn
+     (global-git-commit-mode)
+      (setq magit-completing-read-function 'ivy-completing-read)))
+#+END_SRC
 
-(use-package magit :ensure t
-  :commands magit-status
-  :config
-  (progn
-    (global-git-commit-mode)
-    (setq magit-completing-read-function 'ivy-completing-read)))
+** which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t
+    :diminish which-key-mode
+    :config
+    (progn
+      (which-key-mode)
+      (which-key-setup-side-window-bottom)
+      ;; simple then alphabetic order.
+      (setq which-key-sort-order 'which-key-prefix-then-key-order)
+      (setq which-key-popup-type 'side-window
+            which-key-side-window-max-height 0.5
+            which-key-side-window-max-width 0.33
+            which-key-idle-delay 0.5
+            which-key-min-display-lines 7)))
+#+END_SRC
 
-(use-package hydra
-  :ensure t)
-
-(use-package swiper
-  :ensure t)   
-
-(use-package ivy
-  :ensure t
-  :diminish (ivy-mode . "")
-  :commands (ivy-switch-buffer
-             ivy-switch-buffer-other-window)
-  :bind*
-  (("C-s"     . swiper))
-  :config
-  (progn (ivy-mode 1)))
-
-(use-package counsel :ensure t
-  :bind*
-  (("M-x"     . counsel-M-x))
-  :config
-  (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git"))
-
-(use-package which-key :ensure t
-  :diminish which-key-mode
-  :config
-  (progn
-    (which-key-mode)
-    (which-key-setup-side-window-bottom)
-    ;; simple then alphabetic order.
-    (setq which-key-sort-order 'which-key-prefix-then-key-order)
-    (setq which-key-popup-type 'side-window
-          which-key-side-window-max-height 0.5
-          which-key-side-window-max-width 0.33
-          which-key-idle-delay 0.5
-          which-key-min-display-lines 7)))
-
+** ace-window
+#+BEGIN_SRC emacs-lisp
 (use-package ace-window :ensure t
   :commands
   ace-window
@@ -395,7 +388,10 @@ Kind of weird with having the defuns first, should look into that
   (progn
     (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
     (setq aw-ignore-current t)))
+#+END_SRC
 
+** avy
+#+BEGIN_SRC emacs-lisp
 (use-package avy :ensure t
   :commands (avy-goto-word-or-subword-1
              avy-goto-word-1
@@ -407,7 +403,31 @@ Kind of weird with having the defuns first, should look into that
     (setq avy-styles-alist
           '((avy-goto-char-in-line . post)
             (avy-goto-word-or-subword-1 . post)))))
+#+END_SRC
 
+** ivy + swiper + counsel + hydra
+#+BEGIN_SRC emacs-lisp
+(use-package hydra
+  :ensure t
+  :config
+  (progn 
+    (use-package ivy
+      :ensure t
+      :bind*
+      (("C-s"     . swiper))
+      :config
+      (progn (ivy-mode 1)
+             (use-package counsel 
+               :ensure t
+               :init 
+               (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
+               :bind*
+               (("M-x"     . counsel-M-x))
+               :config)))))
+#+END_SRC
+
+** projectile
+#+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
   :init
@@ -422,9 +442,11 @@ Kind of weird with having the defuns first, should look into that
   :config
   (use-package counsel-projectile :ensure t
     :config
-    (counsel-projectile-on))
-  )
+    (counsel-projectile-on)))
+#+END_SRC
 
+** erc
+#+BEGIN_SRC emacs-lisp
 (use-package erc
   :config
   (progn
@@ -438,16 +460,13 @@ Kind of weird with having the defuns first, should look into that
                                          "#lisp"))
           erc-server "irc.freenode.net"
           erc-nick "blasut")))
+#+END_SRC
 
+** general
+#+BEGIN_SRC emacs-lisp
 (use-package general :ensure t
   :config
   (general-evil-setup t)
-
-  (general-define-key
-   :states '(normal)
-   :prefix "C-SPC"
-   :non-normal-prefix "C-SPC"
-   )
 
   (general-define-key
    :states '(normal motion emacs)
@@ -457,6 +476,7 @@ Kind of weird with having the defuns first, should look into that
   (general-define-key
    :states '(normal motion emacs)
    :prefix "SPC"
+   :non-normal-prefix "C-SPC"
    ;; Flat keys
    "/"    '(counsel-git-grep :which-key "Find in files")
    "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
@@ -558,8 +578,5 @@ Kind of weird with having the defuns first, should look into that
    "xa:"  '(align-by-:       :which-key ":")
    )
   )
-
-  #+END_SRC
-
-
+#+END_SRC
 
