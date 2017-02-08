@@ -6,7 +6,7 @@ This config, ivymacs, takes very heavy inspiration from spacemacs and uses a com
 
 The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
 * How to
-  Add :tangle no to emacs-lisp begin src block to ignore that config
+  Add ":tangle no" to emacs-lisp begin src block to ignore that config
 
   
 * Links
@@ -353,8 +353,8 @@ The motivation for this project is twofold, one part is to try the ivy family of
         (load-theme 'material-light t)))
     #+END_SRC
 
-
-* Packages
+    
+* Packages and modes
 
 ** recentf
   #+BEGIN_SRC emacs-lisp
@@ -435,6 +435,9 @@ The motivation for this project is twofold, one part is to try the ivy family of
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package flycheck
   :commands flycheck-mode
+  :init
+  (progn
+    (add-hook 'emacs-lisp-mode-hook 'flycheck-mode))
   :config
   (setq flycheck-check-syntax-automatically '(save new-line)
         flycheck-idle-change-delay 5.0
@@ -465,6 +468,14 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (progn
     (add-hook 'prog-mode-hook (lambda()
                                 (rainbow-delimiters-mode t)))))
+#+END_SRC
+** eldoc
+#+BEGIN_SRC emacs-lisp
+(use-package eldoc
+  :ensure t
+  :init
+  (progn
+    (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
 #+END_SRC
 
 ** ivy + swiper
