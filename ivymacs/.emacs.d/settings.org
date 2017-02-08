@@ -122,7 +122,7 @@ Kind of weird with having the defuns first, should look into that
     (insert "#+BEGIN_SRC emacs-lisp")
     (newline-and-indent)
     (insert act-fun)
-    (insert "#+END_SRC emacs-lisp")
+    (insert "#+END_SRC")
     (newline-and-indent)
     (newline-and-indent)
     (previous-line)
@@ -130,10 +130,37 @@ Kind of weird with having the defuns first, should look into that
   
 #+END_SRC emacs-lisp
 
+** make-stuff-into-org-headline
+#+BEGIN_SRC emacs-lisp
+
+(defun make-stuff-into-org-headline (beg end name)
+  (interactive "r\ns")
+  (let ((text (buffer-substring beg end)))
+    (kill-region beg end)
+    (previous-line)
+    (newline-and-indent)
+    (beginning-of-line)
+    (insert (concat "** " name))
+    (newline)
+    (insert "#+BEGIN_SRC emacs-lisp")
+    (newline-and-indent)
+    (insert text)
+    (insert "#+END_SRC")
+    (newline-and-indent)))
+#+END_SRC emacs-lisp
+
+** mac-open-current-file
+#+BEGIN_SRC emacs-lisp
+(defun mac-open-current-file ()
+  (interactive)
+  (shell-command (concat "open " (buffer-file-name))))
+#+END_SRC emacs-lisp
+
 
 * Defaults
-  #+BEGIN_SRC emacs-lisp
-;; UTF-8 please
+
+** utf8
+#+BEGIN_SRC emacs-lisp
 (setq locale-coding-system 'utf-8) ; pretty
 (set-terminal-coding-system 'utf-8) ; pretty
 (set-keyboard-coding-system 'utf-8) ; pretty
@@ -141,36 +168,58 @@ Kind of weird with having the defuns first, should look into that
 (prefer-coding-system 'utf-8) ; with sugar on top
 
 (setenv "LANG" "en_US.UTF-8")
+#+END_SRC
 
+
+** yes or no dialog
+#+BEGIN_SRC emacs-lisp
 (defadvice y-or-n-p (around prevent-dialog-yorn activate)
              "Prevent y-or-n-p from activating a dialog"
                (let ((use-dialog-box nil))
                      ad-do-it))
 (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 
-(setq ring-bell-function 'ignore) ; turn off stupid bell
 
-;; Always display line and column numbers
+** ignore bell
+#+BEGIN_SRC emacs-lisp
+(setq ring-bell-function 'ignore)
+#+END_SRC
+
+
+** always display line and column numbers
+#+BEGIN_SRC emacs-lisp
 (setq line-number-mode t)
 (setq column-number-mode t)
+#+END_SRC
 
-;; Lines should be 80 characters wide, not 72
+
+** lines should be 80 wide
+#+BEGIN_SRC emacs-lisp
 (setq fill-column 80)
+#+END_SRC
 
-;; Never insert tabs
+
+** never insert tabs
+#+BEGIN_SRC emacs-lisp
 (set-default 'indent-tabs-mode nil)
+#+END_SRC
 
-;; Show me empty lines after buffer end
+
+** show empty lines
+#+BEGIN_SRC emacs-lisp
 (set-default 'indicate-empty-lines t)
+#+END_SRC
 
-;; Sentences do not need double spaces to end. Period.
+
+** no double space to end periods
+#+BEGIN_SRC emacs-lisp
 (set-default 'sentence-end-double-space nil)
+#+END_SRC
 
-;; 80 chars is a good width.
-(set-default 'fill-column 80)
 
-;; Offer to create parent directories if they do not exist
-;; http://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/
+** Offer to create parent directories if they do not exist
+#+BEGIN_SRC emacs-lisp
 (defun my-create-non-existent-directory ()
   (let ((parent-directory (file-name-directory buffer-file-name)))
     (when (and (not (file-exists-p parent-directory))
@@ -178,18 +227,34 @@ Kind of weird with having the defuns first, should look into that
       (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
+#+END_SRC
 
+
+** no startup message
+#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
+#+END_SRC
 
+
+** backups and stuff
+#+BEGIN_SRC emacs-lisp
 (setq delete-old-versions -1 )		; delete excess backup versions silently
 (setq version-control t )		; use version control
 (setq vc-make-backup-files t )		; make backups file even when in version controlled dir
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")) ) ; which directory to put backups file
 (setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
+#+END_SRC
 
+
+** enable clipboard
+#+BEGIN_SRC emacs-lisp
 (setq x-select-enable-clipboard t)
-      
+#+END_SRC
+
+
+** swedish keyboard fix
+#+BEGIN_SRC emacs-lisp
 (setq mac-command-modifier 'meta)  ; set command to meta
 (setq mac-option-modifier 'super)  ; set option to super
 (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
@@ -203,13 +268,12 @@ Kind of weird with having the defuns first, should look into that
 (define-key key-translation-map (kbd "s-/") (kbd "\\"))
 (define-key key-translation-map (kbd "s-2") (kbd "@"))
 (define-key key-translation-map (kbd "s-4") (kbd "$"))
+#+END_SRC
 
-;; Open files
-(defun mac-open-current-file ()
-  (interactive)
-  (shell-command (concat "open " (buffer-file-name))))
 
-;; apparences
+
+** apperences
+#+BEGIN_SRC emacs-lisp
 (when window-system
   (tooltip-mode -1)              
   (tool-bar-mode -1)              
@@ -219,8 +283,7 @@ Kind of weird with having the defuns first, should look into that
   (blink-cursor-mode 1)               
   (global-visual-line-mode)
   (diminish 'visual-line-mode ""))
-
-  #+END_SRC
+#+END_SRC
 
 
 * Old init.el
