@@ -405,25 +405,40 @@ Kind of weird with having the defuns first, should look into that
             (avy-goto-word-or-subword-1 . post)))))
 #+END_SRC
 
-** ivy + swiper + counsel + hydra
+** ivy + swiper
+#+BEGIN_SRC emacs-lisp
+(use-package swiper
+  :ensure t
+  :bind*
+  (("C-s"     . swiper))
+  :config
+  (progn (ivy-mode 1)
+         (setq ivy-use-virtual-buffers t)
+         (setq ivy-count-format "(%d/%d) ")))
+#+END_SRC
+
+** counsel
+#+BEGIN_SRC emacs-lisp
+(use-package counsel 
+  :ensure t
+  :init 
+  (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
+  :bind*
+  (("M-x"     . counsel-M-x))
+  :config)
+#+END_SRC
+
+** hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra
   :ensure t
   :config
   (progn 
-    (use-package ivy
-      :ensure t
-      :bind*
-      (("C-s"     . swiper))
-      :config
-      (progn (ivy-mode 1)
-             (use-package counsel 
-               :ensure t
-               :init 
-               (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
-               :bind*
-               (("M-x"     . counsel-M-x))
-               :config)))))
+    (defhydra hydra-zoom ()
+      "zoom"
+      ("g" text-scale-increase "in")
+      ("l" text-scale-decrease "out"))
+    ))
 #+END_SRC
 
 ** projectile
@@ -576,6 +591,9 @@ Kind of weird with having the defuns first, should look into that
    "xa("  '(align-by-lparen  :which-key "(")
    "xa)"  '(align-by-lparen  :which-key ")")
    "xa:"  '(align-by-:       :which-key ":")
+
+;; Z
+"z" '(:ignore t :which-key "Zoom")
    )
   )
 #+END_SRC
