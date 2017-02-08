@@ -249,9 +249,9 @@ Kind of weird with having the defuns first, should look into that
 (setq delete-old-versions -1 )		; delete excess backup versions silently
 (setq version-control t )		; use version control
 (setq vc-make-backup-files t )		; make backups file even when in version controlled dir
-(setq backup-directory-alist `(("." . "~/.emacs.d/backups")) ) ; which directory to put backups file
+(setq backup-directory-alist `(("." . "~/.backups")) ) ; which directory to put backups file
 (setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
+(setq auto-save-file-name-transforms '((".*" "~/.auto-save-list/" t)) ) ;transform backups file name
 #+END_SRC
 
 
@@ -293,6 +293,11 @@ Kind of weird with having the defuns first, should look into that
   (diminish 'visual-line-mode ""))
 #+END_SRC
 
+** use another file instead of init.el for customizations
+#+BEGIN_SRC emacs-lisp
+(setq custom-file "~/.customized.el")
+(load custom-file)
+#+END_SRC
 * Org mode
 
 ** pretty source code blocks
@@ -314,29 +319,39 @@ Kind of weird with having the defuns first, should look into that
   #+END_SRC
 
 ** theme
+*** solazired
 #+BEGIN_SRC emacs-lisp
-  (use-package color-theme-solarized :ensure t
-    :init
-    ;; to make the byte compiler happy.
-    ;; emacs25 has no color-themes variable
-    (setq color-themes '())
-    :config
-    ;; load the theme, don't ask for confirmation
-    (load-theme 'solarized t)
+(use-package color-theme-solarized :ensure t
+  :disabled t
+  :init
+  ;; to make the byte compiler happy.
+  ;; emacs25 has no color-themes variable
+  (setq color-themes '())
+  :config
+  ;; load the theme, don't ask for confirmation
+  (load-theme 'solarized t)
 
-    (defun solarized-switch-to-dark ()
-      (interactive)
-      (set-frame-parameter nil 'background-mode 'dark)
-      (enable-theme 'solarized)
-      (set-cursor-color "#d33682"))
-    (defun solarized-switch-to-light ()
-      (interactive)
-      (set-frame-parameter nil 'background-mode 'light)
-      (enable-theme 'solarized)
-      (set-cursor-color "#d33682"))
+  (defun solarized-switch-to-dark ()
+    (interactive)
+    (set-frame-parameter nil 'background-mode 'dark)
+    (enable-theme 'solarized)
+    (set-cursor-color "#d33682"))
+  (defun solarized-switch-to-light ()
+    (interactive)
+    (set-frame-parameter nil 'background-mode 'light)
+    (enable-theme 'solarized)
+    (set-cursor-color "#d33682"))
 
-    (solarized-switch-to-dark))
+  (solarized-switch-to-dark))
 #+END_SRC
+*** material
+    #+BEGIN_SRC emacs-lisp
+    (use-package material-theme
+      :ensure t
+      :init
+      (progn
+        (load-theme 'material-light t)))
+    #+END_SRC
 
 ** evil
 #+BEGIN_SRC emacs-lisp
