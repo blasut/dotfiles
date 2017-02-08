@@ -78,11 +78,20 @@ Trying to get some order up in here
            (number-sequence my-tab-width 200 my-tab-width))))
     #+END_SRC
 ** Org-mode
+*** add todo files to org agenda
    Should work when not using a remote todo file. This adds my projectile todo files to the agenda
 #+BEGIN_SRC emacs-lisp :tangle no
 (with-eval-after-load 'org-agenda
   (require 'org-projectile)
   (push (org-projectile:todo-files) org-agenda-files))
+#+END_SRC
+*** pretty source code blocks
+#+BEGIN_SRC emacs-lisp
+(setq org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-fontify-natively t
+      org-confirm-babel-evaluate nil
+      org-support-shift-select 'always)
 #+END_SRC
 * Defuns 
 ** Insert my files
