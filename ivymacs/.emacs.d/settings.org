@@ -15,6 +15,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
   - http://zck.me/emacs-repeat-emacs-repeat
 
+
 * Defuns
   
 ** open-file-in-new-buffer
@@ -169,6 +170,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (shell-command (concat "open " (buffer-file-name))))
 #+END_SRC
 
+
 * Settings
 
 ** utf8
@@ -270,7 +272,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (define-key key-translation-map (kbd "s-4") (kbd "$"))
 #+END_SRC
 
-
 ** apperences
 #+BEGIN_SRC emacs-lisp
 (when window-system
@@ -300,6 +301,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (minibuffer-depth-indicate-mode 1)
 #+END_SRC
 
+
 * Org mode
 
 ** pretty source code blocks
@@ -311,7 +313,9 @@ The motivation for this project is twofold, one part is to try the ivy family of
       org-support-shift-select 'always)
 #+END_SRC
 
+
 * Packages
+
 ** recentf
   #+BEGIN_SRC emacs-lisp
   (require 'recentf)
