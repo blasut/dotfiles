@@ -305,6 +305,12 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (minibuffer-depth-indicate-mode 1)
 #+END_SRC
 
+** performance
+   Set the gc threshold to 10MiB
+#+BEGIN_SRC emacs-lisp
+(setq gc-cons-threshold (* 10 1024 1024))
+#+END_SRC
+
 
 * Org mode
 
