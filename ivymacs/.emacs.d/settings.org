@@ -653,6 +653,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
    "sS"   '(swiper-all :which-key "Search in all buffers")
    "sp"   '(counsel-git-grep :which-key "Grep in project")
    "sj"   '(counsel-imenu :which-key "Imenu")
+   "sk"   '(counsel-yank-pop :which-key "Kill ring")
 
    ;; W
    "w"    '(:ignore t :which-key "Window")
@@ -684,8 +685,8 @@ The motivation for this project is twofold, one part is to try the ivy family of
    "xa)"  '(align-by-lparen  :which-key ")")
    "xa:"  '(align-by-:       :which-key ":")
 
-;; Z
-"z" '(:ignore t :which-key "Zoom")
+   ;; Z
+   "z" '(:ignore t :which-key "Zoom")
    )
   )
 #+END_SRC
