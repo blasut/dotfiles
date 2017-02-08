@@ -165,7 +165,7 @@ Kind of weird with having the defuns first, should look into that
   (shell-command (concat "open " (buffer-file-name))))
 #+END_SRC
 
-* Defaults
+* Settings
 
 ** utf8
 #+BEGIN_SRC emacs-lisp
@@ -178,7 +178,6 @@ Kind of weird with having the defuns first, should look into that
 (setenv "LANG" "en_US.UTF-8")
 #+END_SRC
 
-
 ** yes or no dialog
 #+BEGIN_SRC emacs-lisp
 (defadvice y-or-n-p (around prevent-dialog-yorn activate)
@@ -188,12 +187,10 @@ Kind of weird with having the defuns first, should look into that
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-
 ** ignore bell
 #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore)
 #+END_SRC
-
 
 ** always display line and column numbers
 #+BEGIN_SRC emacs-lisp
@@ -201,30 +198,25 @@ Kind of weird with having the defuns first, should look into that
 (setq column-number-mode t)
 #+END_SRC
 
-
 ** lines should be 80 wide
 #+BEGIN_SRC emacs-lisp
 (setq fill-column 80)
 #+END_SRC
-
 
 ** never insert tabs
 #+BEGIN_SRC emacs-lisp
 (set-default 'indent-tabs-mode nil)
 #+END_SRC
 
-
 ** show empty lines
 #+BEGIN_SRC emacs-lisp
 (set-default 'indicate-empty-lines t)
 #+END_SRC
 
-
 ** no double space to end periods
 #+BEGIN_SRC emacs-lisp
 (set-default 'sentence-end-double-space nil)
 #+END_SRC
-
 
 ** Offer to create parent directories if they do not exist
 #+BEGIN_SRC emacs-lisp
@@ -237,12 +229,10 @@ Kind of weird with having the defuns first, should look into that
 (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
 #+END_SRC
 
-
 ** no startup message
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 #+END_SRC
-
 
 ** backups and stuff
 #+BEGIN_SRC emacs-lisp
@@ -254,12 +244,10 @@ Kind of weird with having the defuns first, should look into that
 (setq auto-save-file-name-transforms '((".*" "~/.auto-save-list/" t)) ) ;transform backups file name
 #+END_SRC
 
-
 ** enable clipboard
 #+BEGIN_SRC emacs-lisp
 (setq x-select-enable-clipboard t)
 #+END_SRC
-
 
 ** swedish keyboard fix
 #+BEGIN_SRC emacs-lisp
@@ -279,7 +267,6 @@ Kind of weird with having the defuns first, should look into that
 #+END_SRC
 
 
-
 ** apperences
 #+BEGIN_SRC emacs-lisp
 (when window-system
@@ -295,9 +282,20 @@ Kind of weird with having the defuns first, should look into that
 
 ** use another file instead of init.el for customizations
 #+BEGIN_SRC emacs-lisp
-(setq custom-file "~/.customized.el")
+(setq custom-file "~/.emacs.d/customized.el")
 (load custom-file)
 #+END_SRC
+** enable recursive minibuffers
+   When the minibuffer is active, we can still use call other commands for more minibuffers
+#+BEGIN_SRC emacs-lisp
+(setq enable-recursive-minibuffers t)
+#+END_SRC
+** inidicate minibuffer depth
+   ESC ESC ESC for closing anything you want
+#+BEGIN_SRC emacs-lisp
+(minibuffer-depth-indicate-mode 1)
+#+END_SRC
+
 * Org mode
 
 ** pretty source code blocks
