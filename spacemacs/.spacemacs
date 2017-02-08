@@ -126,13 +126,17 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(apropospriate-dark
+                         (material :location (recipe :fetcher github
+                                                     :repo "cpaulik/emacs-material-theme"))
                          solarized-light
                          spacemacs-dark
                          spacemacs-light
                          solarized-dark
                          leuven
                          monokai
-                         zenburn)
+                         zenburn
+                         (material-light :location (recipe :fetcher github
+                                                           :repo "cpaulik/emacs-material-theme")))
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
