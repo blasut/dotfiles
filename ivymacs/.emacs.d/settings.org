@@ -2,6 +2,15 @@ Really liking this way of organizing the config files.
 
 Kind of weird with having the defuns first, should look into that
 
+* Links
+  - http://pastebin.com/g867n8h6
+  - https://github.com/abo-abo/oremacs/blob/github/modes/ora-ivy.el
+  - http://pastebin.com/Gtx9a1N0
+  - https://github.com/kaushalmodi/.emacs.d/blob/664ad66cba42b60f757850daeb379d84eb23a03b/setup-files/setup-search.el#L100-L127
+  - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
+  - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
+  - http://zck.me/emacs-repeat-emacs-repeat
+
 * Defuns
   
 ** open-file-in-new-buffer
@@ -12,7 +21,7 @@ Kind of weird with having the defuns first, should look into that
   (interactive)
   (switch-to-buffer (find-file-noselect filename)))
 
-#+END_SRC emacs-lisp
+#+END_SRC
 
 ** open-config
 #+BEGIN_SRC emacs-lisp
@@ -22,7 +31,7 @@ Kind of weird with having the defuns first, should look into that
   (interactive)
   (open-file-in-new-buffer "~/.emacs.d/init.el"))
 
-#+END_SRC emacs-lisp
+#+END_SRC
 
 ** rename-current-buffer-file
 #+BEGIN_SRC emacs-lisp
@@ -44,7 +53,7 @@ Kind of weird with having the defuns first, should look into that
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-#+END_SRC emacs-lisp
+#+END_SRC
 
 ** delete-current-buffer-file
 #+BEGIN_SRC emacs-lisp
@@ -62,7 +71,7 @@ Kind of weird with having the defuns first, should look into that
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
-#+END_SRC emacs-lisp
+#+END_SRC
 
 ** define-align-by
 #+BEGIN_SRC emacs-lisp
@@ -128,7 +137,7 @@ Kind of weird with having the defuns first, should look into that
     (previous-line)
     (newline-and-indent)))
   
-#+END_SRC emacs-lisp
+#+END_SRC
 
 ** make-stuff-into-org-headline
 #+BEGIN_SRC emacs-lisp
@@ -147,15 +156,14 @@ Kind of weird with having the defuns first, should look into that
     (insert text)
     (insert "#+END_SRC")
     (newline-and-indent)))
-#+END_SRC emacs-lisp
+#+END_SRC
 
 ** mac-open-current-file
 #+BEGIN_SRC emacs-lisp
 (defun mac-open-current-file ()
   (interactive)
   (shell-command (concat "open " (buffer-file-name))))
-#+END_SRC emacs-lisp
-
+#+END_SRC
 
 * Defaults
 
@@ -285,6 +293,16 @@ Kind of weird with having the defuns first, should look into that
   (diminish 'visual-line-mode ""))
 #+END_SRC
 
+* Org mode
+
+** pretty source code blocks
+#+BEGIN_SRC emacs-lisp
+(setq org-edit-src-content-indentation 0
+      org-src-tab-acts-natively t
+      org-src-fontify-natively t
+      org-confirm-babel-evaluate nil
+      org-support-shift-select 'always)
+#+END_SRC
 
 * Old init.el
   #+BEGIN_SRC emacs-lisp
