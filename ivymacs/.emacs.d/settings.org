@@ -5,6 +5,8 @@ Kind of weird with having the defuns first, should look into that
 This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
 
 The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
+* How to
+  Add :tangle no to emacs-lisp begin src block to ignore that config
 
 * Links
   - http://pastebin.com/g867n8h6
@@ -248,6 +250,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (setq backup-directory-alist `(("." . "~/.backups")) ) ; which directory to put backups file
 (setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
+(setq delete-by-moving-to-trash t)
 #+END_SRC
 
 ** enable clipboard
@@ -424,6 +427,42 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (setq avy-styles-alist
           '((avy-goto-char-in-line . post)
             (avy-goto-word-or-subword-1 . post)))))
+#+END_SRC
+
+** flycheck
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package flycheck
+  :commands flycheck-mode
+  :config
+  (setq flycheck-check-syntax-automatically '(save new-line)
+        flycheck-idle-change-delay 5.0
+        flycheck-display-errors-delay 0.9
+        flycheck-highlighting-mode 'symbols
+        flycheck-indication-mode 'left-fringe
+        flycheck-completion-system nil ; 'ido, 'grizzl, nil
+        flycheck-highlighting-mode 'lines
+        )
+  )
+#+END_SRC
+
+** undo-tree
+   Rather than just showing 'o' for edits, show a relative timestamp for when the edit occurred. 
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :config
+  (progn 
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)))
+#+END_SRC
+
+** rainbow delimiters
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :ensure t
+  :init
+  (progn
+    (add-hook 'prog-mode-hook (lambda()
+                                (rainbow-delimiters-mode t)))))
 #+END_SRC
 
 ** ivy + swiper
