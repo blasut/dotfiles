@@ -77,6 +77,13 @@ Trying to get some order up in here
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
     #+END_SRC
+** Org-mode
+   Should work when not using a remote todo file. This adds my projectile todo files to the agenda
+#+BEGIN_SRC emacs-lisp :tangle no
+(with-eval-after-load 'org-agenda
+  (require 'org-projectile)
+  (push (org-projectile:todo-files) org-agenda-files))
+#+END_SRC
 * Defuns 
 ** Insert my files
    Used for reading all the contents of every file in a directory
