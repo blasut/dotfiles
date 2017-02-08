@@ -334,6 +334,12 @@ Kind of weird with having the defuns first, should look into that
     (global-git-commit-mode)
     (setq magit-completing-read-function 'ivy-completing-read)))
 
+(use-package hydra
+  :ensure t)
+
+(use-package swiper
+  :ensure t)   
+
 (use-package ivy
   :ensure t
   :diminish (ivy-mode . "")
@@ -342,7 +348,7 @@ Kind of weird with having the defuns first, should look into that
   :bind*
   (("C-s"     . swiper))
   :config
-  (ivy-mode 1))
+  (progn (ivy-mode 1)))
 
 (use-package counsel :ensure t
   :bind*
