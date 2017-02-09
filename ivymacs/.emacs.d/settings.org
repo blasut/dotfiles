@@ -333,6 +333,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (global-auto-revert-mode t)
 #+END_SRC
 
+
 * Org mode
 
 ** pretty source code blocks
