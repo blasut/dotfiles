@@ -314,6 +314,24 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (setq tab-always-indent 'complete)
 #+END_SRC
 
+** frame title format
+   Show the entire path of the file in the title
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (buffer-file-name)
+                 "%b"))))
+#+END_SRC
+** delete selection
+   Emacs doesnt delete selected regions, doesnt seem to work with Evil.
+#+BEGIN_SRC emacs-lisp :tangle no
+(delete-selection-mode t)
+#+END_SRC
+
+** auto revert buffers when files have changed
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode t)
+#+END_SRC
 
 * Org mode
 
@@ -372,6 +390,16 @@ The motivation for this project is twofold, one part is to try the ivy family of
         recentf-max-menu-items 15)
   (recentf-mode)
   #+END_SRC
+
+** which-function-mode
+   Displays the current function your are "inside" in the mode-line
+#+BEGIN_SRC emacs-lisp
+(which-function-mode)
+#+END_SRC
+   Default when whic-func cant figure out the name is '???' n/a is not as crazy.
+#+BEGIN_SRC emacs-lisp
+(setq which-func-unknown "n/a")
+#+END_SRC
 
 ** evil
 #+BEGIN_SRC emacs-lisp
