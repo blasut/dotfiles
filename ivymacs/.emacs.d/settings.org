@@ -259,23 +259,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (setq x-select-enable-clipboard t)
 #+END_SRC
 
-** swedish keyboard fix
-#+BEGIN_SRC emacs-lisp
-(setq mac-command-modifier 'meta)  ; set command to meta
-(setq mac-option-modifier 'super)  ; set option to super
-(setq ns-function-modifier 'hyper) ; set FN to hyper modifier
-
-;; Swedish mac-keyboard alt-keys
-(define-key key-translation-map (kbd "s-8") (kbd "["))
-(define-key key-translation-map (kbd "s-(") (kbd "{"))
-(define-key key-translation-map (kbd "s-9") (kbd "]"))
-(define-key key-translation-map (kbd "s-)") (kbd "}"))
-(define-key key-translation-map (kbd "s-7") (kbd "|"))
-(define-key key-translation-map (kbd "s-/") (kbd "\\"))
-(define-key key-translation-map (kbd "s-2") (kbd "@"))
-(define-key key-translation-map (kbd "s-4") (kbd "$"))
-#+END_SRC
-
 ** apperences
 #+BEGIN_SRC emacs-lisp
 (when window-system
@@ -569,6 +552,26 @@ The motivation for this project is twofold, one part is to try the ivy family of
           erc-nick "blasut")))
 #+END_SRC
 
+
+* Keybindings
+** swedish keyboard fix
+   #+BEGIN_SRC emacs-lisp
+   (setq mac-command-modifier 'meta)  ; set command to meta
+   (setq mac-option-modifier 'super)  ; set option to super
+   (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
+
+   ;; Swedish mac-keyboard alt-keys
+   (define-key key-translation-map (kbd "s-8") (kbd "["))
+   (define-key key-translation-map (kbd "s-(") (kbd "{"))
+   (define-key key-translation-map (kbd "s-9") (kbd "]"))
+   (define-key key-translation-map (kbd "s-)") (kbd "}"))
+   (define-key key-translation-map (kbd "s-7") (kbd "|"))
+   (define-key key-translation-map (kbd "s-/") (kbd "\\"))
+   (define-key key-translation-map (kbd "s-2") (kbd "@"))
+   (define-key key-translation-map (kbd "s-4") (kbd "$"))
+
+   (keyboard-translate ?\ö ?\;)
+   #+END_SRC
 ** general
 #+BEGIN_SRC emacs-lisp
 (use-package general :ensure t
@@ -690,4 +693,3 @@ The motivation for this project is twofold, one part is to try the ivy family of
    )
   )
 #+END_SRC
-
