@@ -319,7 +319,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 #+BEGIN_SRC emacs-lisp
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
-                   (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 #+END_SRC
 ** delete selection
@@ -765,6 +765,8 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
 
    ;; Z
    "z" '(:ignore t :which-key "Zoom")
+   "zi" '(text-scale-increase :which-key "Text larger")
+   "zu" '(text-scale-decrease :which-key "Text smaller")
    )
   )
 #+END_SRC
