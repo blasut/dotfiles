@@ -19,7 +19,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
   - http://zck.me/emacs-repeat-emacs-repeat
 
-
+    
 * Defuns
   
 ** open-file-in-new-buffer
@@ -308,6 +308,12 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (setq gc-cons-threshold (* 10 1024 1024))
 #+END_SRC
 
+** more reasonable tab behaviour
+   Default Tab is only indention. Now its first indentation then auto complete
+#+BEGIN_SRC emacs-lisp
+(setq tab-always-indent 'complete)
+#+END_SRC
+
 
 * Org mode
 
@@ -503,6 +509,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   :config
   (progn (ivy-mode 1)
          (setq ivy-use-virtual-buffers t)
+         (setq ivy-wrap t)
          (setq ivy-count-format "(%d/%d) ")))
 #+END_SRC
 
