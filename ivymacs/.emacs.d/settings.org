@@ -671,126 +671,126 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
 #+BEGIN_SRC emacs-lisp
 (use-package general :ensure t
   :config
-  (general-evil-setup t)
+  (progn
+    (general-define-key
+     :states '(normal motion emacs)
+     "/" '(swiper)
+     )
 
-  (general-define-key
-   :states '(normal motion emacs)
-   "/" '(swiper)
-   )
+    (general-define-key
+     :states '(normal motion emacs)
+     :prefix "SPC"
+     :non-normal-prefix "C-SPC"
+     ;; Flat keys
+     "/"    '(counsel-git-grep :which-key "Find in files")
+     "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
 
-  (general-define-key
-   :states '(normal motion emacs)
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
-   ;; Flat keys
-   "/"    '(counsel-git-grep :which-key "Find in files")
-   "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
+     ;; Special keys
+     "SPC"  '(counsel-M-x)
 
-   ;; Special keys
-   "SPC"  '(counsel-M-x)
+     ;; B
+     "b"    '(:ignore t :which-key "Buffer")
+     "bb"   '(ivy-switch-buffer :which-key "Change buffer")
+     "bd"   '(ace-delete-window :which-key "Delete buffer")
+     "bn"   '(next-buffer :which-key "Next buffer")
+     "bp"   '(previous-buffer :which-key "Previous buffer")
+     "bR"   '(revert-buffer :which-key "Revert buffer")
 
-   ;; B
-   "b"    '(:ignore t :which-key "Buffer")
-   "bb"   '(ivy-switch-buffer :which-key "Change buffer")
-   "bd"   '(ace-delete-window :which-key "Delete buffer")
-   "bn"   '(next-buffer :which-key "Next buffer")
-   "bp"   '(previous-buffer :which-key "Previous buffer")
-   "bR"   '(revert-buffer :which-key "Revert buffer")
+     ;; E
+     "e"    '(:ignore t :which-key "Eval")
+     "eb"   '(eval-buffer :which-key "Eval Buffer")
+     "ef"   '(eval-defun :which-key "Eval Defun")
+     "er"   '(eval-region :which-key "Eval Region")
+     "ee"   '(eval-expression :which-key "Eval Expresson")
+     "es"   '(visit-ielm :which-key "Open repl")
 
-   ;; E
-   "e"    '(:ignore t :which-key "Eval")
-   "eb"   '(eval-buffer :which-key "Eval Buffer")
-   "ef"   '(eval-defun :which-key "Eval Defun")
-   "er"   '(eval-region :which-key "Eval Region")
-   "ee"   '(eval-expression :which-key "Eval Expresson")
-   "es"   '(visit-ielm :which-key "Open repl")
+     ;; F
+     "f"    '(:ignore t :which-key "File")
+     "fc"   '(open-config :which-key "Open init.el file")
+     "ff"   '(counsel-find-file :which-key "Find file")
+     "fl"   '(counsel-locate :which-key "Locate")
+     "fs"   '(save-buffer :which-key "Save")
+     "fr"   '(counsel-recentf :which-key "Recent files")
+     "fR"   '(rename-current-buffer-file :which-key "Rename file")
+     "fd"   '(delete-current-buffer-file :which-key "Delete file")
 
-   ;; F
-   "f"    '(:ignore t :which-key "File")
-   "fc"   '(open-config :which-key "Open init.el file")
-   "ff"   '(counsel-find-file :which-key "Find file")
-   "fl"   '(counsel-locate :which-key "Locate")
-   "fs"   '(save-buffer :which-key "Save")
-   "fr"   '(counsel-recentf :which-key "Recent files")
-   "fR"   '(rename-current-buffer-file :which-key "Rename file")
-   "fd"   '(delete-current-buffer-file :which-key "Delete file")
+     ;; G
+     "g"    '(:ignore t :which-key "Git")
+     "gs"   '(magit-status :which-key "git status")
 
-   ;; G
-   "g"    '(:ignore t :which-key "Git")
-   "gs"   '(magit-status :which-key "git status")
+     ;; H
+     "h"    '(:ignore t :which-key "Help")
+     "hi"   '(info :which-key "Info")
+     "hv"   '(ivy-help :which-key "Ivy")
+     "hdb"  '(counsel-descbinds :which-key "Describe bindings")
+     "hdf"  '(counsel-describe-function :which-key "Describe function")
+     "hdk"  '(describe-key :which-key "Describe key")
+     "hdv"  '(counsel-describe-variable :which-key "Describe variable")
+     "hdm"  '(describe-mode :which-key "Describe mode")
 
-   ;; H
-   "h"    '(:ignore t :which-key "Help")
-   "hi"   '(info :which-key "Info")
-   "hv"   '(ivy-help :which-key "Ivy")
-   "hdb"  '(counsel-descbinds :which-key "Describe bindings")
-   "hdf"  '(counsel-describe-function :which-key "Describe function")
-   "hdk"  '(describe-key :which-key "Describe key")
-   "hdv"  '(counsel-describe-variable :which-key "Describe variable")
-   "hdm"  '(describe-mode :which-key "Describe mode")
+     ;; J
+     "j"    '(:ignore t :which-key "Jump")
+     "jj"   '(avy-goto-char :which-key "Char")
+     "jl"   '(avy-goto-line :which-key "Line")
+     "jw"   '(avy-goto-word-0 :which-key "Word")
 
-   ;; J
-   "j"    '(:ignore t :which-key "Jump")
-   "jj"   '(avy-goto-char :which-key "Char")
-   "jl"   '(avy-goto-line :which-key "Line")
-   "jw"   '(avy-goto-word-0 :which-key "Word")
+     ;; M
+     "m"    '(:ignore t :which-key "Major mode")
 
-   ;; M
-   "m"    '(:ignore t :which-key "Major mode")
+     ;; P
+     "p"    '(:ignore t :which-key "Projects")
+     "pb"   '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
+     "pd"   '(counsel-projectile-find-dir :which-key "Find dir")
+     "pf"   '(counsel-projectile-find-file :which-key "Find file")
+     "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
+     "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
+     "pr"   '(projectile-recentf :which-key "Recent")
+     "p/"   '(counsel-git-grep :which-key "Search")
+     "ps"   '(counsel-git-grep :which-key "Search")
 
-   ;; P
-   "p"    '(:ignore t :which-key "Projects")
-   "pb"   '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
-   "pd"   '(counsel-projectile-find-dir :which-key "Find dir")
-   "pf"   '(counsel-projectile-find-file :which-key "Find file")
-   "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
-   "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
-   "pr"   '(projectile-recentf :which-key "Recent")
-   "p/"   '(counsel-git-grep :which-key "Search")
-   "ps"   '(counsel-git-grep :which-key "Search")
+     ;; S
+     "s"    '(:ignore t :which-key "Search")
+     "ss"   '(swiper :which-key "Search in file")
+     "sS"   '(swiper-all :which-key "Search in all buffers")
+     "sp"   '(counsel-git-grep :which-key "Grep in project")
+     "sj"   '(counsel-imenu :which-key "Imenu")
+     "sk"   '(counsel-yank-pop :which-key "Kill ring")
 
-   ;; S
-   "s"    '(:ignore t :which-key "Search")
-   "ss"   '(swiper :which-key "Search in file")
-   "sS"   '(swiper-all :which-key "Search in all buffers")
-   "sp"   '(counsel-git-grep :which-key "Grep in project")
-   "sj"   '(counsel-imenu :which-key "Imenu")
-   "sk"   '(counsel-yank-pop :which-key "Kill ring")
+     ;; W
+     "w"    '(:ignore t :which-key "Window")
+     "ww"   '(other-window :which-key "Switch window")
+     "wd"   '(ace-delete-window :which-key "Delete window")
+     "wD"   '(delete-other-windows :which-key "Delete other windows")
+     "wa"   '(ace-window :which-key "Ace window")
+     "ws"   '(split-window-below :which-key "Split window below")
+     "w-"   '(split-window-below :which-key "Split window below")
+     "wS"   '(split-window-right :which-key "Split window right")
+     "w/"   '(split-window-right :which-key "Split window right")
+     "wh"   '(windmove-left :which-key "Window left")
+     "wj"   '(windmove-down :which-key "Window down")
+     "wk"   '(windmove-up :which-key "Window up")
+     "wl"   '(windmove-right :which-key "Window right")
 
-   ;; W
-   "w"    '(:ignore t :which-key "Window")
-   "ww"   '(other-window :which-key "Switch window")
-   "wd"   '(ace-delete-window :which-key "Delete window")
-   "wD"   '(delete-other-windows :which-key "Delete other windows")
-   "wa"   '(ace-window :which-key "Ace window")
-   "ws"   '(split-window-below :which-key "Split window below")
-   "w-"   '(split-window-below :which-key "Split window below")
-   "wS"   '(split-window-right :which-key "Split window right")
-   "w/"   '(split-window-right :which-key "Split window right")
-   "wh"   '(windmove-left :which-key "Window left")
-   "wj"   '(windmove-down :which-key "Window down")
-   "wk"   '(windmove-up :which-key "Window up")
-   "wl"   '(windmove-right :which-key "Window right")
+     ;; X
+     "x"    '(:ignore t        :which-key "Text")
+     "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
+     "xs"   '(sort-lines :which-key "Sort lines")
+     "xu"   '(lower-case :which-key "Lower case")
+     "xU"   '(upper-case :which-key "Upper case")
+     "xc"   '(count-words :which-key "Count words")
+     ;; XA
+     "xa"   '(:ignore t       :which-key "Align")
+     "xa'"  '(align-by-single  :which-key "'")
+     "xa="  '(align-by-=       :which-key "=")
+     "xa("  '(align-by-lparen  :which-key "(")
+     "xa)"  '(align-by-lparen  :which-key ")")
+     "xa:"  '(align-by-:       :which-key ":")
 
-   ;; X
-   "x"    '(:ignore t        :which-key "Text")
-   "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
-   "xs"   '(sort-lines :which-key "Sort lines")
-   "xu"   '(lower-case :which-key "Lower case")
-   "xU"   '(upper-case :which-key "Upper case")
-   "xc"   '(count-words :which-key "Count words")
-   ;; XA
-   "xa"   '(:ignore t       :which-key "Align")
-   "xa'"  '(align-by-single  :which-key "'")
-   "xa="  '(align-by-=       :which-key "=")
-   "xa("  '(align-by-lparen  :which-key "(")
-   "xa)"  '(align-by-lparen  :which-key ")")
-   "xa:"  '(align-by-:       :which-key ":")
-
-   ;; Z
-   "z" '(:ignore t :which-key "Zoom")
-   "zi" '(text-scale-increase :which-key "Text larger")
-   "zu" '(text-scale-decrease :which-key "Text smaller")
-   )
+     ;; Z
+     "z" '(:ignore t :which-key "Zoom")
+     "zi" '(text-scale-increase :which-key "Text larger")
+     "zu" '(text-scale-decrease :which-key "Text smaller")
+     )
+    )
   )
 #+END_SRC
