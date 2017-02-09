@@ -418,7 +418,8 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (evil-set-initial-state 'ielm-mode 'insert)
     (evil-set-initial-state 'emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-mode 'emacs)
-    (evil-set-initial-state 'inferior-lisp-mode 'emacs)
+    (evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs)
+    (evil-set-initial-state 'lisp-interaction-mode 'emacs)
     (use-package evil-escape :ensure t
       :config
       (progn
