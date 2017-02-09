@@ -333,6 +333,11 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (global-auto-revert-mode t)
 #+END_SRC
 
+** use spotlight commmand for locate
+#+BEGIN_SRC emacs-lisp
+(setq locate-command "mdfind")
+#+END_SRC
+
 
 * Org mode
 
@@ -547,10 +552,14 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (use-package counsel 
   :ensure t
   :init 
-  (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
+  (progn 
+    (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
+    (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
   :bind*
   (("M-x"     . counsel-M-x))
-  :config)
+  :config
+  (progn 
+    ))
 #+END_SRC
 
 ** hydra
