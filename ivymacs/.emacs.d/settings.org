@@ -5,6 +5,7 @@ Kind of weird with having the defuns first, should look into that
 This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
 
 The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
+
 * How to
   Add ":tangle no" to emacs-lisp begin src block to ignore that config
 
@@ -185,6 +186,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
         (ielm))
     (switch-to-buffer-other-window "*ielm*")))
 #+END_SRC
+
 
 * Settings
 
