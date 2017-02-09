@@ -173,6 +173,18 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (shell-command (concat "open " (buffer-file-name))))
 #+END_SRC
 
+** visit-ielm
+#+BEGIN_SRC emacs-lisp
+(defun visit-ielm ()
+  "Create or visit a `ielm' buffer."
+  (interactive)
+  (if (not (get-buffer "*ielm*"))
+      (progn
+        (split-window-sensibly (selected-window))
+        (other-window 1)
+        (ielm))
+    (switch-to-buffer-other-window "*ielm*")))
+#+END_SRC
 
 * Settings
 
@@ -623,6 +635,7 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
    "ef"   '(eval-defun :which-key "Eval Defun")
    "er"   '(eval-region :which-key "Eval Region")
    "ee"   '(eval-expression :which-key "Eval Expresson")
+   "es"   '(visit-ielm :which-key "Open repl")
 
    ;; F
    "f"    '(:ignore t :which-key "File")
