@@ -409,16 +409,22 @@ The motivation for this project is twofold, one part is to try the ivy family of
 
 ** evil
 #+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :ensure t
-    :config
-    (progn
-      (evil-mode 1)
-      (use-package evil-escape :ensure t
-        :config
-        (progn
-          (evil-escape-mode 1)
-          (setq-default evil-escape-key-sequence "fj")))))
+(use-package evil
+  :ensure t
+  :config
+  (progn
+    (evil-mode 1)
+    (evil-set-initial-state 'git-commit-mode 'insert)
+    (evil-set-initial-state 'ielm-mode 'insert)
+    (evil-set-initial-state 'emacs-lisp-mode 'emacs)
+    (evil-set-initial-state 'lisp-mode 'emacs)
+    (evil-set-initial-state 'inferior-lisp-mode 'emacs)
+    (use-package evil-escape :ensure t
+      :config
+      (progn
+        (evil-escape-mode 1)
+        (setq-default evil-escape-key-sequence "fj")
+        ))))
 #+END_SRC
 
 ** magit
@@ -611,6 +617,21 @@ The motivation for this project is twofold, one part is to try the ivy family of
           erc-nick "blasut")))
 #+END_SRC
 
+** lispy
+#+BEGIN_SRC emacs-lisp
+(use-package lispy
+  :ensure t
+  :init 
+  (progn
+    (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+    (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
+    (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
+    )
+  :config
+  (progn
+    ))
+#+END_SRC
+
 
 * Keybindings
 ** swedish keyboard fix
@@ -713,6 +734,9 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
    "jj"   '(avy-goto-char :which-key "Char")
    "jl"   '(avy-goto-line :which-key "Line")
    "jw"   '(avy-goto-word-0 :which-key "Word")
+
+   ;; M
+   "m"    '(:ignore t :which-key "Major mode")
 
    ;; P
    "p"    '(:ignore t :which-key "Projects")
