@@ -569,8 +569,23 @@ The motivation for this project is twofold, one part is to try the ivy family of
    (define-key key-translation-map (kbd "s-/") (kbd "\\"))
    (define-key key-translation-map (kbd "s-2") (kbd "@"))
    (define-key key-translation-map (kbd "s-4") (kbd "$"))
-
+   #+END_SRC
+Use keyboard-translate to make the swedish keyboard more alike the american layout. Sort of an experiment because I'm not sure how to handle å and the special chars '¨' '^'. They behave in a special way, waiting for more input before 'commiting' to typing out the char. Probably have to rebind this in the OS layer. But a big improvement is being able to use the ; key easily.
+   #+BEGIN_SRC emacs-lisp
    (keyboard-translate ?\ö ?\;)
+   (keyboard-translate ?\Ö ?\:)
+
+   (keyboard-translate ?\ä ?\')
+   (keyboard-translate ?\Ä ?\")
+
+   ;(keyboard-translate ?\å ?\[)
+   ;(keyboard-translate ?\Å ?\{)
+
+   ;(keyboard-translate ?\¨ ?\])
+   ;(keyboard-translate ?\\^ ?\})
+
+   ;(define-key key-translation-map (kbd "¨") (kbd "]"))
+   ;(define-key key-translation-map (kbd "s-}") (kbd "^"))
    #+END_SRC
 ** general
 #+BEGIN_SRC emacs-lisp
