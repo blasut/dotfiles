@@ -1,5 +1,5 @@
 Really liking this way of organizing the config files.
-
+ 
 Kind of weird with having the defuns first, should look into that
 
 This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
@@ -280,7 +280,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (tool-bar-mode -1)              
   (menu-bar-mode -1)               
   (scroll-bar-mode -1)              
-  (set-frame-font "Inconsolata 16")  
+  ;(set-frame-font "Inconsolata 16")  
   (blink-cursor-mode 1)               
   (global-visual-line-mode)
   (diminish 'visual-line-mode ""))
@@ -349,7 +349,32 @@ The motivation for this project is twofold, one part is to try the ivy family of
       org-confirm-babel-evaluate nil
       org-support-shift-select 'always)
 #+END_SRC
+** org babel
+   List of the languages for org babel
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'org 
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp .t)
+     (restclient . t)))
+  )
+#+END_SRC
+Eval in repl with org mode
+#+BEGIN_SRC emacs-lisp
+(use-package org-babel-eval-in-repl
+  :after ob
+  :init (setq eir-jump-after-eval nil)
+  :config
+  (progn
+    (define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
+    (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
+#+END_SRC
 
+get some nice syntax highlighting for html export
+#+BEGIN_SRC emacs-lisp
+(use-package htmlize
+  :after ob)
+#+END_SRC
 
 * Themes
 ** solazired
@@ -418,7 +443,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (evil-set-initial-state 'ielm-mode 'insert)
     (evil-set-initial-state 'emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-mode 'emacs)
-    (evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs)
+    ;(evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-interaction-mode 'emacs)
     (use-package evil-escape :ensure t
       :config
@@ -633,6 +658,17 @@ The motivation for this project is twofold, one part is to try the ivy family of
     ))
 #+END_SRC
 
+** restclient
+#+BEGIN_SRC emacs-lisp
+(use-package restclient
+  :ensure t
+  :config
+  (progn
+    (use-package ob-restclient
+      :ensure t)
+    ))
+#+END_SRC
+
 
 * Keybindings
 ** swedish keyboard fix
@@ -655,9 +691,11 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
    #+BEGIN_SRC emacs-lisp
    (keyboard-translate ?\ö ?\;)
    (keyboard-translate ?\Ö ?\:)
+   (define-key key-translation-map (kbd "H-ö") (kbd "ö"))
 
    (keyboard-translate ?\ä ?\')
    (keyboard-translate ?\Ä ?\")
+   (define-key key-translation-map (kbd "H-ä") (kbd "ä"))
 
    ;(keyboard-translate ?\å ?\[)
    ;(keyboard-translate ?\Å ?\{)
@@ -668,13 +706,14 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
    ;(define-key key-translation-map (kbd "¨") (kbd "]"))
    ;(define-key key-translation-map (kbd "s-}") (kbd "^"))
    #+END_SRC
+
 ** general
 #+BEGIN_SRC emacs-lisp
 (use-package general :ensure t
   :config
   (progn
     (general-define-key
-     :states '(normal motion emacs)
+     :states '(normal motion)
      "/" '(swiper)
      )
 
