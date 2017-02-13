@@ -376,6 +376,7 @@ get some nice syntax highlighting for html export
   :after ob)
 #+END_SRC
 
+
 * Themes
 ** solazired
 #+BEGIN_SRC emacs-lisp
@@ -834,3 +835,12 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
     )
   )
 #+END_SRC
+** Major modes
+*** org
+    #+BEGIN_SRC emacs-lisp
+    (general-define-key :states '(normal visual)
+                        :keymaps 'org-mode-map
+                        "gj" 'org-next-visible-heading
+                        "gk" 'org-previous-visible-heading)
+    #+END_SRC
+    
