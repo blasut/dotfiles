@@ -670,6 +670,17 @@ get some nice syntax highlighting for html export
     ))
 #+END_SRC
 
+** slime
+   #+BEGIN_SRC emacs-lisp
+   (use-package slime
+     :ensure t
+     :commands (slime slime-lisp-mode-hook)
+     :config (progn
+               (setq inferior-lisp-program "/usr/local/bin/sbcl")
+               (setq slime-contribs '(slime-fancy))
+               (slime-setup)))
+   #+END_SRC
+
 
 * Keybindings
 ** swedish keyboard fix
