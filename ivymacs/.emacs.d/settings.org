@@ -444,8 +444,13 @@ get some nice syntax highlighting for html export
     (evil-set-initial-state 'ielm-mode 'insert)
     (evil-set-initial-state 'emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-mode 'emacs)
-    ;(evil-set-initial-state 'inferior-emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-interaction-mode 'emacs)
+    (defun evil-paste-after-from-0 ()
+      (interactive)
+      (let ((evil-this-register ?0))
+        (call-interactively 'evil-paste-after)))
+    (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
     (use-package evil-escape :ensure t
       :config
       (progn
