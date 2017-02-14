@@ -706,13 +706,13 @@ get some nice syntax highlighting for html export
    #+END_SRC
 Use keyboard-translate to make the swedish keyboard more alike the american layout. Sort of an experiment because I'm not sure how to handle å and the special chars '¨' '^'. They behave in a special way, waiting for more input before 'commiting' to typing out the char. Probably have to rebind this in the OS layer. But a big improvement is being able to use the ; key easily.
    #+BEGIN_SRC emacs-lisp
-   (keyboard-translate ?\ö ?\;)
-   (keyboard-translate ?\Ö ?\:)
-   (define-key key-translation-map (kbd "H-ö") (kbd "ö"))
+   ;(keyboard-translate ?\ö ?\;)
+   ;(keyboard-translate ?\Ö ?\:)
+   ;(define-key key-translation-map (kbd "H-ö") (kbd "ö"))
 
-   (keyboard-translate ?\ä ?\')
-   (keyboard-translate ?\Ä ?\")
-   (define-key key-translation-map (kbd "H-ä") (kbd "ä"))
+   ;(keyboard-translate ?\ä ?\')
+   ;(keyboard-translate ?\Ä ?\")
+   ;(define-key key-translation-map (kbd "H-ä") (kbd "ä"))
 
    ;(keyboard-translate ?\å ?\[)
    ;(keyboard-translate ?\Å ?\{)
