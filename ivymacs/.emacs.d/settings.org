@@ -459,7 +459,10 @@ The motivation for this project is twofold, one part is to try the ivy family of
       (progn
         (evil-escape-mode 1)
         (setq-default evil-escape-key-sequence "fj")
-        ))))
+        ))
+    (use-package evil-surround
+      :ensure t
+      :config (global-evil-surround-mode 1))))
 #+END_SRC
 
 ** magit
@@ -736,6 +739,11 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      :states '(normal motion)
      "/" '(swiper)
      )
+    
+    (general-define-key
+     :state '(emacs insert)
+     "RET" '(newline-and-indent))
+    
 
     (general-define-key
      :states '(normal motion emacs)
@@ -854,6 +862,10 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
     )
   )
 #+END_SRC
+
+#+RESULTS:
+: t
+
 ** Major modes
 *** org
     #+BEGIN_SRC emacs-lisp
