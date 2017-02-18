@@ -340,7 +340,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
 
 
 * Org mode
-
 ** pretty source code blocks
 #+BEGIN_SRC emacs-lisp
 (setq org-edit-src-content-indentation 0
@@ -359,7 +358,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
      (restclient . t)))
   )
 #+END_SRC
-Eval in repl with org mode
+** Eval in repl with org mode
 #+BEGIN_SRC emacs-lisp
 (use-package org-babel-eval-in-repl
   :after ob
@@ -369,11 +368,15 @@ Eval in repl with org mode
     (define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
     (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
 #+END_SRC
-
-get some nice syntax highlighting for html export
+** get some nice syntax highlighting for html export
 #+BEGIN_SRC emacs-lisp
 (use-package htmlize
   :after ob)
+#+END_SRC
+
+** Remove markup chars, /lol/ becomes italized "lol"
+#+BEGIN_SRC emacs-lisp
+(setq org-hide-emphasis-markers t)
 #+END_SRC
 
 
