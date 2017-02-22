@@ -38,7 +38,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (defun open-config ()
   "Opens the init.el file"
   (interactive)
-  (open-file-in-new-buffer "~/.emacs.d/init.el"))
+  (open-file-in-new-buffer "~/.emacs.d/settings.org"))
 
 #+END_SRC
 
@@ -774,7 +774,7 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
 
      ;; F
      "f"    '(:ignore t :which-key "File")
-     "fc"   '(open-config :which-key "Open init.el file")
+     "fc"   '(open-config :which-key "Open settings.org file")
      "ff"   '(counsel-find-file :which-key "Find file")
      "fl"   '(counsel-locate :which-key "Locate")
      "fs"   '(save-buffer :which-key "Save")
