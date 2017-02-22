@@ -355,9 +355,12 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp .t)
-     (restclient . t)))
+     (restclient . t)
+     (lisp . t))
+   )
   )
 #+END_SRC
+
 ** Eval in repl with org mode
 #+BEGIN_SRC emacs-lisp
 (use-package org-babel-eval-in-repl
@@ -696,6 +699,12 @@ The motivation for this project is twofold, one part is to try the ivy family of
                (slime-setup)))
    #+END_SRC
 
+** electric pair mode
+   #+BEGIN_SRC emacs-lisp
+   (use-package electric-pair-mode
+     :init (progn
+             (add-hook 'org-mode-hook 'electric-pair-mode)))
+   #+END_SRC
 
 * Keybindings
 ** swedish keyboard fix
