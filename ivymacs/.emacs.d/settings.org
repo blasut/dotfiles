@@ -466,9 +466,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
       :config (global-evil-surround-mode 1))))
 #+END_SRC
 
-#+RESULTS:
-: t
-
 ** magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit :ensure t
