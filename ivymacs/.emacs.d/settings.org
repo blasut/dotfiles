@@ -348,6 +348,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
       org-confirm-babel-evaluate nil
       org-support-shift-select 'always)
 #+END_SRC
+
 ** org babel
    List of the languages for org babel
 #+BEGIN_SRC emacs-lisp
@@ -371,6 +372,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
     (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
 #+END_SRC
+
 ** get some nice syntax highlighting for html export
 #+BEGIN_SRC emacs-lisp
 (use-package htmlize
@@ -382,6 +384,27 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (setq org-hide-emphasis-markers t)
 #+END_SRC
 
+** set org directory
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/org"
+      org-agenda-files '("~/org"))
+#+END_SRC
+
+** set notes file and templates
+#+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file (concat org-directory "/notes.org")
+      org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
+         "* TODO %?\n %i\n %a")
+        ("d" "Literate" entry (file+headline (concat org-directory "/literate.org") "Literate")
+         "* %?\n %i\n %a")
+        ("n" "Note" entry (file+headline (concat org-directory "/notes.org") "Notes")
+         "* %?")
+        ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
+         "* %?" :clock-in t :clock-resume t)
+        ("l" "Read it later" checkitem (file+headline (concat org-directory "/readlater.org") "Read it later")
+         "[ ] %?")))
+#+END_SRC
 
 
 * Themes
@@ -563,6 +586,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (add-hook 'prog-mode-hook (lambda()
                                 (rainbow-delimiters-mode t)))))
 #+END_SRC
+
 ** dashboard
 #+BEGIN_SRC emacs-lisp
 (use-package dashboard
@@ -576,6 +600,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
                             (bookmarks . 5)
                             (projects . 5)))))
 #+END_SRC
+
 ** eldoc
 #+BEGIN_SRC emacs-lisp
 (use-package eldoc
@@ -706,6 +731,34 @@ The motivation for this project is twofold, one part is to try the ivy family of
              (add-hook 'org-mode-hook 'electric-pair-mode)))
    #+END_SRC
 
+** yasnippet
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :disabled
+  :diminish yas-minor-mode
+  :init (progn
+          ;; Change the default hippie-expand order and add yasnippet to the front.
+          (setq hippie-expand-try-functions-list
+                '(yas/hippie-try-expand
+                  try-expand-dabbrev
+                  try-expand-dabbrev-all-buffers
+                  try-expand-dabbrev-from-kill
+                  try-complete-file-name
+                  try-complete-lisp-symbol)))
+  :config
+  (progn
+    (yas-global-mode 1)
+    ;; Helps when debugging which try-function expanded
+    (setq hippie-expand-verbose t)
+    (setq yas-wrap-around-region t)
+    (setq yas-verbosity 1)
+    (setq yas-snippet-dirs (list (concat emacs-d "snippets/")))
+    ;; Enables tab completion in the `eval-expression` minibuffer
+    (define-key yas-minor-mode-map [(tab)] 'hippe-expand)
+    (define-key yas-minor-mode-map [(shift tab)] 'unexpand)))
+#+END_SRC
+
+
 * Keybindings
 ** swedish keyboard fix
    #+BEGIN_SRC emacs-lisp
@@ -749,9 +802,11 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
   :config
   (progn
     (general-define-key
+     "M--" 'hippie-expand)
+
+    (general-define-key
      :states '(normal motion)
-     "/" '(swiper)
-     )
+     "/" '(swiper))
     
     (general-define-key
      :state '(emacs insert)
