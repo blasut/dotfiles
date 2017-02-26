@@ -463,6 +463,24 @@ The motivation for this project is twofold, one part is to try the ivy family of
     #+END_SRC
 
     
+* "Layers"
+** git-layer
+#+BEGIN_SRC emacs-lisp
+(defun my/git-layer() 
+  (progn
+    (use-package magit :ensure t
+      :commands magit-status
+      :config
+      (progn
+        (use-package evil-magit
+          :ensure t      
+          :after evil)
+        (global-git-commit-mode)
+        (setq magit-completing-read-function 'ivy-completing-read)))))
+
+#+END_SRC
+    
+
 * Packages and modes
 
 ** recentf
@@ -514,15 +532,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 
 ** magit
 #+BEGIN_SRC emacs-lisp
-(use-package magit :ensure t
-  :commands magit-status
-  :config
-  (progn
-    (use-package evil-magit
-      :ensure t      
-      :after evil)
-    (global-git-commit-mode)
-    (setq magit-completing-read-function 'ivy-completing-read)))
+(my/git-layer)
 #+END_SRC
 
 ** which-key
