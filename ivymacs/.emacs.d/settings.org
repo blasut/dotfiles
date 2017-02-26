@@ -847,6 +847,12 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      ;; A
      "a"    '(:ignore t :which-key "Applications")
      "ad"   '(dired :which-key "Dired")
+     ;; AG
+     "ag"   '(:ignore t :which-key "Games")
+     "agt"  '(tetris :which-key "Tetris")
+     "agm"  '(mpuz :which-key "Mpuz")
+     "agp"  '(pong :which-key "Pong")
+     "ags"  '(snake :which-key "Snake")
      
      ;; B
      "b"    '(:ignore t :which-key "Buffer")
