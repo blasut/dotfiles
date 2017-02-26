@@ -1,3 +1,4 @@
+* Settings
 Really liking this way of organizing the config files.
  
 Kind of weird with having the defuns first, should look into that
@@ -5,6 +6,25 @@ Kind of weird with having the defuns first, should look into that
 This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
 
 The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
+
+** config/mode/layer based system
+   Next step is that it is getting to hard to configure stuff using random packages. A layered-inspired system is probably a good idea.
+
+   How can that be achieved?
+   
+   Well, the syntax and idea behind the spacemacs layers are really well thought out, and works pretty good.
+   
+   Maybe something like this for requiring a layer:
+   #+BEGIN_SRC emacs-lisp :tangle no 
+   (use-layer 'lisp
+              :disabled t
+              :if (equal 'use-lisp t)
+              :config (setf this-is-my-config-var t))
+   #+END_SRC
+   And then the code inside the layer can be just about anything I guess... It would probably be very good if the underlying stuff used use-package I guess.
+   
+   Moving stuff outside of this file, is that a good idea? Maybe the solution could be mixed... This file is the "main" config and when the config gets the much it can be moved to a separate file. Still nice to be a org file though.
+
 
 * How to
   Add ":tangle no" to emacs-lisp begin src block to ignore that config
