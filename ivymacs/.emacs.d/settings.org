@@ -843,7 +843,11 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
 
      ;; Special keys
      "SPC"  '(counsel-M-x)
-
+     
+     ;; A
+     "a"    '(:ignore t :which-key "Applications")
+     "ad"   '(dired :which-key "Dired")
+     
      ;; B
      "b"    '(:ignore t :which-key "Buffer")
      "bb"   '(ivy-switch-buffer :which-key "Change buffer")
@@ -962,4 +966,5 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
                         "gj" 'org-next-visible-heading
                         "gk" 'org-previous-visible-heading)
     #+END_SRC
+    
     
