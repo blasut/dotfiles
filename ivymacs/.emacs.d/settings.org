@@ -789,6 +789,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 #+END_SRC
 
 
+
 * Keybindings
 ** swedish keyboard fix
    #+BEGIN_SRC emacs-lisp
@@ -879,6 +880,7 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      "er"   '(eval-region :which-key "Eval Region")
      "ee"   '(eval-expression :which-key "Eval Expresson")
      "es"   '(visit-ielm :which-key "Open repl")
+     "em"   '(pp-macroexpand-last-sexp :which-key "Macroexpand sexp")
 
      ;; F
      "f"    '(:ignore t :which-key "File")
