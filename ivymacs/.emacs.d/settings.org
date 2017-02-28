@@ -463,7 +463,30 @@ The motivation for this project is twofold, one part is to try the ivy family of
     #+END_SRC
 
     
-* "Layers"
+* Layers-definition
+** definitions for layer-system
+#+BEGIN_SRC emacs-lisp
+(require 'cl-lib)
+
+(defun layer-name (name)
+  (intern (concat "my-layer/" (symbol-name name))))
+
+(defmacro define-layer (name &rest args)
+  (let ((vars (append (plist-get args :vars) '((disabled nil))))
+        (config (plist-get args :config))
+        (func-name (layer-name name)))
+    `(cl-defun ,func-name (&key ,@vars)
+       (unless disabled
+         ,config))))
+
+(defmacro use-layer (name &rest args)
+  (let ((vars (plist-get args :vars))
+        (func-name (layer-name name)))
+    (print vars)
+    `(,func-name ,@vars)))
+
+#+END_SRC
+ 
 ** git-layer
 #+BEGIN_SRC emacs-lisp
 (defun my/git-layer() 
