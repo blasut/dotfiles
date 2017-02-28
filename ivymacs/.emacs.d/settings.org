@@ -38,6 +38,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
   - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
   - http://zck.me/emacs-repeat-emacs-repeat
+  - https://github.com/julienfantin/.emacs.d/blob/master/lib/use-config/use-config.el
 
     
 * Defuns
@@ -489,20 +490,74 @@ The motivation for this project is twofold, one part is to try the ivy family of
  
 ** git-layer
 #+BEGIN_SRC emacs-lisp
-(defun my/git-layer() 
-  (progn
-    (use-package magit :ensure t
-      :commands magit-status
-      :config
-      (progn
-        (use-package evil-magit
-          :ensure t      
-          :after evil)
-        (global-git-commit-mode)
-        (setq magit-completing-read-function 'ivy-completing-read)))))
+(define-layer git 
+  :vars ((git-completion-mode 'ivy-completing-read)
+         (global-git-mode t))
+  :config (use-package magit :ensure t
+            :commands magit-status
+            :config
+            (progn
+              (use-package evil-magit
+                :ensure t      
+                :after evil)
+              (when global-git-mode (global-git-commit-mode))
+              (setq magit-completing-read-function git-completion-mode))))
+#+END_SRC
+
+** lisp-layer
+#+BEGIN_SRC emacs-lisp
+(define-layer lisp
+  :vars ((use-lispy nil))
+  :config 
+  (progn 
+    (use-package slime
+      :ensure t
+      :commands (slime slime-lisp-mode-hook)
+      :config (progn
+                (setq inferior-lisp-program "/usr/local/bin/sbcl")
+                (setq slime-contribs '(slime-fancy))
+                (slime-setup)))
+
+    (when use-lispy 
+      (use-package lispy
+        :ensure t
+        :init 
+        (progn
+          (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+          (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
+          (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
 
 #+END_SRC
-    
+
+** elisp-layer
+#+BEGIN_SRC emacs-lisp
+(define-layer emacs-lisp
+  :vars ((use-lispy nil))
+  :config 
+  (progn
+    (use-package eldoc
+      :ensure t
+      :init
+      (progn
+        (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
+
+    (when use-lispy 
+      (use-package lispy
+        :ensure t
+        :init 
+        (progn
+          (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+          (evil-set-initial-state 'emacs-lisp-mode 'emacs))))))
+#+END_SRC
+
+
+* Layers configuration
+#+BEGIN_SRC emacs-lisp
+(use-layer git)
+(use-layer lisp)
+(use-layer emacs-lisp)
+#+END_SRC
+
 
 * Packages and modes
 
@@ -533,7 +588,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (evil-mode 1)
     (add-hook 'git-commit-mode-hook 'evil-insert-state) 
     (evil-set-initial-state 'ielm-mode 'insert)
-    (evil-set-initial-state 'emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-interaction-mode 'emacs)
     (defun evil-paste-after-from-0 ()
@@ -551,11 +605,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (use-package evil-surround
       :ensure t
       :config (global-evil-surround-mode 1))))
-#+END_SRC
-
-** magit
-#+BEGIN_SRC emacs-lisp
-(my/git-layer)
 #+END_SRC
 
 ** which-key
@@ -654,15 +703,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
                             (projects . 5)))))
 #+END_SRC
 
-** eldoc
-#+BEGIN_SRC emacs-lisp
-(use-package eldoc
-  :ensure t
-  :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
-#+END_SRC
-
 ** ivy + swiper
 #+BEGIN_SRC emacs-lisp
 (use-package swiper
@@ -740,21 +780,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
           erc-nick "blasut")))
 #+END_SRC
 
-** lispy
-#+BEGIN_SRC emacs-lisp
-(use-package lispy
-  :ensure t
-  :init 
-  (progn
-    (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-    (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
-    (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
-    )
-  :config
-  (progn
-    ))
-#+END_SRC
-
 ** restclient
 #+BEGIN_SRC emacs-lisp
 (use-package restclient
@@ -765,24 +790,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
       :ensure t)
     ))
 #+END_SRC
-
-** slime
-   #+BEGIN_SRC emacs-lisp
-   (use-package slime
-     :ensure t
-     :commands (slime slime-lisp-mode-hook)
-     :config (progn
-               (setq inferior-lisp-program "/usr/local/bin/sbcl")
-               (setq slime-contribs '(slime-fancy))
-               (slime-setup)))
-   #+END_SRC
-
-** electric pair mode
-   #+BEGIN_SRC emacs-lisp
-   (use-package electric-pair-mode
-     :init (progn
-             (add-hook 'org-mode-hook 'electric-pair-mode)))
-   #+END_SRC
 
 ** yasnippet
 #+BEGIN_SRC emacs-lisp
