@@ -507,7 +507,8 @@ The motivation for this project is twofold, one part is to try the ivy family of
 ** lisp-layer
 #+BEGIN_SRC emacs-lisp
 (define-layer lisp
-  :vars ((use-lispy nil))
+  :vars ((use-lispy nil)
+         (use-parinfer t))
   :config 
   (progn 
     (use-package slime
@@ -517,6 +518,21 @@ The motivation for this project is twofold, one part is to try the ivy family of
                 (setq inferior-lisp-program "/usr/local/bin/sbcl")
                 (setq slime-contribs '(slime-fancy))
                 (slime-setup)))
+
+    (when use-parinfer 
+      (use-package parinfer
+        :ensure t
+        :bind
+        (("C-," . parinfer-toggle-mode))
+        :init
+        (progn
+          (setq parinfer-extensions
+                '(defaults       ; should be included.
+                   pretty-parens  ; different paren styles for different modes.
+                   evil           ; If you use Evil.
+                   ))   
+          (add-hook 'lisp-mode-hook #'parinfer-mode))))
+    
 
     (when use-lispy 
       (use-package lispy
