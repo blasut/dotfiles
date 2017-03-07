@@ -37,6 +37,13 @@ Trying to get some order up in here
 
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
    #+END_SRC
+
+   Insert state as default state when commiting
+
+   #+BEGIN_SRC emacs-lisp
+  (add-hook 'git-commit-mode-hook 'evil-insert-state) 
+   #+END_SRC
+
 * Packages
 ** Web-mode and js2-mode binding
     #+BEGIN_SRC emacs-lisp
