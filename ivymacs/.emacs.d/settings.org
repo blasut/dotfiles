@@ -1,3 +1,4 @@
+* Settings
 Really liking this way of organizing the config files.
  
 Kind of weird with having the defuns first, should look into that
@@ -5,6 +6,25 @@ Kind of weird with having the defuns first, should look into that
 This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
 
 The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
+
+** config/mode/layer based system
+   Next step is that it is getting to hard to configure stuff using random packages. A layered-inspired system is probably a good idea.
+
+   How can that be achieved?
+   
+   Well, the syntax and idea behind the spacemacs layers are really well thought out, and works pretty good.
+   
+   Maybe something like this for requiring a layer:
+   #+BEGIN_SRC emacs-lisp :tangle no 
+   (use-layer 'lisp
+              :disabled t
+              :if (equal 'use-lisp t)
+              :config (setf this-is-my-config-var t))
+   #+END_SRC
+   And then the code inside the layer can be just about anything I guess... It would probably be very good if the underlying stuff used use-package I guess.
+   
+   Moving stuff outside of this file, is that a good idea? Maybe the solution could be mixed... This file is the "main" config and when the config gets the much it can be moved to a separate file. Still nice to be a org file though.
+
 
 * How to
   Add ":tangle no" to emacs-lisp begin src block to ignore that config
@@ -18,6 +38,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
   - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
   - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
   - http://zck.me/emacs-repeat-emacs-repeat
+  - https://github.com/julienfantin/.emacs.d/blob/master/lib/use-config/use-config.el
 
     
 * Defuns
@@ -38,7 +59,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
 (defun open-config ()
   "Opens the init.el file"
   (interactive)
-  (open-file-in-new-buffer "~/.emacs.d/init.el"))
+  (open-file-in-new-buffer "~/.emacs.d/settings.org"))
 
 #+END_SRC
 
@@ -192,11 +213,14 @@ The motivation for this project is twofold, one part is to try the ivy family of
 
 ** utf8
 #+BEGIN_SRC emacs-lisp
-(setq locale-coding-system 'utf-8) ; pretty
-(set-terminal-coding-system 'utf-8) ; pretty
-(set-keyboard-coding-system 'utf-8) ; pretty
-(set-selection-coding-system 'utf-8) ; please
-(prefer-coding-system 'utf-8) ; with sugar on top
+(set-language-environment "utf-8")
+(setq locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8-unix)
+(prefer-coding-system 'utf-8)
 
 (setenv "LANG" "en_US.UTF-8")
 #+END_SRC
@@ -348,6 +372,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
       org-confirm-babel-evaluate nil
       org-support-shift-select 'always)
 #+END_SRC
+
 ** org babel
    List of the languages for org babel
 #+BEGIN_SRC emacs-lisp
@@ -355,9 +380,12 @@ The motivation for this project is twofold, one part is to try the ivy family of
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp .t)
-     (restclient . t)))
+     (restclient . t)
+     (lisp . t))
+   )
   )
 #+END_SRC
+
 ** Eval in repl with org mode
 #+BEGIN_SRC emacs-lisp
 (use-package org-babel-eval-in-repl
@@ -368,6 +396,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
     (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
 #+END_SRC
+
 ** get some nice syntax highlighting for html export
 #+BEGIN_SRC emacs-lisp
 (use-package htmlize
@@ -377,6 +406,28 @@ The motivation for this project is twofold, one part is to try the ivy family of
 ** Remove markup chars, /lol/ becomes italized "lol"
 #+BEGIN_SRC emacs-lisp
 (setq org-hide-emphasis-markers t)
+#+END_SRC
+
+** set org directory
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/org"
+      org-agenda-files '("~/org"))
+#+END_SRC
+
+** set notes file and templates
+#+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file (concat org-directory "/notes.org")
+      org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
+         "* TODO %?\n %i\n %a")
+        ("d" "Literate" entry (file+headline (concat org-directory "/literate.org") "Literate")
+         "* %?\n %i\n %a")
+        ("n" "Note" entry (file+headline (concat org-directory "/notes.org") "Notes")
+         "* %?")
+        ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
+         "* %?" :clock-in t :clock-resume t)
+        ("l" "Read it later" checkitem (file+headline (concat org-directory "/readlater.org") "Read it later")
+         "[ ] %?")))
 #+END_SRC
 
 
@@ -416,6 +467,121 @@ The motivation for this project is twofold, one part is to try the ivy family of
     #+END_SRC
 
     
+* Layers-definition
+** definitions for layer-system
+#+BEGIN_SRC emacs-lisp
+(require 'cl-lib)
+
+(defun layer-name (name)
+  (intern (concat "my-layer/" (symbol-name name))))
+
+(defmacro define-layer (name &rest args)
+  (let ((vars (append (plist-get args :vars) '((disabled nil))))
+        (config (plist-get args :config))
+        (func-name (layer-name name)))
+    `(cl-defun ,func-name (&key ,@vars)
+       (unless disabled
+         ,config))))
+
+(defmacro use-layer (name &rest args)
+  (let ((vars (plist-get args :vars))
+        (func-name (layer-name name)))
+    (print vars)
+    `(,func-name ,@vars)))
+
+#+END_SRC
+ 
+** git-layer
+#+BEGIN_SRC emacs-lisp
+(define-layer git 
+  :vars ((git-completion-mode 'ivy-completing-read)
+         (global-git-mode t))
+  :config (use-package magit :ensure t
+            :commands magit-status
+            :config
+            (progn
+              (use-package evil-magit
+                :ensure t      
+                :after evil)
+              (when global-git-mode (global-git-commit-mode))
+              (setq magit-completing-read-function git-completion-mode))))
+#+END_SRC
+
+** lisp-layer
+#+BEGIN_SRC emacs-lisp
+(define-layer lisp
+  :vars ((use-lispy nil)
+         (use-parinfer t))
+  :config 
+  (progn 
+    (use-package slime
+      :ensure t
+      :commands (slime slime-lisp-mode-hook)
+      :config (progn
+                (setq slime-net-coding-system 'utf-8-unix)
+                (setq inferior-lisp-program "/usr/local/bin/sbcl")
+                (setq slime-contribs '(slime-fancy))
+                (slime-setup)))
+
+    (when use-parinfer 
+      (use-package parinfer
+        :ensure t
+        :bind
+        (("C-," . parinfer-toggle-mode))
+        :init
+        (progn
+          (setq parinfer-extensions
+                '(defaults       ; should be included.
+                   pretty-parens  ; different paren styles for different modes.
+                   evil           ; If you use Evil.
+                   ))   
+          (add-hook 'lisp-mode-hook #'parinfer-mode))))
+    
+
+    (when use-lispy 
+      (use-package lispy
+        :ensure t
+        :init 
+        (progn
+          (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+          (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
+          (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
+
+#+END_SRC
+
+#+RESULTS:
+: my-layer/lisp
+
+** elisp-layer
+#+BEGIN_SRC emacs-lisp
+(define-layer emacs-lisp
+  :vars ((use-lispy nil))
+  :config 
+  (progn
+    (use-package eldoc
+      :ensure t
+      :init
+      (progn
+        (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
+
+    (when use-lispy 
+      (use-package lispy
+        :ensure t
+        :init 
+        (progn
+          (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+          (evil-set-initial-state 'emacs-lisp-mode 'emacs))))))
+#+END_SRC
+
+
+* Layers configuration
+#+BEGIN_SRC emacs-lisp
+(use-layer git)
+(use-layer lisp)
+(use-layer emacs-lisp)
+#+END_SRC
+
+
 * Packages and modes
 
 ** recentf
@@ -443,9 +609,8 @@ The motivation for this project is twofold, one part is to try the ivy family of
   :config
   (progn
     (evil-mode 1)
-    (evil-set-initial-state 'git-commit-mode 'insert)
+    (add-hook 'git-commit-mode-hook 'evil-insert-state) 
     (evil-set-initial-state 'ielm-mode 'insert)
-    (evil-set-initial-state 'emacs-lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-mode 'emacs)
     (evil-set-initial-state 'lisp-interaction-mode 'emacs)
     (defun evil-paste-after-from-0 ()
@@ -463,16 +628,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (use-package evil-surround
       :ensure t
       :config (global-evil-surround-mode 1))))
-#+END_SRC
-
-** magit
-#+BEGIN_SRC emacs-lisp
-  (use-package magit :ensure t
-    :commands magit-status
-    :config
-    (progn
-     (global-git-commit-mode)
-      (setq magit-completing-read-function 'ivy-completing-read)))
 #+END_SRC
 
 ** which-key
@@ -556,6 +711,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (add-hook 'prog-mode-hook (lambda()
                                 (rainbow-delimiters-mode t)))))
 #+END_SRC
+
 ** dashboard
 #+BEGIN_SRC emacs-lisp
 (use-package dashboard
@@ -568,14 +724,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (setq dashboard-items '((recents  . 5)
                             (bookmarks . 5)
                             (projects . 5)))))
-#+END_SRC
-** eldoc
-#+BEGIN_SRC emacs-lisp
-(use-package eldoc
-  :ensure t
-  :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
 #+END_SRC
 
 ** ivy + swiper
@@ -655,21 +803,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
           erc-nick "blasut")))
 #+END_SRC
 
-** lispy
-#+BEGIN_SRC emacs-lisp
-(use-package lispy
-  :ensure t
-  :init 
-  (progn
-    (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-    (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
-    (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
-    )
-  :config
-  (progn
-    ))
-#+END_SRC
-
 ** restclient
 #+BEGIN_SRC emacs-lisp
 (use-package restclient
@@ -681,16 +814,33 @@ The motivation for this project is twofold, one part is to try the ivy family of
     ))
 #+END_SRC
 
-** slime
-   #+BEGIN_SRC emacs-lisp
-   (use-package slime
-     :ensure t
-     :commands (slime slime-lisp-mode-hook)
-     :config (progn
-               (setq inferior-lisp-program "/usr/local/bin/sbcl")
-               (setq slime-contribs '(slime-fancy))
-               (slime-setup)))
-   #+END_SRC
+** yasnippet
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :disabled
+  :diminish yas-minor-mode
+  :init (progn
+          ;; Change the default hippie-expand order and add yasnippet to the front.
+          (setq hippie-expand-try-functions-list
+                '(yas/hippie-try-expand
+                  try-expand-dabbrev
+                  try-expand-dabbrev-all-buffers
+                  try-expand-dabbrev-from-kill
+                  try-complete-file-name
+                  try-complete-lisp-symbol)))
+  :config
+  (progn
+    (yas-global-mode 1)
+    ;; Helps when debugging which try-function expanded
+    (setq hippie-expand-verbose t)
+    (setq yas-wrap-around-region t)
+    (setq yas-verbosity 1)
+    (setq yas-snippet-dirs (list (concat emacs-d "snippets/")))
+    ;; Enables tab completion in the `eval-expression` minibuffer
+    (define-key yas-minor-mode-map [(tab)] 'hippe-expand)
+    (define-key yas-minor-mode-map [(shift tab)] 'unexpand)))
+#+END_SRC
+
 
 
 * Keybindings
@@ -736,9 +886,11 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
   :config
   (progn
     (general-define-key
+     "M--" 'hippie-expand)
+
+    (general-define-key
      :states '(normal motion)
-     "/" '(swiper)
-     )
+     "/" '(swiper))
     
     (general-define-key
      :state '(emacs insert)
@@ -755,7 +907,17 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
 
      ;; Special keys
      "SPC"  '(counsel-M-x)
-
+     
+     ;; A
+     "a"    '(:ignore t :which-key "Applications")
+     "ad"   '(dired :which-key "Dired")
+     ;; AG
+     "ag"   '(:ignore t :which-key "Games")
+     "agt"  '(tetris :which-key "Tetris")
+     "agm"  '(mpuz :which-key "Mpuz")
+     "agp"  '(pong :which-key "Pong")
+     "ags"  '(snake :which-key "Snake")
+     
      ;; B
      "b"    '(:ignore t :which-key "Buffer")
      "bb"   '(ivy-switch-buffer :which-key "Change buffer")
@@ -763,6 +925,7 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      "bn"   '(next-buffer :which-key "Next buffer")
      "bp"   '(previous-buffer :which-key "Previous buffer")
      "bR"   '(revert-buffer :which-key "Revert buffer")
+     "bk"   '(kill-buffer :which-key "Kill buffer")
 
      ;; E
      "e"    '(:ignore t :which-key "Eval")
@@ -771,10 +934,11 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      "er"   '(eval-region :which-key "Eval Region")
      "ee"   '(eval-expression :which-key "Eval Expresson")
      "es"   '(visit-ielm :which-key "Open repl")
+     "em"   '(pp-macroexpand-last-sexp :which-key "Macroexpand sexp")
 
      ;; F
      "f"    '(:ignore t :which-key "File")
-     "fc"   '(open-config :which-key "Open init.el file")
+     "fc"   '(open-config :which-key "Open settings.org file")
      "ff"   '(counsel-find-file :which-key "Find file")
      "fl"   '(counsel-locate :which-key "Locate")
      "fs"   '(save-buffer :which-key "Save")
@@ -874,4 +1038,5 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
                         "gj" 'org-next-visible-heading
                         "gk" 'org-previous-visible-heading)
     #+END_SRC
+    
     
