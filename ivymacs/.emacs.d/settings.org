@@ -481,7 +481,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
         (func-name (layer-name name)))
     `(cl-defun ,func-name (&key ,@vars)
        (unless disabled
-         ,config))))
+         (progn ,config)))))
 
 (defmacro use-layer (name &rest args)
   (let ((vars (plist-get args :vars))
@@ -490,6 +490,9 @@ The motivation for this project is twofold, one part is to try the ivy family of
     `(,func-name ,@vars)))
 
 #+END_SRC
+
+#+RESULTS:
+: use-layer
  
 ** git-layer
 #+BEGIN_SRC emacs-lisp
@@ -513,7 +516,6 @@ The motivation for this project is twofold, one part is to try the ivy family of
   :vars ((use-lispy nil)
          (use-parinfer t))
   :config 
-  (progn 
     (use-package slime
       :ensure t
       :commands (slime slime-lisp-mode-hook)
@@ -545,7 +547,7 @@ The motivation for this project is twofold, one part is to try the ivy family of
         (progn
           (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
           (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
-          (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
+          (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))))))
 
 #+END_SRC
 
@@ -911,6 +913,7 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      ;; A
      "a"    '(:ignore t :which-key "Applications")
      "ad"   '(dired :which-key "Dired")
+     "as"   '(slime-selector :which-key "Slime Selector")
      ;; AG
      "ag"   '(:ignore t :which-key "Games")
      "agt"  '(tetris :which-key "Tetris")
