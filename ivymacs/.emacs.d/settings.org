@@ -208,6 +208,15 @@ The motivation for this project is twofold, one part is to try the ivy family of
     (switch-to-buffer-other-window "*ielm*")))
 #+END_SRC
 
+** reload-config
+#+BEGIN_SRC emacs-lisp
+(defun reload-config ()
+  (interactive)
+  (with-temp-buffer 
+    (insert-file-contents "~/.emacs.d/init.el")
+    (eval-buffer)))
+#+END_SRC
+
 
 * Settings
 
@@ -676,8 +685,9 @@ The motivation for this project is twofold, one part is to try the ivy family of
 #+END_SRC
 
 ** flycheck
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
 (use-package flycheck
+  :disabled t
   :commands flycheck-mode
   :init
   (progn
@@ -938,6 +948,7 @@ Use keyboard-translate to make the swedish keyboard more alike the american layo
      "ee"   '(eval-expression :which-key "Eval Expresson")
      "es"   '(visit-ielm :which-key "Open repl")
      "em"   '(pp-macroexpand-last-sexp :which-key "Macroexpand sexp")
+     "ec"   '(reload-config :which-key "Reload config")
 
      ;; F
      "f"    '(:ignore t :which-key "File")
