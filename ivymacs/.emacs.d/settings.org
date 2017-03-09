@@ -1,11 +1,11 @@
 * Settings
-Really liking this way of organizing the config files.
+  Really liking this way of organizing the config files.
  
-Kind of weird with having the defuns first, should look into that
+  Kind of weird with having the defuns first, should look into that
 
-This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
+  This config, ivymacs, takes very heavy inspiration from spacemacs and uses a combination of different packages to achieve that. Because we are using ordinary emacs, we have full controll over the .emacs.d folder which in the spacemacs cause we dont.  
 
-The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
+  The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels to big and cluttered.
 
 ** config/mode/layer based system
    Next step is that it is getting to hard to configure stuff using random packages. A layered-inspired system is probably a good idea.
@@ -44,814 +44,816 @@ The motivation for this project is twofold, one part is to try the ivy family of
 * Defuns
   
 ** open-file-in-new-buffer
-#+BEGIN_SRC emacs-lisp
-   
-(defun open-file-in-new-buffer (filename)
-  "Opens a file in a new buffer"
-  (interactive)
-  (switch-to-buffer (find-file-noselect filename)))
+   #+BEGIN_SRC emacs-lisp
 
-#+END_SRC
+   (defun open-file-in-new-buffer (filename)
+     "Opens a file in a new buffer"
+     (interactive)
+     (switch-to-buffer (find-file-noselect filename)))
+
+   #+END_SRC
 
 ** open-config
-#+BEGIN_SRC emacs-lisp
-   
-(defun open-config ()
-  "Opens the init.el file"
-  (interactive)
-  (open-file-in-new-buffer "~/.emacs.d/settings.org"))
+   #+BEGIN_SRC emacs-lisp
 
-#+END_SRC
+   (defun open-config ()
+     "Opens the init.el file"
+     (interactive)
+     (open-file-in-new-buffer "~/.emacs.d/settings.org"))
+
+   #+END_SRC
 
 ** rename-current-buffer-file
-#+BEGIN_SRC emacs-lisp
-   
-(defun rename-current-buffer-file ()
-  "Renames current buffer and file it is visiting."
-  (interactive)
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
-      (let ((new-name (read-file-name "New name: " filename)))
-        (if (get-buffer new-name)
-            (error "A buffer named '%s' already exists!" new-name)
-          (rename-file filename new-name 1)
-          (rename-buffer new-name)
-          (set-visited-file-name new-name)
-          (set-buffer-modified-p nil)
-          (message "File '%s' successfully renamed to '%s'"
-                   name (file-name-nondirectory new-name)))))))
+   #+BEGIN_SRC emacs-lisp
 
-#+END_SRC
+   (defun rename-current-buffer-file ()
+     "Renames current buffer and file it is visiting."
+     (interactive)
+     (let ((name (buffer-name))
+           (filename (buffer-file-name)))
+       (if (not (and filename (file-exists-p filename)))
+           (error "Buffer '%s' is not visiting a file!" name)
+         (let ((new-name (read-file-name "New name: " filename)))
+           (if (get-buffer new-name)
+               (error "A buffer named '%s' already exists!" new-name)
+             (rename-file filename new-name 1)
+             (rename-buffer new-name)
+             (set-visited-file-name new-name)
+             (set-buffer-modified-p nil)
+             (message "File '%s' successfully renamed to '%s'"
+                      name (file-name-nondirectory new-name)))))))
+
+   #+END_SRC
 
 ** delete-current-buffer-file
-#+BEGIN_SRC emacs-lisp
-   
-(defun delete-current-buffer-file ()
-  "Removes file connected to current buffer and kills buffer."
-  (interactive)
-  (let ((filename (buffer-file-name))
-        (buffer (current-buffer))
-        (name (buffer-name)))
-    (if (not (and filename (file-exists-p filename)))
-        (ido-kill-buffer)
-      (when (yes-or-no-p "Are you sure you want to remove this file? ")
-        (delete-file filename)
-        (kill-buffer buffer)
-        (message "File '%s' successfully removed" filename)))))
+   #+BEGIN_SRC emacs-lisp
 
-#+END_SRC
+   (defun delete-current-buffer-file ()
+     "Removes file connected to current buffer and kills buffer."
+     (interactive)
+     (let ((filename (buffer-file-name))
+           (buffer (current-buffer))
+           (name (buffer-name)))
+       (if (not (and filename (file-exists-p filename)))
+           (ido-kill-buffer)
+         (when (yes-or-no-p "Are you sure you want to remove this file? ")
+           (delete-file filename)
+           (kill-buffer buffer)
+           (message "File '%s' successfully removed" filename)))))
+
+   #+END_SRC
 
 ** define-align-by
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-(defmacro define-align-by (name char)
-  (let ((func (intern (concat "align-by-" name)))
-        (doc (format "Align by %s" char)))
-    `(defun ,func (beg end) ,doc 
-            (interactive "r")
-            (align-regexp beg end ,(concat "\\(\\s-*\\) " char) 1 1))))
+   (defmacro define-align-by (name char)
+     (let ((func (intern (concat "align-by-" name)))
+           (doc (format "Align by %s" char)))
+       `(defun ,func (beg end) ,doc 
+               (interactive "r")
+               (align-regexp beg end ,(concat "\\(\\s-*\\) " char) 1 1))))
 
-#+END_SRC
+   #+END_SRC
 
 ** define-aligns
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-(defmacro define-aligns (aligns)
-  `(progn ,@(mapcar
-             (lambda (a) `(define-align-by ,(car a) ,(cdr a)))
-             aligns)))
-(define-aligns
-  (("="       . "=")
-   ("single"  . "'")
-   ("dot"     . "\\.")
-   ("lparen"  . "(")
-   ("rparen"  . ")")
-   (":"       . ":")))
+   (defmacro define-aligns (aligns)
+     `(progn ,@(mapcar
+                (lambda (a) `(define-align-by ,(car a) ,(cdr a)))
+                aligns)))
+   (define-aligns
+     (("="       . "=")
+      ("single"  . "'")
+      ("dot"     . "\\.")
+      ("lparen"  . "(")
+      ("rparen"  . ")")
+      (":"       . ":")))
 
-#+END_SRC
+   #+END_SRC
 
 ** make-defun-into-org-headline
    Super-hacky function to take a defun and make it into a org-headline with a wrapping src block
    Gotta remove the evil-backward-char and stuff to make it more general
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-(defun make-defun-into-org-headline ()
-  (interactive)
-  (beginning-of-line)
-  (let ((name-of-func "")
-        (act-fun ""))
-    (save-excursion ;; save cursor position
-      (search-forward "defun")
-      (evil-visual-char)
-      (end-of-line)
-      (evil-backward-char)
-      (evil-backward-char)
-      (evil-backward-char)
-      (setq name-of-func (buffer-substring (region-beginning)
-                                           (region-end)))
-      (mark-defun)
-      (setq act-fun (buffer-substring (region-beginning)
-                                      (region-end)))
-      (kill-region (region-beginning) (region-end))
-      )
-    (insert (concat "**" name-of-func))
-    (newline-and-indent)
-    (insert "#+BEGIN_SRC emacs-lisp")
-    (newline-and-indent)
-    (insert act-fun)
-    (insert "#+END_SRC")
-    (newline-and-indent)
-    (newline-and-indent)
-    (previous-line)
-    (newline-and-indent)))
-  
-#+END_SRC
+   (defun make-defun-into-org-headline ()
+     (interactive)
+     (beginning-of-line)
+     (let ((name-of-func "")
+           (act-fun ""))
+       (save-excursion ;; save cursor position
+         (search-forward "defun")
+         (evil-visual-char)
+         (end-of-line)
+         (evil-backward-char)
+         (evil-backward-char)
+         (evil-backward-char)
+         (setq name-of-func (buffer-substring (region-beginning)
+                                              (region-end)))
+         (mark-defun)
+         (setq act-fun (buffer-substring (region-beginning)
+                                         (region-end)))
+         (kill-region (region-beginning) (region-end))
+         )
+       (insert (concat "**" name-of-func))
+       (newline-and-indent)
+       (insert "#+BEGIN_SRC emacs-lisp")
+       (newline-and-indent)
+       (insert act-fun)
+       (insert "#+END_SRC")
+       (newline-and-indent)
+       (newline-and-indent)
+       (previous-line)
+       (newline-and-indent)))
+
+   #+END_SRC
 
 ** make-stuff-into-org-headline
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-(defun make-stuff-into-org-headline (beg end name)
-  (interactive "r\ns")
-  (let ((text (buffer-substring beg end)))
-    (kill-region beg end)
-    (previous-line)
-    (newline-and-indent)
-    (beginning-of-line)
-    (insert (concat "** " name))
-    (newline)
-    (insert "#+BEGIN_SRC emacs-lisp")
-    (newline-and-indent)
-    (insert text)
-    (insert "#+END_SRC")
-    (newline-and-indent)))
-#+END_SRC
+   (defun make-stuff-into-org-headline (beg end name)
+     (interactive "r\ns")
+     (let ((text (buffer-substring beg end)))
+       (kill-region beg end)
+       (previous-line)
+       (newline-and-indent)
+       (beginning-of-line)
+       (insert (concat "** " name))
+       (newline)
+       (insert "#+BEGIN_SRC emacs-lisp")
+       (newline-and-indent)
+       (insert text)
+       (insert "#+END_SRC")
+       (newline-and-indent)))
+   #+END_SRC
 
 ** mac-open-current-file
-#+BEGIN_SRC emacs-lisp
-(defun mac-open-current-file ()
-  (interactive)
-  (shell-command (concat "open " (buffer-file-name))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (defun mac-open-current-file ()
+     (interactive)
+     (shell-command (concat "open " (buffer-file-name))))
+   #+END_SRC
 
 ** visit-ielm
-#+BEGIN_SRC emacs-lisp
-(defun visit-ielm ()
-  "Create or visit a `ielm' buffer."
-  (interactive)
-  (if (not (get-buffer "*ielm*"))
-      (progn
-        (split-window-sensibly (selected-window))
-        (other-window 1)
-        (ielm))
-    (switch-to-buffer-other-window "*ielm*")))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (defun visit-ielm ()
+     "Create or visit a `ielm' buffer."
+     (interactive)
+     (if (not (get-buffer "*ielm*"))
+         (progn
+           (split-window-sensibly (selected-window))
+           (other-window 1)
+           (ielm))
+       (switch-to-buffer-other-window "*ielm*")))
+   #+END_SRC
 
 ** reload-config
-#+BEGIN_SRC emacs-lisp
-(defun reload-config ()
-  (interactive)
-  (with-temp-buffer 
-    (insert-file-contents "~/.emacs.d/init.el")
-    (eval-buffer)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (defun reload-config ()
+     (interactive)
+     (with-temp-buffer 
+       (insert-file-contents "~/.emacs.d/init.el")
+       (eval-buffer)))
+   #+END_SRC
 
 
 * Settings
 
 ** utf8
-#+BEGIN_SRC emacs-lisp
-(set-language-environment "utf-8")
-(setq locale-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8-unix)
-(prefer-coding-system 'utf-8)
+   #+BEGIN_SRC emacs-lisp
+   (set-language-environment "utf-8")
+   (setq locale-coding-system 'utf-8)
+   (set-default-coding-systems 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-keyboard-coding-system 'utf-8)
+   (set-selection-coding-system 'utf-8)
+   (setq buffer-file-coding-system 'utf-8-unix)
+   (prefer-coding-system 'utf-8)
 
-(setenv "LANG" "en_US.UTF-8")
-#+END_SRC
+   (setenv "LANG" "en_US.UTF-8")
+   #+END_SRC
 
 ** yes or no dialog
-#+BEGIN_SRC emacs-lisp
-(defadvice y-or-n-p (around prevent-dialog-yorn activate)
-             "Prevent y-or-n-p from activating a dialog"
-               (let ((use-dialog-box nil))
-                     ad-do-it))
-(fset 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (defadvice y-or-n-p (around prevent-dialog-yorn activate)
+     "Prevent y-or-n-p from activating a dialog"
+     (let ((use-dialog-box nil))
+       ad-do-it))
+   (fset 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
 
 ** ignore bell
-#+BEGIN_SRC emacs-lisp
-(setq ring-bell-function 'ignore)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq ring-bell-function 'ignore)
+   #+END_SRC
 
 ** always display line and column numbers
-#+BEGIN_SRC emacs-lisp
-(setq line-number-mode t)
-(setq column-number-mode t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq line-number-mode t)
+   (setq column-number-mode t)
+   #+END_SRC
 
 ** lines should be 80 wide
-#+BEGIN_SRC emacs-lisp
-(setq fill-column 80)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq fill-column 80)
+   #+END_SRC
 
 ** never insert tabs
-#+BEGIN_SRC emacs-lisp
-(set-default 'indent-tabs-mode nil)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (set-default 'indent-tabs-mode nil)
+   #+END_SRC
 
 ** show empty lines
-#+BEGIN_SRC emacs-lisp
-(set-default 'indicate-empty-lines t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (set-default 'indicate-empty-lines t)
+   #+END_SRC
 
 ** no double space to end periods
-#+BEGIN_SRC emacs-lisp
-(set-default 'sentence-end-double-space nil)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (set-default 'sentence-end-double-space nil)
+   #+END_SRC
 
 ** Offer to create parent directories if they do not exist
-#+BEGIN_SRC emacs-lisp
-(defun my-create-non-existent-directory ()
-  (let ((parent-directory (file-name-directory buffer-file-name)))
-    (when (and (not (file-exists-p parent-directory))
-               (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
-      (make-directory parent-directory t))))
+   #+BEGIN_SRC emacs-lisp
+   (defun my-create-non-existent-directory ()
+     (let ((parent-directory (file-name-directory buffer-file-name)))
+       (when (and (not (file-exists-p parent-directory))
+                  (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
+         (make-directory parent-directory t))))
 
-(add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
-#+END_SRC
+   (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
+   #+END_SRC
 
 ** no startup message
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq inhibit-startup-message t)
+   #+END_SRC
 
 ** backups and stuff
-#+BEGIN_SRC emacs-lisp
-(setq delete-old-versions -1 )		; delete excess backup versions silently
-(setq version-control t )		; use version control
-(setq vc-make-backup-files t )		; make backups file even when in version controlled dir
-(setq backup-directory-alist `(("." . "~/.backups")) ) ; which directory to put backups file
-(setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
-(setq delete-by-moving-to-trash t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq delete-old-versions -1 )		; delete excess backup versions silently
+   (setq version-control t )		; use version control
+   (setq vc-make-backup-files t )		; make backups file even when in version controlled dir
+   (setq backup-directory-alist `(("." . "~/.backups")) ) ; which directory to put backups file
+   (setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
+   (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) ;transform backups file name
+   (setq delete-by-moving-to-trash t)
+   #+END_SRC
 
 ** enable clipboard
-#+BEGIN_SRC emacs-lisp
-(setq x-select-enable-clipboard t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq x-select-enable-clipboard t)
+   #+END_SRC
 
 ** apperences
-#+BEGIN_SRC emacs-lisp
-(when window-system
-  (tooltip-mode -1)              
-  (tool-bar-mode -1)              
-  (menu-bar-mode -1)               
-  (scroll-bar-mode -1)              
-  ;(set-frame-font "Inconsolata 16")  
-  (blink-cursor-mode 1)               
-  (global-visual-line-mode)
-  (diminish 'visual-line-mode ""))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (when window-system
+     (tooltip-mode -1)              
+     (tool-bar-mode -1)              
+     (menu-bar-mode -1)               
+     (scroll-bar-mode -1)              
+                                           ;(set-frame-font "Inconsolata 16")  
+     (blink-cursor-mode 1)               
+     (global-visual-line-mode)
+     (diminish 'visual-line-mode ""))
+   #+END_SRC
 
 ** use another file instead of init.el for customizations
-#+BEGIN_SRC emacs-lisp
-(setq custom-file "~/.emacs.d/customized.el")
-(load custom-file)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq custom-file "~/.emacs.d/customized.el")
+   (load custom-file)
+   #+END_SRC
 ** enable recursive minibuffers
    When the minibuffer is active, we can still use call other commands for more minibuffers
-#+BEGIN_SRC emacs-lisp
-(setq enable-recursive-minibuffers t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq enable-recursive-minibuffers t)
+   #+END_SRC
 ** inidicate minibuffer depth
    ESC ESC ESC for closing anything you want
-#+BEGIN_SRC emacs-lisp
-(minibuffer-depth-indicate-mode 1)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (minibuffer-depth-indicate-mode 1)
+   #+END_SRC
 
 ** performance
    Set the gc threshold to 10MiB
-#+BEGIN_SRC emacs-lisp
-(setq gc-cons-threshold (* 10 1024 1024))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq gc-cons-threshold (* 10 1024 1024))
+   #+END_SRC
 
 ** more reasonable tab behaviour
    Default Tab is only indention. Now its first indentation then auto complete
-#+BEGIN_SRC emacs-lisp
-(setq tab-always-indent 'complete)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq tab-always-indent 'complete)
+   #+END_SRC
 
 ** frame title format
    Show the entire path of the file in the title
-#+BEGIN_SRC emacs-lisp
-(setq frame-title-format
-      '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq frame-title-format
+         '((:eval (if (buffer-file-name)
+                      (abbreviate-file-name (buffer-file-name))
+                    "%b"))))
+   #+END_SRC
 ** delete selection
    Emacs doesnt delete selected regions, doesnt seem to work with Evil.
-#+BEGIN_SRC emacs-lisp :tangle no
-(delete-selection-mode t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp :tangle no
+   (delete-selection-mode t)
+   #+END_SRC
 
 ** auto revert buffers when files have changed
-#+BEGIN_SRC emacs-lisp
-(global-auto-revert-mode t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (global-auto-revert-mode t)
+   #+END_SRC
 
 ** use spotlight commmand for locate
-#+BEGIN_SRC emacs-lisp
-(setq locate-command "mdfind")
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq locate-command "mdfind")
+   #+END_SRC
 
 
 * Org mode
 ** pretty source code blocks
-#+BEGIN_SRC emacs-lisp
-(setq org-edit-src-content-indentation 0
-      org-src-tab-acts-natively t
-      org-src-fontify-natively t
-      org-confirm-babel-evaluate nil
-      org-support-shift-select 'always)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq org-edit-src-content-indentation 0
+         org-src-tab-acts-natively t
+         org-src-fontify-natively t
+         org-confirm-babel-evaluate nil
+         org-support-shift-select 'always)
+   #+END_SRC
 
 ** org babel
    List of the languages for org babel
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp .t)
-     (restclient . t)
-     (lisp . t))
-   )
-  )
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'org 
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp .t)
+        (restclient . t)
+        (lisp . t))
+      )
+     )
+   #+END_SRC
 
 ** Eval in repl with org mode
-#+BEGIN_SRC emacs-lisp
-(use-package org-babel-eval-in-repl
-  :after ob
-  :init (setq eir-jump-after-eval nil)
-  :config
-  (progn
-    (define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
-    (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package org-babel-eval-in-repl
+     :after ob
+     :init (setq eir-jump-after-eval nil)
+     :config
+     (progn
+       (define-key org-mode-map (kbd "C-<return>") 'ober-eval-in-repl)
+       (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
+   #+END_SRC
 
 ** get some nice syntax highlighting for html export
-#+BEGIN_SRC emacs-lisp
-(use-package htmlize
-  :after ob)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package htmlize
+     :after ob)
+   #+END_SRC
 
 ** Remove markup chars, /lol/ becomes italized "lol"
-#+BEGIN_SRC emacs-lisp
-(setq org-hide-emphasis-markers t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq org-hide-emphasis-markers t)
+   #+END_SRC
 
 ** set org directory
-#+BEGIN_SRC emacs-lisp
-(setq org-directory "~/org"
-      org-agenda-files '("~/org"))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq org-directory "~/org"
+         org-agenda-files '("~/org"))
+   #+END_SRC
 
 ** set notes file and templates
-#+BEGIN_SRC emacs-lisp
-(setq org-default-notes-file (concat org-directory "/notes.org")
-      org-capture-templates
-      '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
-         "* TODO %?\n %i\n %a")
-        ("d" "Literate" entry (file+headline (concat org-directory "/literate.org") "Literate")
-         "* %?\n %i\n %a")
-        ("n" "Note" entry (file+headline (concat org-directory "/notes.org") "Notes")
-         "* %?")
-        ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
-         "* %?" :clock-in t :clock-resume t)
-        ("l" "Read it later" checkitem (file+headline (concat org-directory "/readlater.org") "Read it later")
-         "[ ] %?")))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq org-default-notes-file (concat org-directory "/notes.org")
+         org-capture-templates
+         '(("t" "Todo" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
+            "* TODO %?\n %i\n %a")
+           ("d" "Literate" entry (file+headline (concat org-directory "/literate.org") "Literate")
+            "* %?\n %i\n %a")
+           ("n" "Note" entry (file+headline (concat org-directory "/notes.org") "Notes")
+            "* %?")
+           ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
+            "* %?" :clock-in t :clock-resume t)
+           ("l" "Read it later" checkitem (file+headline (concat org-directory "/readlater.org") "Read it later")
+            "[ ] %?")))
+   #+END_SRC
 
 
 * Themes
 ** solazired
-#+BEGIN_SRC emacs-lisp
-(use-package color-theme-solarized :ensure t
-  :disabled t
-  :init
-  ;; to make the byte compiler happy.
-  ;; emacs25 has no color-themes variable
-  (setq color-themes '())
-  :config
-  ;; load the theme, don't ask for confirmation
-  (load-theme 'solarized t)
+   #+BEGIN_SRC emacs-lisp
+   (use-package color-theme-solarized :ensure t
+     :disabled t
+     :init
+     ;; to make the byte compiler happy.
+     ;; emacs25 has no color-themes variable
+     (setq color-themes '())
+     :config
+     ;; load the theme, don't ask for confirmation
+     (load-theme 'solarized t)
 
-  (defun solarized-switch-to-dark ()
-    (interactive)
-    (set-frame-parameter nil 'background-mode 'dark)
-    (enable-theme 'solarized)
-    (set-cursor-color "#d33682"))
-  (defun solarized-switch-to-light ()
-    (interactive)
-    (set-frame-parameter nil 'background-mode 'light)
-    (enable-theme 'solarized)
-    (set-cursor-color "#d33682"))
+     (defun solarized-switch-to-dark ()
+       (interactive)
+       (set-frame-parameter nil 'background-mode 'dark)
+       (enable-theme 'solarized)
+       (set-cursor-color "#d33682"))
+     (defun solarized-switch-to-light ()
+       (interactive)
+       (set-frame-parameter nil 'background-mode 'light)
+       (enable-theme 'solarized)
+       (set-cursor-color "#d33682"))
 
-  (solarized-switch-to-dark))
-#+END_SRC
+     (solarized-switch-to-dark))
+   #+END_SRC
 ** material
-    #+BEGIN_SRC emacs-lisp
-    (use-package material-theme
-      :ensure t
-      :config
-      (progn
-        (load-theme 'material-light t)))
-    #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package material-theme
+     :ensure t
+     :config
+     (progn
+       (load-theme 'material-light t)))
+   #+END_SRC
 
     
 * Layers-definition
 ** definitions for layer-system
-#+BEGIN_SRC emacs-lisp
-(require 'cl-lib)
+   #+BEGIN_SRC emacs-lisp
+   (require 'cl-lib)
 
-(defun layer-name (name)
-  (intern (concat "my-layer/" (symbol-name name))))
+   (defun layer-name (name)
+     (intern (concat "my-layer/" (symbol-name name))))
 
-(defmacro define-layer (name &rest args)
-  (let ((vars (append (plist-get args :vars) '((disabled nil))))
-        (config (plist-get args :config))
-        (func-name (layer-name name)))
-    `(cl-defun ,func-name (&key ,@vars)
-       (unless disabled
-         (progn ,config)))))
+   (defmacro define-layer (name &rest args)
+     (let ((vars (append (plist-get args :vars) '((disabled nil))))
+           (config (plist-get args :config))
+           (func-name (layer-name name)))
+       `(cl-defun ,func-name (&key ,@vars)
+          (unless disabled
+            (progn ,@config)))))
 
-(defmacro use-layer (name &rest args)
-  (let ((vars (plist-get args :vars))
-        (func-name (layer-name name)))
-    (print vars)
-    `(,func-name ,@vars)))
+   (defmacro use-layer (name &rest args)
+     (let ((vars (plist-get args :vars))
+           (func-name (layer-name name)))
+       (print vars)
+       `(,func-name ,@vars)))
 
-#+END_SRC
+   #+END_SRC
 
-#+RESULTS:
-: use-layer
+   #+RESULTS:
+   : use-layer
  
 ** git-layer
-#+BEGIN_SRC emacs-lisp
-(define-layer git 
-  :vars ((git-completion-mode 'ivy-completing-read)
-         (global-git-mode t))
-  :config (use-package magit :ensure t
-            :commands magit-status
-            :config
-            (progn
-              (use-package evil-magit
-                :ensure t      
-                :after evil)
-              (when global-git-mode (global-git-commit-mode))
-              (setq magit-completing-read-function git-completion-mode))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (define-layer git 
+     :vars ((git-completion-mode 'ivy-completing-read))
+     :config ((use-package magit :ensure t
+                :commands magit-status
+                :config
+                (progn
+                  (use-package evil-magit
+                    :ensure t      
+                    :after evil)
+                  (setq magit-completing-read-function git-completion-mode)))))
+   #+END_SRC
 
 ** lisp-layer
-#+BEGIN_SRC emacs-lisp
-(define-layer lisp
-  :vars ((use-lispy nil)
-         (use-parinfer t))
-  :config 
-    (use-package slime
-      :ensure t
-      :commands (slime slime-lisp-mode-hook)
-      :config (progn
-                (setq slime-net-coding-system 'utf-8-unix)
-                (setq inferior-lisp-program "/usr/local/bin/sbcl")
-                (setq slime-contribs '(slime-fancy))
-                (slime-setup)))
-
-    (when use-parinfer 
-      (use-package parinfer
+   #+BEGIN_SRC emacs-lisp
+   (define-layer lisp
+     :vars ((use-lispy nil)
+            (use-parinfer t))
+     :config 
+     ((use-package slime
         :ensure t
-        :bind
-        (("C-," . parinfer-toggle-mode))
-        :init
-        (progn
-          (setq parinfer-extensions
-                '(defaults       ; should be included.
-                   pretty-parens  ; different paren styles for different modes.
-                   evil           ; If you use Evil.
-                   ))   
-          (add-hook 'lisp-mode-hook #'parinfer-mode))))
-    
+        :commands (slime slime-lisp-mode-hook)
+        :config (progn
+                  (setq slime-net-coding-system 'utf-8-unix)
+                  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+                  (setq slime-contribs '(slime-fancy))
+                  (slime-setup)))
 
-    (when use-lispy 
-      (use-package lispy
-        :ensure t
-        :init 
-        (progn
-          (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-          (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
-          (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))))))
+      (when use-parinfer 
+        (use-package parinfer
+          :ensure t
+          :bind
+          (("C-," . parinfer-toggle-mode))
+          :init
+          (progn
+            (setq parinfer-extensions
+                  '(defaults       ; should be included.
+                     pretty-parens  ; different paren styles for different modes.
+                     evil           ; If you use Evil.
+                     ))   
+            (add-hook 'lisp-mode-hook #'parinfer-mode))))
+   
 
-#+END_SRC
+      (when use-lispy 
+        (use-package lispy
+          :ensure t
+          :init 
+          (progn
+            (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
 
-#+RESULTS:
-: my-layer/lisp
+   #+END_SRC
+
+   #+RESULTS:
+   : my-layer/lisp
 
 ** elisp-layer
-#+BEGIN_SRC emacs-lisp
-(define-layer emacs-lisp
-  :vars ((use-lispy nil))
-  :config 
-  (progn
-    (use-package eldoc
-      :ensure t
-      :init
-      (progn
-        (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
-
-    (when use-lispy 
-      (use-package lispy
+   #+BEGIN_SRC emacs-lisp
+   (define-layer emacs-lisp
+     :vars ((use-lispy nil))
+     :config 
+     ((use-package eldoc
         :ensure t
-        :init 
+        :init
         (progn
-          (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-          (evil-set-initial-state 'emacs-lisp-mode 'emacs))))))
-#+END_SRC
+          (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)))
+
+      (when use-lispy 
+        (use-package lispy
+          :ensure t
+          :init 
+          (progn
+            (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+            (evil-set-initial-state 'emacs-lisp-mode 'emacs))))))
+   #+END_SRC
+
+** errors-layer
+   #+BEGIN_SRC emacs-lisp
+
+   #+END_SRC
 
 
 * Layers configuration
-#+BEGIN_SRC emacs-lisp
-(use-layer git)
-(use-layer lisp)
-(use-layer emacs-lisp)
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp
+  (use-layer git)
+  (use-layer lisp)
+  (use-layer emacs-lisp)
+  #+END_SRC
 
 
 * Packages and modes
 
 ** recentf
-  #+BEGIN_SRC emacs-lisp
-  (require 'recentf)
-  (setq recentf-max-saved-items 200
-        recentf-max-menu-items 15)
-  (recentf-mode)
-  #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (require 'recentf)
+   (setq recentf-max-saved-items 200
+         recentf-max-menu-items 15)
+   (recentf-mode)
+   #+END_SRC
 
 ** which-function-mode
    Displays the current function your are "inside" in the mode-line
-#+BEGIN_SRC emacs-lisp
-(which-function-mode)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (which-function-mode)
+   #+END_SRC
    Default when whic-func cant figure out the name is '???' n/a is not as crazy.
-#+BEGIN_SRC emacs-lisp
-(setq which-func-unknown "n/a")
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (setq which-func-unknown "n/a")
+   #+END_SRC
 
 ** evil
-#+BEGIN_SRC emacs-lisp
-(use-package evil
-  :ensure t
-  :config
-  (progn
-    (evil-mode 1)
-    (add-hook 'git-commit-mode-hook 'evil-insert-state) 
-    (evil-set-initial-state 'ielm-mode 'insert)
-    (evil-set-initial-state 'lisp-mode 'emacs)
-    (evil-set-initial-state 'lisp-interaction-mode 'emacs)
-    (defun evil-paste-after-from-0 ()
-      (interactive)
-      (let ((evil-this-register ?0))
-        (call-interactively 'evil-paste-after)))
-    (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+   #+BEGIN_SRC emacs-lisp
+   (use-package evil
+     :ensure t
+     :config
+     (progn
+       (evil-mode 1)
+       (add-hook 'git-commit-mode-hook 'evil-insert-state) 
+       (evil-set-initial-state 'ielm-mode 'insert)
+       (evil-set-initial-state 'lisp-mode 'emacs)
+       (evil-set-initial-state 'lisp-interaction-mode 'emacs)
+       (defun evil-paste-after-from-0 ()
+         (interactive)
+         (let ((evil-this-register ?0))
+           (call-interactively 'evil-paste-after)))
+       (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 
-    (use-package evil-escape :ensure t
-      :config
-      (progn
-        (evil-escape-mode 1)
-        (setq-default evil-escape-key-sequence "fj")
-        ))
-    (use-package evil-surround
-      :ensure t
-      :config (global-evil-surround-mode 1))))
-#+END_SRC
+       (use-package evil-escape :ensure t
+         :config
+         (progn
+           (evil-escape-mode 1)
+           (setq-default evil-escape-key-sequence "fj")
+           ))
+       (use-package evil-surround
+         :ensure t
+         :config (global-evil-surround-mode 1))))
+   #+END_SRC
 
 ** which-key
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key :ensure t
-    :diminish which-key-mode
-    :config
-    (progn
-      (which-key-mode)
-      (which-key-setup-side-window-bottom)
-      ;; simple then alphabetic order.
-      (setq which-key-sort-order 'which-key-prefix-then-key-order)
-      (setq which-key-popup-type 'side-window
-            which-key-side-window-max-height 0.5
-            which-key-side-window-max-width 0.33
-            which-key-idle-delay 0.5
-            which-key-min-display-lines 7)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package which-key :ensure t
+     :diminish which-key-mode
+     :config
+     (progn
+       (which-key-mode)
+       (which-key-setup-side-window-bottom)
+       ;; simple then alphabetic order.
+       (setq which-key-sort-order 'which-key-prefix-then-key-order)
+       (setq which-key-popup-type 'side-window
+             which-key-side-window-max-height 0.5
+             which-key-side-window-max-width 0.33
+             which-key-idle-delay 0.5
+             which-key-min-display-lines 7)))
+   #+END_SRC
 
 ** ace-window
-#+BEGIN_SRC emacs-lisp
-(use-package ace-window :ensure t
-  :commands
-  ace-window
-  :config
-  (progn
-    (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
-    (setq aw-ignore-current t)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package ace-window :ensure t
+     :commands
+     ace-window
+     :config
+     (progn
+       (setq aw-keys '(?t ?s ?r ?n ?m ?a ?u ?i ?e))
+       (setq aw-ignore-current t)))
+   #+END_SRC
 
 ** avy
-#+BEGIN_SRC emacs-lisp
-(use-package avy :ensure t
-  :commands (avy-goto-word-or-subword-1
-             avy-goto-word-1
-             avy-goto-char-in-line
-             avy-goto-line)
-  :config
-  (progn
-    (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m))
-    (setq avy-styles-alist
-          '((avy-goto-char-in-line . post)
-            (avy-goto-word-or-subword-1 . post)))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package avy :ensure t
+     :commands (avy-goto-word-or-subword-1
+                avy-goto-word-1
+                avy-goto-char-in-line
+                avy-goto-line)
+     :config
+     (progn
+       (setq avy-keys '(?a ?u ?i ?e ?t ?s ?r ?n ?m))
+       (setq avy-styles-alist
+             '((avy-goto-char-in-line . post)
+               (avy-goto-word-or-subword-1 . post)))))
+   #+END_SRC
 
 ** flycheck
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :disabled t
-  :commands flycheck-mode
-  :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook 'flycheck-mode))
-  :config
-  (setq flycheck-check-syntax-automatically '(save new-line)
-        flycheck-idle-change-delay 5.0
-        flycheck-display-errors-delay 0.9
-        flycheck-highlighting-mode 'symbols
-        flycheck-indication-mode 'left-fringe
-        flycheck-completion-system nil ; 'ido, 'grizzl, nil
-        flycheck-highlighting-mode 'lines
-        )
-  )
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package flycheck
+     :disabled t
+     :commands flycheck-mode
+     :init
+     (progn
+       (add-hook 'emacs-lisp-mode-hook 'flycheck-mode))
+     :config
+     (setq flycheck-check-syntax-automatically '(save new-line)
+           flycheck-idle-change-delay 5.0
+           flycheck-display-errors-delay 0.9
+           flycheck-highlighting-mode 'symbols
+           flycheck-indication-mode 'left-fringe
+           flycheck-completion-system nil ; 'ido, 'grizzl, nil
+           flycheck-highlighting-mode 'lines
+           )
+     )
+   #+END_SRC
 
 ** undo-tree
    Rather than just showing 'o' for edits, show a relative timestamp for when the edit occurred. 
-#+BEGIN_SRC emacs-lisp
-(use-package undo-tree
-  :config
-  (progn 
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package undo-tree
+     :config
+     (progn 
+       (global-undo-tree-mode)
+       (setq undo-tree-visualizer-timestamps t)))
+   #+END_SRC
 
 ** rainbow delimiters
-#+BEGIN_SRC emacs-lisp
-(use-package rainbow-delimiters
-  :ensure t
-  :init
-  (progn
-    (add-hook 'prog-mode-hook (lambda()
-                                (rainbow-delimiters-mode t)))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package rainbow-delimiters
+     :ensure t
+     :init
+     (progn
+       (add-hook 'prog-mode-hook (lambda()
+                                   (rainbow-delimiters-mode t)))))
+   #+END_SRC
 
 ** dashboard
-#+BEGIN_SRC emacs-lisp
-(use-package dashboard
-  :ensure t
-  :config
-  (progn
-    (dashboard-setup-startup-hook)
-    (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-    (setq dashboard-startup-banner 'logo)
-    (setq dashboard-items '((recents  . 5)
-                            (bookmarks . 5)
-                            (projects . 5)))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package dashboard
+     :ensure t
+     :config
+     (progn
+       (dashboard-setup-startup-hook)
+       (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
+       (setq dashboard-startup-banner 'logo)
+       (setq dashboard-items '((recents  . 5)
+                               (bookmarks . 5)
+                               (projects . 5)))))
+   #+END_SRC
 
 ** ivy + swiper
-#+BEGIN_SRC emacs-lisp
-(use-package swiper
-  :ensure t
-  :bind*
-  (("C-s"     . swiper))
-  :config
-  (progn (ivy-mode 1)
-         (setq ivy-use-virtual-buffers t)
-         (setq ivy-wrap t)
-         (setq ivy-count-format "(%d/%d) ")))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package swiper
+     :ensure t
+     :bind*
+     (("C-s"     . swiper))
+     :config
+     (progn (ivy-mode 1)
+            (setq ivy-use-virtual-buffers t)
+            (setq ivy-wrap t)
+            (setq ivy-count-format "(%d/%d) ")))
+   #+END_SRC
 
 ** counsel
-#+BEGIN_SRC emacs-lisp
-(use-package counsel 
-  :ensure t
-  :init 
-  (progn 
-    (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
-    (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
-  :bind*
-  (("M-x"     . counsel-M-x))
-  :config
-  (progn 
-    ))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package counsel 
+     :ensure t
+     :init 
+     (progn 
+       (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
+       (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
+     :bind*
+     (("M-x"     . counsel-M-x))
+     :config
+     (progn 
+       ))
+   #+END_SRC
 
 ** hydra
-#+BEGIN_SRC emacs-lisp
-(use-package hydra
-  :ensure t
-  :config
-  (progn 
-    (defhydra hydra-zoom ()
-      "zoom"
-      ("g" text-scale-increase "in")
-      ("l" text-scale-decrease "out"))
-    ))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package hydra
+     :ensure t
+     :config
+     (progn 
+       (defhydra hydra-zoom ()
+         "zoom"
+         ("g" text-scale-increase "in")
+         ("l" text-scale-decrease "out"))
+       ))
+   #+END_SRC
 
 ** projectile
-#+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-  :init
-  (progn
-    (setq projectile-mode-line nil)
-    (projectile-global-mode)
-    (setq projectile-project-root-files-bottom-up
-          '(".git" ".projectile"))
-    (setq projectile-completion-system 'ivy)
-    (setq projectile-enable-caching nil)
-    (setq projectile-verbose nil))
-  :config
-  (use-package counsel-projectile :ensure t
-    :config
-    (counsel-projectile-on)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package projectile
+     :ensure t
+     :init
+     (progn
+       (setq projectile-mode-line nil)
+       (projectile-global-mode)
+       (setq projectile-project-root-files-bottom-up
+             '(".git" ".projectile"))
+       (setq projectile-completion-system 'ivy)
+       (setq projectile-enable-caching nil)
+       (setq projectile-verbose nil))
+     :config
+     (use-package counsel-projectile :ensure t
+       :config
+       (counsel-projectile-on)))
+   #+END_SRC
 
 ** erc
-#+BEGIN_SRC emacs-lisp
-(use-package erc
-  :config
-  (progn
-    (setq erc-hide-list '("PART" "QUIT" "JOIN"))
-    (setq erc-autojoin-channels-alist '(("freenode.net"
-                                         "#org-mode"
-                                         "#hacklabto"
-                                         "#emacs"
-                                         "#emacs-beginners"
-                                         "#emacs-ops"
-                                         "#lisp"))
-          erc-server "irc.freenode.net"
-          erc-nick "blasut")))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package erc
+     :config
+     (progn
+       (setq erc-hide-list '("PART" "QUIT" "JOIN"))
+       (setq erc-autojoin-channels-alist '(("freenode.net"
+                                            "#org-mode"
+                                            "#hacklabto"
+                                            "#emacs"
+                                            "#emacs-beginners"
+                                            "#emacs-ops"
+                                            "#lisp"))
+             erc-server "irc.freenode.net"
+             erc-nick "blasut")))
+   #+END_SRC
 
 ** restclient
-#+BEGIN_SRC emacs-lisp
-(use-package restclient
-  :ensure t
-  :config
-  (progn
-    (use-package ob-restclient
-      :ensure t)
-    ))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package restclient
+     :ensure t
+     :config
+     (progn
+       (use-package ob-restclient
+         :ensure t)
+       ))
+   #+END_SRC
 
 ** yasnippet
-#+BEGIN_SRC emacs-lisp
-(use-package yasnippet
-  :disabled
-  :diminish yas-minor-mode
-  :init (progn
-          ;; Change the default hippie-expand order and add yasnippet to the front.
-          (setq hippie-expand-try-functions-list
-                '(yas/hippie-try-expand
-                  try-expand-dabbrev
-                  try-expand-dabbrev-all-buffers
-                  try-expand-dabbrev-from-kill
-                  try-complete-file-name
-                  try-complete-lisp-symbol)))
-  :config
-  (progn
-    (yas-global-mode 1)
-    ;; Helps when debugging which try-function expanded
-    (setq hippie-expand-verbose t)
-    (setq yas-wrap-around-region t)
-    (setq yas-verbosity 1)
-    (setq yas-snippet-dirs (list (concat emacs-d "snippets/")))
-    ;; Enables tab completion in the `eval-expression` minibuffer
-    (define-key yas-minor-mode-map [(tab)] 'hippe-expand)
-    (define-key yas-minor-mode-map [(shift tab)] 'unexpand)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package yasnippet
+     :disabled
+     :diminish yas-minor-mode
+     :init (progn
+             ;; Change the default hippie-expand order and add yasnippet to the front.
+             (setq hippie-expand-try-functions-list
+                   '(yas/hippie-try-expand
+                     try-expand-dabbrev
+                     try-expand-dabbrev-all-buffers
+                     try-expand-dabbrev-from-kill
+                     try-complete-file-name
+                     try-complete-lisp-symbol)))
+     :config
+     (progn
+       (yas-global-mode 1)
+       ;; Helps when debugging which try-function expanded
+       (setq hippie-expand-verbose t)
+       (setq yas-wrap-around-region t)
+       (setq yas-verbosity 1)
+       (setq yas-snippet-dirs (list (concat emacs-d "snippets/")))
+       ;; Enables tab completion in the `eval-expression` minibuffer
+       (define-key yas-minor-mode-map [(tab)] 'hippe-expand)
+       (define-key yas-minor-mode-map [(shift tab)] 'unexpand)))
+   #+END_SRC
 
 
 
@@ -872,177 +874,177 @@ The motivation for this project is twofold, one part is to try the ivy family of
    (define-key key-translation-map (kbd "s-2") (kbd "@"))
    (define-key key-translation-map (kbd "s-4") (kbd "$"))
    #+END_SRC
-Use keyboard-translate to make the swedish keyboard more alike the american layout. Sort of an experiment because I'm not sure how to handle å and the special chars '¨' '^'. They behave in a special way, waiting for more input before 'commiting' to typing out the char. Probably have to rebind this in the OS layer. But a big improvement is being able to use the ; key easily.
+   Use keyboard-translate to make the swedish keyboard more alike the american layout. Sort of an experiment because I'm not sure how to handle å and the special chars '¨' '^'. They behave in a special way, waiting for more input before 'commiting' to typing out the char. Probably have to rebind this in the OS layer. But a big improvement is being able to use the ; key easily.
    #+BEGIN_SRC emacs-lisp
-   ;(keyboard-translate ?\ö ?\;)
-   ;(keyboard-translate ?\Ö ?\:)
-   ;(define-key key-translation-map (kbd "H-ö") (kbd "ö"))
+                                           ;(keyboard-translate ?\ö ?\;)
+                                           ;(keyboard-translate ?\Ö ?\:)
+                                           ;(define-key key-translation-map (kbd "H-ö") (kbd "ö"))
 
-   ;(keyboard-translate ?\ä ?\')
-   ;(keyboard-translate ?\Ä ?\")
-   ;(define-key key-translation-map (kbd "H-ä") (kbd "ä"))
+                                           ;(keyboard-translate ?\ä ?\')
+                                           ;(keyboard-translate ?\Ä ?\")
+                                           ;(define-key key-translation-map (kbd "H-ä") (kbd "ä"))
 
-   ;(keyboard-translate ?\å ?\[)
-   ;(keyboard-translate ?\Å ?\{)
+                                           ;(keyboard-translate ?\å ?\[)
+                                           ;(keyboard-translate ?\Å ?\{)
 
-   ;(keyboard-translate ?\¨ ?\])
-   ;(keyboard-translate ?\\^ ?\})
+                                           ;(keyboard-translate ?\¨ ?\])
+                                           ;(keyboard-translate ?\\^ ?\})
 
-   ;(define-key key-translation-map (kbd "¨") (kbd "]"))
-   ;(define-key key-translation-map (kbd "s-}") (kbd "^"))
+                                           ;(define-key key-translation-map (kbd "¨") (kbd "]"))
+                                           ;(define-key key-translation-map (kbd "s-}") (kbd "^"))
    #+END_SRC
 
 ** general
-#+BEGIN_SRC emacs-lisp
-(use-package general :ensure t
-  :config
-  (progn
-    (general-define-key
-     "M--" 'hippie-expand)
+   #+BEGIN_SRC emacs-lisp
+   (use-package general :ensure t
+     :config
+     (progn
+       (general-define-key
+        "M--" 'hippie-expand)
 
-    (general-define-key
-     :states '(normal motion)
-     "/" '(swiper))
-    
-    (general-define-key
-     :state '(emacs insert)
-     "RET" '(newline-and-indent))
-    
+       (general-define-key
+        :states '(normal motion)
+        "/" '(swiper))
 
-    (general-define-key
-     :states '(normal motion emacs)
-     :prefix "SPC"
-     :non-normal-prefix "C-SPC"
-     ;; Flat keys
-     "/"    '(counsel-git-grep :which-key "Find in files")
-     "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
+       (general-define-key
+        :state '(emacs insert)
+        "RET" '(newline-and-indent))
 
-     ;; Special keys
-     "SPC"  '(counsel-M-x)
-     
-     ;; A
-     "a"    '(:ignore t :which-key "Applications")
-     "ad"   '(dired :which-key "Dired")
-     "as"   '(slime-selector :which-key "Slime Selector")
-     ;; AG
-     "ag"   '(:ignore t :which-key "Games")
-     "agt"  '(tetris :which-key "Tetris")
-     "agm"  '(mpuz :which-key "Mpuz")
-     "agp"  '(pong :which-key "Pong")
-     "ags"  '(snake :which-key "Snake")
-     
-     ;; B
-     "b"    '(:ignore t :which-key "Buffer")
-     "bb"   '(ivy-switch-buffer :which-key "Change buffer")
-     "bd"   '(ace-delete-window :which-key "Delete buffer")
-     "bn"   '(next-buffer :which-key "Next buffer")
-     "bp"   '(previous-buffer :which-key "Previous buffer")
-     "bR"   '(revert-buffer :which-key "Revert buffer")
-     "bk"   '(kill-buffer :which-key "Kill buffer")
 
-     ;; E
-     "e"    '(:ignore t :which-key "Eval")
-     "eb"   '(eval-buffer :which-key "Eval Buffer")
-     "ef"   '(eval-defun :which-key "Eval Defun")
-     "er"   '(eval-region :which-key "Eval Region")
-     "ee"   '(eval-expression :which-key "Eval Expresson")
-     "es"   '(visit-ielm :which-key "Open repl")
-     "em"   '(pp-macroexpand-last-sexp :which-key "Macroexpand sexp")
-     "ec"   '(reload-config :which-key "Reload config")
+       (general-define-key
+        :states '(normal motion emacs)
+        :prefix "SPC"
+        :non-normal-prefix "C-SPC"
+        ;; Flat keys
+        "/"    '(counsel-git-grep :which-key "Find in files")
+        "TAB"  '(projectile-project-buffers-other-buffer :which-key "Next buffer")
 
-     ;; F
-     "f"    '(:ignore t :which-key "File")
-     "fc"   '(open-config :which-key "Open settings.org file")
-     "ff"   '(counsel-find-file :which-key "Find file")
-     "fl"   '(counsel-locate :which-key "Locate")
-     "fs"   '(save-buffer :which-key "Save")
-     "fr"   '(counsel-recentf :which-key "Recent files")
-     "fR"   '(rename-current-buffer-file :which-key "Rename file")
-     "fd"   '(delete-current-buffer-file :which-key "Delete file")
+        ;; Special keys
+        "SPC"  '(counsel-M-x)
 
-     ;; G
-     "g"    '(:ignore t :which-key "Git")
-     "gs"   '(magit-status :which-key "git status")
+        ;; A
+        "a"    '(:ignore t :which-key "Applications")
+        "ad"   '(dired :which-key "Dired")
+        "as"   '(slime-selector :which-key "Slime Selector")
+        ;; AG
+        "ag"   '(:ignore t :which-key "Games")
+        "agt"  '(tetris :which-key "Tetris")
+        "agm"  '(mpuz :which-key "Mpuz")
+        "agp"  '(pong :which-key "Pong")
+        "ags"  '(snake :which-key "Snake")
 
-     ;; H
-     "h"    '(:ignore t :which-key "Help")
-     "hi"   '(info :which-key "Info")
-     "hv"   '(ivy-help :which-key "Ivy")
-     "hdb"  '(counsel-descbinds :which-key "Describe bindings")
-     "hdf"  '(counsel-describe-function :which-key "Describe function")
-     "hdk"  '(describe-key :which-key "Describe key")
-     "hdv"  '(counsel-describe-variable :which-key "Describe variable")
-     "hdm"  '(describe-mode :which-key "Describe mode")
+        ;; B
+        "b"    '(:ignore t :which-key "Buffer")
+        "bb"   '(ivy-switch-buffer :which-key "Change buffer")
+        "bd"   '(ace-delete-window :which-key "Delete buffer")
+        "bn"   '(next-buffer :which-key "Next buffer")
+        "bp"   '(previous-buffer :which-key "Previous buffer")
+        "bR"   '(revert-buffer :which-key "Revert buffer")
+        "bk"   '(kill-buffer :which-key "Kill buffer")
 
-     ;; J
-     "j"    '(:ignore t :which-key "Jump")
-     "jj"   '(avy-goto-char :which-key "Char")
-     "jl"   '(avy-goto-line :which-key "Line")
-     "jw"   '(avy-goto-word-0 :which-key "Word")
+        ;; E
+        "e"    '(:ignore t :which-key "Eval")
+        "eb"   '(eval-buffer :which-key "Eval Buffer")
+        "ef"   '(eval-defun :which-key "Eval Defun")
+        "er"   '(eval-region :which-key "Eval Region")
+        "ee"   '(eval-expression :which-key "Eval Expresson")
+        "es"   '(visit-ielm :which-key "Open repl")
+        "em"   '(pp-macroexpand-last-sexp :which-key "Macroexpand sexp")
+        "ec"   '(reload-config :which-key "Reload config")
 
-     ;; M
-     "m"    '(:ignore t :which-key "Major mode")
+        ;; F
+        "f"    '(:ignore t :which-key "File")
+        "fc"   '(open-config :which-key "Open settings.org file")
+        "ff"   '(counsel-find-file :which-key "Find file")
+        "fl"   '(counsel-locate :which-key "Locate")
+        "fs"   '(save-buffer :which-key "Save")
+        "fr"   '(counsel-recentf :which-key "Recent files")
+        "fR"   '(rename-current-buffer-file :which-key "Rename file")
+        "fd"   '(delete-current-buffer-file :which-key "Delete file")
 
-     ;; P
-     "p"    '(:ignore t :which-key "Projects")
-     "pb"   '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
-     "pd"   '(counsel-projectile-find-dir :which-key "Find dir")
-     "pf"   '(counsel-projectile-find-file :which-key "Find file")
-     "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
-     "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
-     "pr"   '(projectile-recentf :which-key "Recent")
-     "p/"   '(counsel-git-grep :which-key "Search")
-     "ps"   '(counsel-git-grep :which-key "Search")
+        ;; G
+        "g"    '(:ignore t :which-key "Git")
+        "gs"   '(magit-status :which-key "git status")
 
-     ;; S
-     "s"    '(:ignore t :which-key "Search")
-     "ss"   '(swiper :which-key "Search in file")
-     "sS"   '(swiper-all :which-key "Search in all buffers")
-     "sp"   '(counsel-git-grep :which-key "Grep in project")
-     "sj"   '(counsel-imenu :which-key "Imenu")
-     "sk"   '(counsel-yank-pop :which-key "Kill ring")
+        ;; H
+        "h"    '(:ignore t :which-key "Help")
+        "hi"   '(info :which-key "Info")
+        "hv"   '(ivy-help :which-key "Ivy")
+        "hdb"  '(counsel-descbinds :which-key "Describe bindings")
+        "hdf"  '(counsel-describe-function :which-key "Describe function")
+        "hdk"  '(describe-key :which-key "Describe key")
+        "hdv"  '(counsel-describe-variable :which-key "Describe variable")
+        "hdm"  '(describe-mode :which-key "Describe mode")
 
-     ;; W
-     "w"    '(:ignore t :which-key "Window")
-     "ww"   '(other-window :which-key "Switch window")
-     "wd"   '(ace-delete-window :which-key "Delete window")
-     "wD"   '(delete-other-windows :which-key "Delete other windows")
-     "wa"   '(ace-window :which-key "Ace window")
-     "ws"   '(split-window-below :which-key "Split window below")
-     "w-"   '(split-window-below :which-key "Split window below")
-     "wS"   '(split-window-right :which-key "Split window right")
-     "w/"   '(split-window-right :which-key "Split window right")
-     "wh"   '(windmove-left :which-key "Window left")
-     "wj"   '(windmove-down :which-key "Window down")
-     "wk"   '(windmove-up :which-key "Window up")
-     "wl"   '(windmove-right :which-key "Window right")
+        ;; J
+        "j"    '(:ignore t :which-key "Jump")
+        "jj"   '(avy-goto-char :which-key "Char")
+        "jl"   '(avy-goto-line :which-key "Line")
+        "jw"   '(avy-goto-word-0 :which-key "Word")
 
-     ;; X
-     "x"    '(:ignore t        :which-key "Text")
-     "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
-     "xs"   '(sort-lines :which-key "Sort lines")
-     "xu"   '(lower-case :which-key "Lower case")
-     "xU"   '(upper-case :which-key "Upper case")
-     "xc"   '(count-words :which-key "Count words")
-     ;; XA
-     "xa"   '(:ignore t       :which-key "Align")
-     "xa'"  '(align-by-single  :which-key "'")
-     "xa="  '(align-by-=       :which-key "=")
-     "xa("  '(align-by-lparen  :which-key "(")
-     "xa)"  '(align-by-lparen  :which-key ")")
-     "xa:"  '(align-by-:       :which-key ":")
+        ;; M
+        "m"    '(:ignore t :which-key "Major mode")
 
-     ;; Z
-     "z" '(:ignore t :which-key "Zoom")
-     "zi" '(text-scale-increase :which-key "Text larger")
-     "zu" '(text-scale-decrease :which-key "Text smaller")
+        ;; P
+        "p"    '(:ignore t :which-key "Projects")
+        "pb"   '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
+        "pd"   '(counsel-projectile-find-dir :which-key "Find dir")
+        "pf"   '(counsel-projectile-find-file :which-key "Find file")
+        "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
+        "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
+        "pr"   '(projectile-recentf :which-key "Recent")
+        "p/"   '(counsel-git-grep :which-key "Search")
+        "ps"   '(counsel-git-grep :which-key "Search")
+
+        ;; S
+        "s"    '(:ignore t :which-key "Search")
+        "ss"   '(swiper :which-key "Search in file")
+        "sS"   '(swiper-all :which-key "Search in all buffers")
+        "sp"   '(counsel-git-grep :which-key "Grep in project")
+        "sj"   '(counsel-imenu :which-key "Imenu")
+        "sk"   '(counsel-yank-pop :which-key "Kill ring")
+
+        ;; W
+        "w"    '(:ignore t :which-key "Window")
+        "ww"   '(other-window :which-key "Switch window")
+        "wd"   '(ace-delete-window :which-key "Delete window")
+        "wD"   '(delete-other-windows :which-key "Delete other windows")
+        "wa"   '(ace-window :which-key "Ace window")
+        "ws"   '(split-window-below :which-key "Split window below")
+        "w-"   '(split-window-below :which-key "Split window below")
+        "wS"   '(split-window-right :which-key "Split window right")
+        "w/"   '(split-window-right :which-key "Split window right")
+        "wh"   '(windmove-left :which-key "Window left")
+        "wj"   '(windmove-down :which-key "Window down")
+        "wk"   '(windmove-up :which-key "Window up")
+        "wl"   '(windmove-right :which-key "Window right")
+
+        ;; X
+        "x"    '(:ignore t        :which-key "Text")
+        "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
+        "xs"   '(sort-lines :which-key "Sort lines")
+        "xu"   '(lower-case :which-key "Lower case")
+        "xU"   '(upper-case :which-key "Upper case")
+        "xc"   '(count-words :which-key "Count words")
+        ;; XA
+        "xa"   '(:ignore t       :which-key "Align")
+        "xa'"  '(align-by-single  :which-key "'")
+        "xa="  '(align-by-=       :which-key "=")
+        "xa("  '(align-by-lparen  :which-key "(")
+        "xa)"  '(align-by-lparen  :which-key ")")
+        "xa:"  '(align-by-:       :which-key ":")
+
+        ;; Z
+        "z" '(:ignore t :which-key "Zoom")
+        "zi" '(text-scale-increase :which-key "Text larger")
+        "zu" '(text-scale-decrease :which-key "Text smaller")
+        )
+       )
      )
-    )
-  )
-#+END_SRC
+   #+END_SRC
 
-#+RESULTS:
-: t
+   #+RESULTS:
+   : t
 
 ** Major modes
 *** org
