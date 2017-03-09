@@ -689,7 +689,7 @@
 ** flycheck
    #+BEGIN_SRC emacs-lisp
    (use-package flycheck
-     :disabled t
+     :ensure t
      :commands flycheck-mode
      :init
      (progn
