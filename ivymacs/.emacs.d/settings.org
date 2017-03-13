@@ -511,6 +511,12 @@
            (which-function-mode)
            (setq which-func-unknown "n/a")
 
+           (use-package keyfreq
+             :ensure t
+             :config (progn 
+                       (keyfreq-mode 1)
+                       (keyfreq-autosave-mode 1)))
+
            (use-package evil
              :ensure t
              :config
