@@ -19,3 +19,4 @@ ivymacs/.emacs.d/elpa/*
 /ivymacs/.emacs.d/url/cookies
 /ivymacs/.emacs.d/semanticdb/*
 /ivymacs/.emacs.d/network-security.data
+/ivymacs/.emacs.d/eshell/history
