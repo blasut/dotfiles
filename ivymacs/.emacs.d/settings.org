@@ -670,18 +670,19 @@
                   (define-key yas-minor-mode-map [(shift tab)] 'unexpand)))))
    #+END_SRC
 
-** c-layer   
+** c-layer
    #+BEGIN_SRC emacs-lisp
    (define-layer c
      :config ((setq
-                ;; use gdb-many-windows by default
-                gdb-many-windows t
+               ;; use gdb-many-windows by default
+               gdb-many-windows t
 
-                ;; Non-nil means display source file containing the main routine at startup
-                gdb-show-main t)
-               ))
+               ;; Non-nil means display source file containing the main routine at startup
+               gdb-show-main t)
+              (setq gud-gdb-command-name "/usr/local/bin/gdb -i=mi ")))
 
    #+END_SRC
+   
    
 * Layers configuration
   #+BEGIN_SRC emacs-lisp
