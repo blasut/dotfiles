@@ -8,7 +8,7 @@
     ("5dc0ae2d193460de979a463b907b4b2c6d2c9c4657b2e9e66b8898d2592e3de5" default)))
  '(package-selected-packages
    (quote
-    (flycheck parinfer evil-magit evil-surround slime htmlize org-babel-eval-in-repl which-key use-package rainbow-delimiters org-plus-contrib ob-restclient material-theme magit lispy general evil-escape dashboard counsel-projectile color-theme-solarized))))
+    (restclient projectile hydra counsel swiper ace-window evil yasnippet flycheck parinfer evil-magit evil-surround slime htmlize org-babel-eval-in-repl which-key use-package rainbow-delimiters org-plus-contrib ob-restclient material-theme magit lispy general evil-escape dashboard counsel-projectile color-theme-solarized))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
