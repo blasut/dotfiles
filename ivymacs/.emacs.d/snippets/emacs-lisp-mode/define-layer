@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: define-layer
+# key: dl
+# --
+(define-layer ${1:layername}
+  :vars ((${2:var1} '${3:val1}))
+  :config ((use-package ${$0:package} :ensure t)))
