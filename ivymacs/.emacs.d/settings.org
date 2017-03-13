@@ -389,7 +389,6 @@
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp .t)
-        (restclient . t)
         (lisp . t))
       )
      )
