@@ -673,13 +673,23 @@
 ** c-layer
    #+BEGIN_SRC emacs-lisp
    (define-layer c
+     :vars ((auto-indent t))
      :config ((setq
                ;; use gdb-many-windows by default
                gdb-many-windows t
 
                ;; Non-nil means display source file containing the main routine at startup
                gdb-show-main t)
-              (setq gud-gdb-command-name "/usr/local/bin/gdb -i=mi ")))
+              (setq gud-gdb-command-name "/usr/local/bin/gdb -i=mi ")
+
+              (setq c-default-style "k&r"
+                    c-basic-offset 2)
+
+
+              (when auto-indent 
+                (add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))))
+
+              ))
 
    #+END_SRC
    
