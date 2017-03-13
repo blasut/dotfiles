@@ -536,8 +536,7 @@
                  :config
                  (progn
                    (evil-escape-mode 1)
-                   (setq-default evil-escape-key-sequence "fj")
-                   ))
+                   (setq-default evil-escape-key-sequence "fj")))
                (use-package evil-surround
                  :ensure t
                  :config (global-evil-surround-mode 1))))))
@@ -807,7 +806,7 @@
    #+BEGIN_SRC emacs-lisp
    (use-package projectile
      :ensure t
-     :init
+     :config
      (progn
        (setq projectile-mode-line nil)
        (projectile-global-mode)
@@ -815,11 +814,10 @@
              '(".git" ".projectile"))
        (setq projectile-completion-system 'ivy)
        (setq projectile-enable-caching nil)
-       (setq projectile-verbose nil))
-     :config
-     (use-package counsel-projectile :ensure t
-       :config
-       (counsel-projectile-on)))
+       (setq projectile-verbose nil)
+       (use-package counsel-projectile :ensure t
+         :config
+         (counsel-projectile-on))))
    #+END_SRC
 
 ** erc
