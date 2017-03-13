@@ -492,10 +492,8 @@
             (progn ,@config)))))
 
    (defmacro use-layer (name &rest args)
-     (let ((vars (plist-get args :vars))
-           (func-name (layer-name name)))
-       (print vars)
-       `(,func-name ,@vars)))
+     (let ((func-name (layer-name name)))
+       `(,func-name ,@args)))
 
    #+END_SRC
 
