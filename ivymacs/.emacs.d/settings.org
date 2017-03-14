@@ -689,6 +689,12 @@
               (when auto-indent 
                 (add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))))
 
+              (use-package c-eldoc
+                :ensure t
+                :config
+                (progn
+                  (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)))
+
               ))
 
    #+END_SRC
