@@ -40,3 +40,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
     __git_complete gc _git_checkout
     __git_complete gr _git_rebase
 fi
+
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
