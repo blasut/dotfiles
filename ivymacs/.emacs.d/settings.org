@@ -421,7 +421,7 @@
    (setq org-directory "~/org"
          org-agenda-files '("~/org"))
    #+END_SRC
-
+   
 ** set notes file and templates
    #+BEGIN_SRC emacs-lisp
    (setq org-default-notes-file (concat org-directory "/notes.org")
@@ -878,7 +878,7 @@
        ))
    #+END_SRC
 
-
+   
 * Keybindings
 ** swedish keyboard fix
    #+BEGIN_SRC emacs-lisp
@@ -948,6 +948,7 @@
         "a"    '(:ignore t :which-key "Applications")
         "ad"   '(dired :which-key "Dired")
         "as"   '(slime-selector :which-key "Slime Selector")
+        "ac"   '(org-capture :which-key "Org capture")
         ;; AG
         "ag"   '(:ignore t :which-key "Games")
         "agt"  '(tetris :which-key "Tetris")
