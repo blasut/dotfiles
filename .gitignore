@@ -20,3 +20,4 @@ ivymacs/.emacs.d/elpa/*
 /ivymacs/.emacs.d/semanticdb/*
 /ivymacs/.emacs.d/network-security.data
 /ivymacs/.emacs.d/eshell/*
+/ivymacs/.emacs.d/bookmarks

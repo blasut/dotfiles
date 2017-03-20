@@ -219,7 +219,7 @@
 
 
 * Settings
-
+  
 ** utf8
    #+BEGIN_SRC emacs-lisp
    (set-language-environment "utf-8")
@@ -501,16 +501,40 @@
    : use-layer
  
 ** base-layer
+   
+   defining the base layer, this is what a think is absolutely necessary.
 #+BEGIN_SRC emacs-lisp
 (define-layer base
-  :config ((require 'recentf)
+  :config (
+#+END_SRC
+
+recentf is nice.
+
+#+BEGIN_SRC emacs-lisp
+           (require 'recentf)
            (setq recentf-max-saved-items 200
                  recentf-max-menu-items 15)
            (recentf-mode)
+#+END_SRC
 
+when using mac, its nice to have the paths set in .bash_profile
+
+#+BEGIN_SRC emacs-lisp
+           (when (memq window-system '(mac ns))
+             (use-package exec-path-from-shell 
+               :ensure t
+               :config (exec-path-from-shell-initialize)))
+#+END_SRC
+
+turning on which function mode, it shows the current function name in the bottom
+
+#+BEGIN_SRC emacs-lisp
            (which-function-mode)
            (setq which-func-unknown "n/a")
+#+END_SRC
 
+
+#+BEGIN_SRC emacs-lisp
            (use-package keyfreq
              :ensure t
              :config (progn 
@@ -541,6 +565,9 @@
                  :ensure t
                  :config (global-evil-surround-mode 1))))))
 #+END_SRC
+
+#+RESULTS:
+: my-layer/base
 
 ** git-layer
    #+BEGIN_SRC emacs-lisp
