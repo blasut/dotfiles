@@ -699,6 +699,16 @@
 
    #+END_SRC
    
+** clojure-layer
+   #+BEGIN_SRC emacs-lisp
+   (define-layer clojure
+     :config (
+              (use-package cider
+                :ensure t)
+              ))
+
+   #+END_SRC
+   
    
 * Layers configuration
   #+BEGIN_SRC emacs-lisp
@@ -709,6 +719,7 @@
   (use-layer lisp)
   (use-layer emacs-lisp)
   (use-layer c)
+  (use-layer clojure)
   #+END_SRC
 
 
