@@ -214,7 +214,8 @@
      (interactive)
      (with-temp-buffer 
        (insert-file-contents "~/.emacs.d/init.el")
-       (eval-buffer)))
+       (eval-buffer))
+     (open-config))
    #+END_SRC
 
 
