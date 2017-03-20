@@ -55,12 +55,10 @@
 
 ** open-config
    #+BEGIN_SRC emacs-lisp
-
    (defun open-config ()
      "Opens the init.el file"
      (interactive)
      (open-file-in-new-buffer "~/.emacs.d/settings.org"))
-
    #+END_SRC
 
 ** rename-current-buffer-file
@@ -439,7 +437,7 @@
             "[ ] %?")))
    #+END_SRC
 
-
+   
 * Themes
 ** solazired
    #+BEGIN_SRC emacs-lisp
@@ -475,7 +473,7 @@
        (load-theme 'material-light t)))
    #+END_SRC
 
-    
+   
 * Layers-definition
 ** definitions for layer-system
    #+BEGIN_SRC emacs-lisp
@@ -599,6 +597,12 @@ turning on which function mode, it shows the current function name in the bottom
                   (setq slime-contribs '(slime-fancy))
                   (slime-setup)))
 
+      (use-package eval-in-repl
+        :ensure t
+        :config (require 'eval-in-repl-slime)
+                 (add-hook 'lisp-mode-hook
+                           '(lambda ()
+                              (local-set-key (kbd "<C-return>") 'eir-eval-in-slime)))) 
 
       (when use-parinfer 
         (use-package parinfer
@@ -613,7 +617,7 @@ turning on which function mode, it shows the current function name in the bottom
                      evil           ; If you use Evil.
                      ))   
             (add-hook 'lisp-mode-hook #'parinfer-mode))))
-   
+
 
       (when use-lispy 
         (use-package lispy
@@ -1116,5 +1120,6 @@ turning on which function mode, it shows the current function name in the bottom
                         "gj" 'org-next-visible-heading
                         "gk" 'org-previous-visible-heading)
     #+END_SRC
+    
     
     
