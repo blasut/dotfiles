@@ -738,6 +738,9 @@ turning on which function mode, it shows the current function name in the bottom
               (use-package cider
                 :ensure t)
 
+              (evil-set-initial-state 'cider-stacktrace-mode 'emacs)
+              (evil-set-initial-state 'cider-popup-buffer-mode 'emacs)
+
               (use-package eval-in-repl
                 :ensure t
                 :config (progn 
