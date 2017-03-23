@@ -739,8 +739,8 @@ turning on which function mode, it shows the current function name in the bottom
                 :ensure t
                 :config 
                 (progn 
-                  (evil-set-initial-state 'cider-stacktrace-mode 'emacs)
-                  (evil-set-initial-state 'cider-popup-buffer-mode 'emacs)
+                  (evil-set-initial-state 'cider-stacktrace-mode 'motion)
+                  (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
 
                   (defun cider-debug-setup ()
                     (evil-make-overriding-map cider--debug-mode-map 'normal)
