@@ -460,18 +460,24 @@
        (interactive)
        (set-frame-parameter nil 'background-mode 'light)
        (enable-theme 'solarized)
-       (set-cursor-color "#d33682"))
-
-     (solarized-switch-to-dark))
+       (set-cursor-color "#d33682")))
    #+END_SRC
+
+   #+RESULTS:
+   : t
+
 ** material
    #+BEGIN_SRC emacs-lisp
    (use-package material-theme
      :ensure t
      :config
      (progn
-       (load-theme 'material-light t)))
+       (load-theme 'material-light t)
+       (enable-theme 'material-light)))
    #+END_SRC
+
+   #+RESULTS:
+   : t
 
    
 * Layers-definition
@@ -534,39 +540,44 @@ turning on which function mode, it shows the current function name in the bottom
 
 
 #+BEGIN_SRC emacs-lisp
-           (use-package keyfreq
-             :ensure t
-             :config (progn 
-                       (keyfreq-mode 1)
-                       (keyfreq-autosave-mode 1)))
 
-           (use-package evil
-             :ensure t
-             :config
-             (progn
-               (evil-mode 1)
-               (add-hook 'git-commit-mode-hook 'evil-insert-state) 
-               (evil-set-initial-state 'ielm-mode 'insert)
-               (evil-set-initial-state 'lisp-mode 'emacs)
-               (evil-set-initial-state 'lisp-interaction-mode 'emacs)
-               (defun evil-paste-after-from-0 ()
-                 (interactive)
-                 (let ((evil-this-register ?0))
-                   (call-interactively 'evil-paste-after)))
-               (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+(use-package highlight-symbol 
+  :ensure t
+  :config (add-hook 'prog-mode-hook 'highlight-symbol-mode))
 
-               (use-package evil-escape :ensure t
-                 :config
-                 (progn
-                   (evil-escape-mode 1)
-                   (setq-default evil-escape-key-sequence "fj")))
-               (use-package evil-surround
-                 :ensure t
-                 :config (global-evil-surround-mode 1))))))
+(use-package keyfreq
+  :ensure t
+  :config (progn 
+            (keyfreq-mode 1)
+            (keyfreq-autosave-mode 1)))
+
+(use-package evil
+  :ensure t
+  :config
+  (progn
+    (evil-mode 1)
+    (add-hook 'git-commit-mode-hook 'evil-insert-state) 
+    (evil-set-initial-state 'ielm-mode 'insert)
+    (evil-set-initial-state 'lisp-mode 'emacs)
+    (evil-set-initial-state 'lisp-interaction-mode 'emacs)
+    (defun evil-paste-after-from-0 ()
+      (interactive)
+      (let ((evil-this-register ?0))
+        (call-interactively 'evil-paste-after)))
+    (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
+    (use-package evil-escape :ensure t
+      :config
+      (progn
+        (evil-escape-mode 1)
+        (setq-default evil-escape-key-sequence "fj")))
+    (use-package evil-surround
+      :ensure t
+      :config (global-evil-surround-mode 1))))))
 #+END_SRC
 
 #+RESULTS:
-: my-layer/base
+: t
 
 ** git-layer
    #+BEGIN_SRC emacs-lisp
