@@ -755,6 +755,8 @@ turning on which function mode, it shows the current function name in the bottom
                   (evil-set-initial-state 'cider-stacktrace-mode 'motion)
                   (evil-set-initial-state 'cider-popup-buffer-mode 'motion)
 
+                  (setq cider-repl-use-pretty-printing t)
+
                   (defun cider-debug-setup ()
                     (evil-make-overriding-map cider--debug-mode-map 'normal)
                     (evil-normalize-keymaps))
