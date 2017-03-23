@@ -541,6 +541,8 @@ turning on which function mode, it shows the current function name in the bottom
 
 #+BEGIN_SRC emacs-lisp
 
+(show-paren-mode 1)
+
 (use-package highlight-symbol 
   :ensure t
   :config (add-hook 'prog-mode-hook 'highlight-symbol-mode))
