@@ -787,7 +787,16 @@ turning on which function mode, it shows the current function name in the bottom
    #+RESULTS:
    : my-layer/clojure
    
-   
+** scheme-layer   
+#+BEGIN_SRC emacs-lisp
+(define-layer scheme
+  :config ((autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t) 
+            (autoload 'run-scheme "cmuscheme" "Switch to interactive Scheme buffer." t) 
+            (setq scheme-program-name "chez") 
+            (add-hook 'scheme-mode-hook 'turn-on-font-lock)))
+#+END_SRC
+
+
 * Layers configuration
   #+BEGIN_SRC emacs-lisp
   (use-layer base)
@@ -798,9 +807,10 @@ turning on which function mode, it shows the current function name in the bottom
   (use-layer emacs-lisp)
   (use-layer c)
   (use-layer clojure)
+  (use-layer scheme)
   #+END_SRC
 
-
+  
 * Packages and modes
 
 ** which-key
