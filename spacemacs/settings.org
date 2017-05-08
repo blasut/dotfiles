@@ -8,6 +8,13 @@ Trying to get some order up in here
    #+BEGIN_SRC emacs-lisp
   (golden-ratio-mode 1)
    #+END_SRC
+* show path in buffer title
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+#+END_SRC
 * Mac + Swedish keyboard bindings
    #+BEGIN_SRC emacs-lisp
   (setq mac-command-modifier 'meta)  ; set command to meta
