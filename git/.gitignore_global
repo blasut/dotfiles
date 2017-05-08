@@ -60,3 +60,8 @@ tramp
 /auto/
 # cask packages
 .cask/
+
+
+GPATH
+GRTAGS
+GTAGS
