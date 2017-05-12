@@ -748,6 +748,20 @@ turning on which function mode, it shows the current function name in the bottom
    #+BEGIN_SRC emacs-lisp
    (define-layer clojure
      :config (
+              (use-package clojure-mode :ensure t
+                :config (progn
+                          (use-package parinfer
+                            :ensure t
+                            :bind
+                            (("C-," . parinfer-toggle-mode))
+                            :config
+                            (progn
+                              (setq parinfer-extensions
+                                    '(defaults
+                                       pretty-parens
+                                       evil))
+                              (add-hook 'clojure-mode-hook #'parinfer-mode)))))
+
               (use-package cider
                 :ensure t
                 :config 
@@ -763,17 +777,7 @@ turning on which function mode, it shows the current function name in the bottom
 
                   (add-hook 'cider--debug-mode-hook 'cider-debug-setup)))
 
-              (use-package parinfer
-                :ensure t
-                :bind
-                (("C-," . parinfer-toggle-mode))
-                :config
-                (progn
-                  (setq parinfer-extensions
-                        '(defaults
-                           pretty-parens
-                           evil))
-                  (add-hook 'clojure-mode-hook #'parinfer-mode)))
+           
 
 
               (use-package eval-in-repl
