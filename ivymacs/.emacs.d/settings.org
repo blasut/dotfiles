@@ -981,7 +981,22 @@ turning on which function mode, it shows the current function name in the bottom
        ))
    #+END_SRC
 
+** winum
+#+BEGIN_SRC emacs-lisp
+(use-package winum
+  :ensure t
+  :bind (("M-1" . winum-select-window-1)
+         ("M-2" . winum-select-window-2)
+         ("M-3" . winum-select-window-3)
+         ("M-4" . winum-select-window-4)
+         ("M-5" . winum-select-window-5))
+  :config
+  (progn
+    (winum-mode)
+    ))
+#+END_SRC
    
+
 * Keybindings
 ** swedish keyboard fix
    #+BEGIN_SRC emacs-lisp
@@ -1119,8 +1134,8 @@ turning on which function mode, it shows the current function name in the bottom
         "pF"   '(projectile-find-file-in-known-projects :which-key "Find file in all projects")
         "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
         "pr"   '(projectile-recentf :which-key "Recent")
-        "p/"   '(counsel-git-grep :which-key "Search")
-        "ps"   '(counsel-git-grep :which-key "Search")
+        "p/"   '(counsel-projectile :which-key "Search")
+        "ps"   '(counsel-projectile :which-key "Search")
 
         ;; S
         "s"    '(:ignore t :which-key "Search")
@@ -1129,6 +1144,7 @@ turning on which function mode, it shows the current function name in the bottom
         "sp"   '(counsel-git-grep :which-key "Grep in project")
         "sj"   '(counsel-imenu :which-key "Imenu")
         "sk"   '(counsel-yank-pop :which-key "Kill ring")
+        "sr"   '(counsel-recentf :which-key "Recent")
 
         ;; W
         "w"    '(:ignore t :which-key "Window")
