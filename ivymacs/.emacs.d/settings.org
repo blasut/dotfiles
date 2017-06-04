@@ -996,6 +996,14 @@ turning on which function mode, it shows the current function name in the bottom
     ))
 #+END_SRC
    
+** golden-ratio
+#+BEGIN_SRC emacs-lisp
+(use-package golden-ratio
+  :ensure t
+  :config
+  (progn (golden-ratio-mode 1)))
+#+END_SRC
+   
 
 * Keybindings
 ** swedish keyboard fix
