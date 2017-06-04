@@ -489,7 +489,7 @@
      (intern (concat "my-layer/" (symbol-name name))))
 
    (defmacro define-layer (name &rest args)
-     (let ((vars (append (plist-get args :vars) '((disabled nil))))
+     (lexical-let ((vars (append (plist-get args :vars) '((disabled nil))))
            (config (plist-get args :config))
            (func-name (layer-name name)))
        `(cl-defun ,func-name (&key ,@vars)
