@@ -1001,8 +1001,16 @@ turning on which function mode, it shows the current function name in the bottom
 (use-package golden-ratio
   :ensure t
   :config
-  (progn (golden-ratio-mode 1)))
+  (progn (golden-ratio-mode 1)
+         (defadvice winum-select-window-by-number
+             (after golden-ratio-resize-window)
+           (golden-ratio) nil)
+
+         (ad-activate 'winum-select-window-by-number)))
 #+END_SRC
+
+#+RESULTS:
+: t
    
 
 * Keybindings
