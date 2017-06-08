@@ -74,11 +74,8 @@ Trying to get some order up in here
 ** Smartparens
     Auto pairing messes with my typing flow
     #+BEGIN_SRC emacs-lisp
-  (sp-pair "'" nil :actions :rem)
-  (sp-pair "\"" nil :actions :rem)
-  (sp-pair "[" nil :actions :rem)
-  (sp-pair "{" nil :actions :rem)
-  (sp-pair "(" nil :actions :rem)
+      (global-set-key (kbd "C-k") 'sp-kill-hybrid-sexp)
+      (global-set-key (kbd "M-k") 'sp-backward-kill-sexp)
     #+END_SRC
 ** PHP-mode
     #+BEGIN_SRC emacs-lisp
@@ -119,5 +116,6 @@ Trying to get some order up in here
                   (insert-file-contents file-full)))
             (cddr (directory-files dir)))))
    #+END_SRC
+   
    
    
