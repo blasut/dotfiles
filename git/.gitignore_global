@@ -65,3 +65,5 @@ tramp
 GPATH
 GRTAGS
 GTAGS
+
+.projectile
