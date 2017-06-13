@@ -37,7 +37,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
+     ;; helm
      ivy
      ;; auto-completion
      ;; better-defaults
@@ -164,11 +164,11 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(apropospriate-dark
+                         spacemacs-light
+                         spacemacs-dark
                          (material :location (recipe :fetcher github
                                                      :repo "cpaulik/emacs-material-theme"))
                          solarized-light
-                         spacemacs-dark
-                         spacemacs-light
                          solarized-dark
                          leuven
                          monokai

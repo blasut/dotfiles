@@ -32,7 +32,7 @@ Trying to get some order up in here
 * Evil mode rebindings
    I like helm swoop more for regular searches as well, it is easier to get an overview
    #+BEGIN_SRC emacs-lisp
-  (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
+  (define-key evil-normal-state-map (kbd "/") 'swiper)
    #+END_SRC
 
    Really nice to keep pasting after the first paste.
