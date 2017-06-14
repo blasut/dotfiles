@@ -21,4 +21,4 @@ ivymacs/.emacs.d/elpa/*
 /ivymacs/.emacs.d/network-security.data
 /ivymacs/.emacs.d/eshell/*
 /ivymacs/.emacs.d/bookmarks
-/ivymacs/.emacs.d/persp-confs/persp-auto-save
+/ivymacs/.emacs.d/persp-confs/*

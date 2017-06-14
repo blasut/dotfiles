@@ -553,6 +553,19 @@ turning on which function mode, it shows the current function name in the bottom
             (keyfreq-mode 1)
             (keyfreq-autosave-mode 1)))
 
+(use-package parinfer
+  :ensure t
+  :bind
+  (("C-," . parinfer-toggle-mode))
+  :init
+  (progn
+    (setq parinfer-extensions
+          '(defaults
+             pretty-parens
+             evil
+             smart-yank ;; Yank will preserve indentation in Indent Mode, will preserve parens in Paren Mode
+             ))))
+
 (use-package evil
   :ensure t
   :config
@@ -613,33 +626,21 @@ turning on which function mode, it shows the current function name in the bottom
       (use-package eval-in-repl
         :ensure t
         :config (require 'eval-in-repl-slime)
-                 (add-hook 'lisp-mode-hook
-                           '(lambda ()
-                              (local-set-key (kbd "<C-return>") 'eir-eval-in-slime)))) 
+        (add-hook 'lisp-mode-hook
+                  '(lambda ()
+                     (local-set-key (kbd "<C-return>") 'eir-eval-in-slime)))) 
 
       (when use-parinfer 
-        (use-package parinfer
-          :ensure t
-          :bind
-          (("C-," . parinfer-toggle-mode))
-          :init
-          (progn
-            (setq parinfer-extensions
-                  '(defaults       ; should be included.
-                     pretty-parens  ; different paren styles for different modes.
-                     evil           ; If you use Evil.
-                     ))   
-            (add-hook 'lisp-mode-hook #'parinfer-mode))))
+        (add-hook 'lisp-mode-hook #'parinfer-mode))
 
-
-      (when use-lispy 
-        (use-package lispy
-          :ensure t
-          :init 
-          (progn
-            (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
+     (when use-lispy 
+       (use-package lispy
+         :ensure t
+         :init 
+         (progn
+           (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
 
    #+END_SRC
 
@@ -749,18 +750,7 @@ turning on which function mode, it shows the current function name in the bottom
    (define-layer clojure
      :config (
               (use-package clojure-mode :ensure t
-                :config (progn
-                          (use-package parinfer
-                            :ensure t
-                            :bind
-                            (("C-," . parinfer-toggle-mode))
-                            :config
-                            (progn
-                              (setq parinfer-extensions
-                                    '(defaults
-                                       pretty-parens
-                                       evil))
-                              (add-hook 'clojure-mode-hook #'parinfer-mode)))))
+                :init (progn (add-hook 'clojure-mode-hook #'parinfer-mode)))
 
               (use-package cider
                 :ensure t
@@ -777,7 +767,12 @@ turning on which function mode, it shows the current function name in the bottom
 
                   (add-hook 'cider--debug-mode-hook 'cider-debug-setup)))
 
-           
+              (use-package smartparens
+                :ensure t
+                :config (progn 
+                          (require 'smartparens-config)
+                          (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
+
 
 
               (use-package eval-in-repl
