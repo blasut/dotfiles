@@ -370,7 +370,7 @@
    (setq locate-command "mdfind")
    #+END_SRC
 
-
+   
 * Org mode
 ** pretty source code blocks
    #+BEGIN_SRC emacs-lisp
@@ -483,22 +483,28 @@
 * Layers-definition
 ** definitions for layer-system
    #+BEGIN_SRC emacs-lisp
-   (require 'cl-lib)
+
+   (eval-when-compile (require 'cl-lib))
 
    (defun layer-name (name)
+     "Iterns a namespaced NAME."
      (intern (concat "my-layer/" (symbol-name name))))
 
    (defmacro define-layer (name &rest args)
-     (lexical-let ((vars (append (plist-get args :vars) '((disabled nil))))
+     "Actual macro used to define a layer, only takes NAME and ARGS."
+     (let ((vars (append (plist-get args :vars) '((disabled nil))))
            (config (plist-get args :config))
            (func-name (layer-name name)))
        `(cl-defun ,func-name (&key ,@vars)
-          (unless disabled
-            (progn ,@config)))))
+          (lexical-let ,vars
+            (unless disabled
+              (progn ,@config))))))
 
    (defmacro use-layer (name &rest args)
+     "Using the layer, requires NAME, takes optional ARGS."
      (let ((func-name (layer-name name)))
        `(,func-name ,@args)))
+
 
    #+END_SRC
 
