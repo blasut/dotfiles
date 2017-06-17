@@ -718,8 +718,9 @@ turning on which function mode, it shows the current function name in the bottom
                           try-complete-file-name
                           try-complete-lisp-symbol))
                   ;; Enables tab completion in the `eval-expression` minibuffer
-                  (define-key yas-minor-mode-map [(tab)] 'hippie-expand)
-                  (define-key yas-minor-mode-map [(shift tab)] 'unexpand)))))
+                  ;(define-key yas-minor-mode-map [(tab)] 'hippie-expand)
+                  ;(define-key yas-minor-mode-map [(shift tab)] 'unexpand)
+                   ))))
    #+END_SRC
 
 ** c-layer
