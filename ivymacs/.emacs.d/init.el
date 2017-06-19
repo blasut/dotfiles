@@ -13,6 +13,8 @@
   (package-refresh-contents) ; updage packages archive
   (package-install 'use-package)) ; and install the most recent version of use-package
 
+(eval-when-compile (require 'cl))
+
 (use-package org
   :ensure org-plus-contrib
   :config

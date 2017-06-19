@@ -370,7 +370,14 @@
    (setq locate-command "mdfind")
    #+END_SRC
 
-   
+** font
+   #+BEGIN_SRC emacs-lisp
+   (set-face-attribute 'default t :font "SOURCE CODE PRO 16")
+   #+END_SRC
+
+   #+RESULTS:
+
+
 * Org mode
 ** pretty source code blocks
    #+BEGIN_SRC emacs-lisp
