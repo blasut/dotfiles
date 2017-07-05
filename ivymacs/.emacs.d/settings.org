@@ -31,16 +31,16 @@
 
   
 * Links
-  - http://pastebin.com/g867n8h6
-  - https://github.com/abo-abo/oremacs/blob/github/modes/ora-ivy.el
-  - http://pastebin.com/Gtx9a1N0
-  - https://github.com/kaushalmodi/.emacs.d/blob/664ad66cba42b60f757850daeb379d84eb23a03b/setup-files/setup-search.el#L100-L127
-  - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
-  - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
-  - http://zck.me/emacs-repeat-emacs-repeat
-  - https://github.com/julienfantin/.emacs.d/blob/master/lib/use-config/use-config.el
+      - http://pastebin.com/g867n8h6
+      - https://github.com/abo-abo/oremacs/blob/github/modes/ora-ivy.el
+      - http://pastebin.com/Gtx9a1N0
+      - https://github.com/kaushalmodi/.emacs.d/blob/664ad66cba42b60f757850daeb379d84eb23a03b/setup-files/setup-search.el#L100-L127
+      - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
+      - https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-ivy.el
+      - http://zck.me/emacs-repeat-emacs-repeat
+      - https://github.com/julienfantin/.emacs.d/blob/master/lib/use-config/use-config.el
 
-    
+
 * Defuns
   
 ** open-file-in-new-buffer
@@ -343,8 +343,9 @@
 ** more reasonable tab behaviour
    Default Tab is only indention. Now its first indentation then auto complete
    #+BEGIN_SRC emacs-lisp
-   (setq tab-always-indent 'complete)
+                                           ;(setq tab-always-indent 'complete)
    #+END_SRC
+   I think I want to try using some other binding for autocomplete
 
 ** frame title format
    Show the entire path of the file in the title
@@ -521,91 +522,91 @@
 ** base-layer
    
    defining the base layer, this is what a think is absolutely necessary.
-#+BEGIN_SRC emacs-lisp
-(define-layer base
-  :config (
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (define-layer base
+     :config (
+   #+END_SRC
 
-recentf is nice.
+   recentf is nice.
 
-#+BEGIN_SRC emacs-lisp
-           (require 'recentf)
-           (setq recentf-max-saved-items 200
-                 recentf-max-menu-items 15)
-           (recentf-mode)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (require 'recentf)
+   (setq recentf-max-saved-items 200
+         recentf-max-menu-items 15)
+   (recentf-mode)
+   #+END_SRC
 
-when using mac, its nice to have the paths set in .bash_profile
+   when using mac, its nice to have the paths set in .bash_profile
 
-#+BEGIN_SRC emacs-lisp
-           (when (memq window-system '(mac ns))
-             (use-package exec-path-from-shell 
-               :ensure t
-               :config (exec-path-from-shell-initialize)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (when (memq window-system '(mac ns))
+     (use-package exec-path-from-shell 
+       :ensure t
+       :config (exec-path-from-shell-initialize)))
+   #+END_SRC
 
-turning on which function mode, it shows the current function name in the bottom
+   turning on which function mode, it shows the current function name in the bottom
 
-#+BEGIN_SRC emacs-lisp
-           (which-function-mode)
-           (setq which-func-unknown "n/a")
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (which-function-mode)
+   (setq which-func-unknown "n/a")
+   #+END_SRC
 
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-(show-paren-mode 1)
+   (show-paren-mode 1)
 
-(use-package highlight-symbol 
-  :ensure t
-  :config (add-hook 'prog-mode-hook 'highlight-symbol-mode))
+   (use-package highlight-symbol 
+     :ensure t
+     :config (add-hook 'prog-mode-hook 'highlight-symbol-mode))
 
-(use-package keyfreq
-  :ensure t
-  :config (progn 
-            (keyfreq-mode 1)
-            (keyfreq-autosave-mode 1)))
+   (use-package keyfreq
+     :ensure t
+     :config (progn 
+               (keyfreq-mode 1)
+               (keyfreq-autosave-mode 1)))
 
-(use-package parinfer
-  :ensure t
-  :bind
-  (("C-," . parinfer-toggle-mode))
-  :init
-  (progn
-    (setq parinfer-extensions
-          '(defaults
-             pretty-parens
-             evil
-             smart-yank ;; Yank will preserve indentation in Indent Mode, will preserve parens in Paren Mode
-             ))))
+   (use-package parinfer
+     :ensure t
+     :bind
+     (("C-," . parinfer-toggle-mode))
+     :init
+     (progn
+       (setq parinfer-extensions
+             '(defaults
+                pretty-parens
+                evil
+                smart-yank ;; Yank will preserve indentation in Indent Mode, will preserve parens in Paren Mode
+                ))))
 
-(use-package evil
-  :ensure t
-  :config
-  (progn
-    (evil-mode 1)
-    (add-hook 'git-commit-mode-hook 'evil-insert-state) 
-    (evil-set-initial-state 'ielm-mode 'insert)
-    (evil-set-initial-state 'lisp-mode 'emacs)
-    (evil-set-initial-state 'lisp-interaction-mode 'emacs)
-    (defun evil-paste-after-from-0 ()
-      (interactive)
-      (let ((evil-this-register ?0))
-        (call-interactively 'evil-paste-after)))
-    (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+   (use-package evil
+     :ensure t
+     :config
+     (progn
+       (evil-mode 1)
+       (add-hook 'git-commit-mode-hook 'evil-insert-state) 
+       (evil-set-initial-state 'ielm-mode 'insert)
+       (evil-set-initial-state 'lisp-mode 'emacs)
+       (evil-set-initial-state 'lisp-interaction-mode 'emacs)
+       (defun evil-paste-after-from-0 ()
+         (interactive)
+         (let ((evil-this-register ?0))
+           (call-interactively 'evil-paste-after)))
+       (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 
-    (use-package evil-escape :ensure t
-      :config
-      (progn
-        (evil-escape-mode 1)
-        (setq-default evil-escape-key-sequence "fj")))
-    (use-package evil-surround
-      :ensure t
-      :config (global-evil-surround-mode 1))))))
-#+END_SRC
+       (use-package evil-escape :ensure t
+         :config
+         (progn
+           (evil-escape-mode 1)
+           (setq-default evil-escape-key-sequence "fj")))
+       (use-package evil-surround
+         :ensure t
+         :config (global-evil-surround-mode 1))))))
+   #+END_SRC
 
-#+RESULTS:
-: t
+   #+RESULTS:
+   : t
 
 ** git-layer
    #+BEGIN_SRC emacs-lisp
@@ -646,14 +647,14 @@ turning on which function mode, it shows the current function name in the bottom
       (when use-parinfer 
         (add-hook 'lisp-mode-hook #'parinfer-mode))
 
-     (when use-lispy 
-       (use-package lispy
-         :ensure t
-         :init 
-         (progn
-           (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-           (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
-           (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
+      (when use-lispy 
+        (use-package lispy
+          :ensure t
+          :init 
+          (progn
+            (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'lisp-interaction-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))))))
 
    #+END_SRC
 
@@ -725,9 +726,9 @@ turning on which function mode, it shows the current function name in the bottom
                           try-complete-file-name
                           try-complete-lisp-symbol))
                   ;; Enables tab completion in the `eval-expression` minibuffer
-                  ;(define-key yas-minor-mode-map [(tab)] 'hippie-expand)
-                  ;(define-key yas-minor-mode-map [(shift tab)] 'unexpand)
-                   ))))
+                                           ;(define-key yas-minor-mode-map [(tab)] 'hippie-expand)
+                                           ;(define-key yas-minor-mode-map [(shift tab)] 'unexpand)
+                  ))))
    #+END_SRC
 
 ** c-layer
@@ -793,21 +794,48 @@ turning on which function mode, it shows the current function name in the bottom
                 :ensure t
                 :config (progn 
                           (require 'eval-in-repl-cider)
-                          (define-key clojure-mode-map (kbd "<C-return>") 'eir-eval-in-cider)))))
+                          (define-key clojure-mode-map (kbd "<C-return>") 'eir-eval-in-cider)))
 
+
+              (general-define-key
+               :keymaps 'clojure-mode-map
+               :states '(normal motion emacs)
+               :prefix "SPC"
+               :non-normal-prefix "C-SPC"
+
+               "mha" 'cider-apropos
+               "mhh" 'cider-doc
+               "mhg" 'cider-grimoire
+               "mhj" 'cider-javadoc
+               "mhn" 'cider-browse-ns
+
+               "meb" 'cider-eval-buffer
+               "mee" 'cider-eval-last-sexp
+               "mef" 'cider-eval-defun-at-point
+               "mem" 'cider-macroexpand-1
+               "meM" 'cider-macroexpand-all
+               "mer" 'cider-eval-region
+               "mew" 'cider-eval-last-sexp-and-replace
+
+
+               "="  'cider-format-buffer
+
+               "m'"  'cider-jack-in
+               "m\""  'cider-jack-in-clojurescript
+               ))) 
    #+END_SRC
 
    #+RESULTS:
    : my-layer/clojure
    
 ** scheme-layer   
-#+BEGIN_SRC emacs-lisp
-(define-layer scheme
-  :config ((autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t) 
-            (autoload 'run-scheme "cmuscheme" "Switch to interactive Scheme buffer." t) 
-            (setq scheme-program-name "chez") 
-            (add-hook 'scheme-mode-hook 'turn-on-font-lock)))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (define-layer scheme
+     :config ((autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t) 
+              (autoload 'run-scheme "cmuscheme" "Switch to interactive Scheme buffer." t) 
+              (setq scheme-program-name "chez") 
+              (add-hook 'scheme-mode-hook 'turn-on-font-lock)))
+   #+END_SRC
 
 
 * Layers configuration
@@ -991,35 +1019,35 @@ turning on which function mode, it shows the current function name in the bottom
    #+END_SRC
 
 ** winum
-#+BEGIN_SRC emacs-lisp
-(use-package winum
-  :ensure t
-  :bind (("M-1" . winum-select-window-1)
-         ("M-2" . winum-select-window-2)
-         ("M-3" . winum-select-window-3)
-         ("M-4" . winum-select-window-4)
-         ("M-5" . winum-select-window-5))
-  :config
-  (progn
-    (winum-mode)
-    ))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package winum
+     :ensure t
+     :bind (("M-1" . winum-select-window-1)
+            ("M-2" . winum-select-window-2)
+            ("M-3" . winum-select-window-3)
+            ("M-4" . winum-select-window-4)
+            ("M-5" . winum-select-window-5))
+     :config
+     (progn
+       (winum-mode)
+       ))
+   #+END_SRC
    
 ** golden-ratio
-#+BEGIN_SRC emacs-lisp
-(use-package golden-ratio
-  :ensure t
-  :config
-  (progn (golden-ratio-mode 1)
-         (defadvice winum-select-window-by-number
-             (after golden-ratio-resize-window)
-           (golden-ratio) nil)
+   #+BEGIN_SRC emacs-lisp
+   (use-package golden-ratio
+     :ensure t
+     :config
+     (progn (golden-ratio-mode 1)
+            (defadvice winum-select-window-by-number
+                (after golden-ratio-resize-window)
+              (golden-ratio) nil)
 
-         (ad-activate 'winum-select-window-by-number)))
-#+END_SRC
+            (ad-activate 'winum-select-window-by-number)))
+   #+END_SRC
 
-#+RESULTS:
-: t
+   #+RESULTS:
+   : t
    
 
 * Keybindings
@@ -1065,7 +1093,7 @@ turning on which function mode, it shows the current function name in the bottom
      :config
      (progn
        (general-define-key
-        "M--" 'hippie-expand)
+        "M-/" 'hippie-expand)
 
        (general-define-key
         :states '(normal motion)
