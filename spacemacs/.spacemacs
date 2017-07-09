@@ -100,6 +100,7 @@ values."
                                       interleave
                                       ruby-refactor
                                       visual-regexp
+                                      ivy-bibtex
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
