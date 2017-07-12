@@ -397,7 +397,7 @@ layers configuration. You are free to put any user code."
  '(custom-enabled-themes (quote (leuven)))
  '(custom-safe-themes
    (quote
-    ("5dc0ae2d193460de979a463b907b4b2c6d2c9c4657b2e9e66b8898d2592e3de5" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "5dc0ae2d193460de979a463b907b4b2c6d2c9c4657b2e9e66b8898d2592e3de5" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#eee8d5")
  '(frame-background-mode (quote light))
