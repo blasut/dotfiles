@@ -4,6 +4,18 @@ Trying to get some order up in here
   (setq-default evil-escape-key-sequence "fj")
   (setq-default evil-escape-delay 0.2)
   #+END_SRC
+  always turn of fill column
+  #+BEGIN_SRC emacs-lisp
+  (turn-on-fci-mode)
+  #+END_SRC
+
+* auto complete
+#+BEGIN_SRC emacs-lisp :tangle no
+ (add-hook 'company-mode-hook
+            (lambda()
+              (define-key ac-mode-map (kbd "M-.") 'ac-complete)
+              ))
+#+END_SRC
 
 * regex for js
   Regex for transforming a old react create class function to es6 function with correct scope
