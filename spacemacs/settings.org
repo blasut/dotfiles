@@ -80,8 +80,7 @@ Trying to get some order up in here
   #+END_SRC
 
 
-* Packages
-** Web-mode and js2-mode binding
+* Web-mode and js2-mode binding
    #+BEGIN_SRC emacs-lisp
         (setq-default
          ;; js2-mode
@@ -101,13 +100,13 @@ Trying to get some order up in here
           (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
           (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
    #+END_SRC
-** Smartparens
+* Smartparens
    autopairing is sort of nice
    #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-k") 'sp-kill-hybrid-sexp)
       (global-set-key (kbd "M-k") 'sp-backward-kill-sexp)
    #+END_SRC
-** PHP-mode
+* PHP-mode
    #+BEGIN_SRC emacs-lisp
   (add-hook 'php-mode-hook 'my-php-mode-hook)
   (defun my-php-mode-hook ()
@@ -118,15 +117,15 @@ Trying to get some order up in here
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
    #+END_SRC
-** Org-mode
-*** add todo files to org agenda
+* Org-mode
+** add todo files to org agenda
     Should work when not using a remote todo file. This adds my projectile todo files to the agenda
     #+BEGIN_SRC emacs-lisp :tangle no
 (with-eval-after-load 'org-agenda
   (require 'org-projectile)
   (push (org-projectile:todo-files) org-agenda-files))
     #+END_SRC
-*** org babel
+** org babel
     #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'org
   (org-babel-do-load-languages
@@ -138,7 +137,7 @@ Trying to get some order up in here
      (dot        . t))))
     #+END_SRC
 
-*** eval in repl with org mode
+** eval in repl with org mode
     #+BEGIN_SRC emacs-lisp
 (use-package org-babel-eval-in-repl
      :after ob
@@ -149,7 +148,7 @@ Trying to get some order up in here
        (define-key org-mode-map (kbd "M-<return>") 'ober-eval-block-in-repl)))
     #+END_SRC
 
-*** pretty source code blocks
+** pretty source code blocks
     #+BEGIN_SRC emacs-lisp
 (setq org-edit-src-content-indentation 0
       org-src-tab-acts-natively t
@@ -158,7 +157,7 @@ Trying to get some order up in here
       org-support-shift-select 'always)
     #+END_SRC
 
-*** setup some default folders
+** setup some default folders
     #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'org-ref
   (setq org-ref-notes-directory "~/Dropbox/notes/reading"
@@ -170,11 +169,19 @@ Trying to get some order up in here
 
     #+END_SRC
 
-
-*** hopefully get ivy bibtext working
+** hopefully get ivy bibtext working
     #+BEGIN_SRC emacs-lisp
 (use-package ivy-bibtex
   :ensure t)
+    #+END_SRC
+
+    #+RESULTS:
+
+** fontify whole line
+Fontify the whole line for headings (with a background color).
+wut? no idea
+    #+BEGIN_SRC emacs-lisp
+(setq org-fontify-whole-heading-line t)
     #+END_SRC
 
     #+RESULTS:
