@@ -9,6 +9,42 @@ Trying to get some order up in here
   (turn-on-fci-mode)
   #+END_SRC
 
+* Defuns 
+** Insert my files
+   Used for reading all the contents of every file in a directory
+   #+BEGIN_SRC emacs-lisp 
+  (defun insert-my-files ()
+    (interactive)
+    (let ((dir (read-directory-name "Directory to insert: ")))
+      (mapc #'(lambda (file) 
+                (let ((file-full (concat dir file)))
+                  (insert-file-contents file-full)))
+            (cddr (directory-files dir)))))
+   #+END_SRC
+   
+** open-file-in-new-buffer
+   #+BEGIN_SRC emacs-lisp
+   (defun open-file-in-new-buffer (filename)
+     "Opens a file in a new buffer"
+     (interactive)
+     (switch-to-buffer (find-file-noselect filename)))
+   #+END_SRC
+
+** open-config
+   #+BEGIN_SRC emacs-lisp
+      (defun open-notes ()
+        (interactive)
+        (split-window-right)
+        (open-file-in-new-buffer "~/Dropbox/notes/notes.org"))
+   #+END_SRC
+
+   
+* Key bindings
+  my own keybindings
+  #+BEGIN_SRC emacs-lisp
+ (spacemacs/set-leader-keys "on" 'open-notes)
+  #+END_SRC
+
 * auto complete
 #+BEGIN_SRC emacs-lisp :tangle no
  (add-hook 'company-mode-hook
@@ -143,11 +179,12 @@ Trying to get some order up in here
 
 ** pretty source code blocks
     #+BEGIN_SRC emacs-lisp
-(setq org-edit-src-content-indentation 0
-      org-src-tab-acts-natively t
-      org-src-fontify-natively t
-      org-confirm-babel-evaluate nil
-      org-support-shift-select 'always)
+    (with-eval-after-load 'org-ref
+      (setq org-edit-src-content-indentation 0
+          org-src-tab-acts-natively t
+          org-src-fontify-natively t
+          org-confirm-babel-evaluate nil
+          org-support-shift-select 'always))
     #+END_SRC
 
 ** setup some default folders
@@ -162,19 +199,12 @@ Trying to get some order up in here
 
     #+END_SRC
 
-** hopefully get ivy bibtext working
-    #+BEGIN_SRC emacs-lisp
-(use-package ivy-bibtex
-  :ensure t)
-    #+END_SRC
-
-    #+RESULTS:
-
 ** fontify whole line
 Fontify the whole line for headings (with a background color).
 wut? no idea
     #+BEGIN_SRC emacs-lisp
-(setq org-fontify-whole-heading-line t)
+    (with-eval-after-load 'org-ref
+        (setq org-fontify-whole-heading-line t))
     #+END_SRC
 
     #+RESULTS:
@@ -187,18 +217,3 @@ wut? no idea
   ;(push (org-projectile:todo-files) org-agenda-files)
   (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
     #+END_SRC
-* Defuns 
-** Insert my files
-   Used for reading all the contents of every file in a directory
-   #+BEGIN_SRC emacs-lisp 
-  (defun insert-my-files ()
-    (interactive)
-    (let ((dir (read-directory-name "Directory to insert: ")))
-      (mapc #'(lambda (file) 
-                (let ((file-full (concat dir file)))
-                  (insert-file-contents file-full)))
-            (cddr (directory-files dir)))))
-   #+END_SRC
-   
-   
-   
