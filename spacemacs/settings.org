@@ -1,3 +1,5 @@
+#+PROPERTY: header-args    :results silent
+
 Trying to get some order up in here
 * Defaults and simple binding
   #+BEGIN_SRC emacs-lisp
