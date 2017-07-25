@@ -219,3 +219,7 @@ wut? no idea
   ;(push (org-projectile:todo-files) org-agenda-files)
   (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
     #+END_SRC
+* All the icons
+  #+BEGIN_SRC emacs-lisp
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  #+END_SRC
