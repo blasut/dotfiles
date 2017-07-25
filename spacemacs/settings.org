@@ -189,15 +189,16 @@ Trying to get some order up in here
           org-support-shift-select 'always))
     #+END_SRC
 
-** setup some default folders
+** Use org-ref and bibtext stuff
+   some defaults
     #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org-ref
-  (setq org-ref-notes-directory "~/Dropbox/notes/reading"
-        org-ref-bibliography-notes "~/Dropbox/notes/reading/index.org"
-        org-ref-default-bibliography '("~/Dropbox/notes/reading/index.bib")
-        org-ref-pdf-directory "~/Dropbox/notes/reading/lib/")
-  (setq bibtex-completion-bibliography "~/Dropbox/notes/reading/index.bib"
-        bibtex-completion-notes-path "~/Dropbox/notes/reading/index.org"))
+    (with-eval-after-load 'org-ref
+      (setq org-ref-bibliography-notes "~/Dropbox/notes/reading/index.org"
+            org-ref-default-bibliography '("~/Dropbox/notes/reading/index.bib")
+            org-ref-pdf-directory "~/Dropbox/notes/reading/lib/")
+      (setq bibtex-completion-bibliography "~/Dropbox/notes/reading/index.bib"
+            bibtex-completion-library-path "~/Dropbox/notes/reading/lib"
+            bibtex-completion-notes-path "~/Dropbox/notes/reading/index.org"))
 
     #+END_SRC
     I wanna have auto downloads of pds...
@@ -218,19 +219,27 @@ Trying to get some order up in here
     
 
 
-    #+RESULTS:
+** fontify whole line
+   Fontify the whole line for headings (with a background color).
+   wut? no idea
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'org-ref
+     (setq org-fontify-whole-heading-line t))
+   #+END_SRC
+
+   #+RESULTS:
 
 ** add todo files to org agenda
-    Should work when not using a remote todo file. This adds my projectile todo files to the agenda
-    #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org-agenda
-  (require 'org-projectile)
-  ;(push (org-projectile:todo-files) org-agenda-files)
-  (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
-    #+END_SRC
+   Should work when not using a remote todo file. This adds my projectile todo files to the agenda
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'org-agenda
+     (require 'org-projectile)
+                                           ;(push (org-projectile:todo-files) org-agenda-files)
+     (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
+   #+END_SRC
 * All the icons
   spaceline support
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (use-package spaceline-all-the-icons 
     :after spaceline
     :config (spaceline-all-the-icons-theme))
