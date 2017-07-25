@@ -200,14 +200,23 @@ Trying to get some order up in here
         bibtex-completion-notes-path "~/Dropbox/notes/reading/index.org"))
 
     #+END_SRC
-
-** fontify whole line
-Fontify the whole line for headings (with a background color).
-wut? no idea
+    I wanna have auto downloads of pds...
     #+BEGIN_SRC emacs-lisp
     (with-eval-after-load 'org-ref
-        (setq org-fontify-whole-heading-line t))
+      (require 'doi-utils))
     #+END_SRC
+    Nice with book support
+    #+BEGIN_SRC emacs-lisp
+    (with-eval-after-load 'org-ref
+      (require 'org-ref-isbn))
+    #+END_SRC
+    Sweet with url drag and drop
+    #+BEGIN_SRC emacs-lisp
+    (with-eval-after-load 'org-ref
+      (require 'org-ref-url-utils))
+    #+END_SRC
+    
+
 
     #+RESULTS:
 
