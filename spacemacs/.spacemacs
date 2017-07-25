@@ -97,7 +97,7 @@ values."
      (colors :variables colors-colorize-identifiers 'variables)
 
 
-     ;; erlang
+     erlang
      ;; elixir
      ;; go
      ;; php
