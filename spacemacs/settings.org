@@ -69,6 +69,10 @@ Trying to get some order up in here
   #+BEGIN_SRC emacs-lisp
 (global-aggressive-indent-mode)
   #+END_SRC
+  lets ignore some stuff
+  #+BEGIN_SRC emacs-lisp
+  (add-to-list 'aggressive-indent-excluded-modes 'slim-mode)
+  #+END_SRC
 
 * show path in buffer title
   #+BEGIN_SRC emacs-lisp
