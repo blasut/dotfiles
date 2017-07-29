@@ -45,6 +45,7 @@ Trying to get some order up in here
   my own keybindings
   #+BEGIN_SRC emacs-lisp
  (spacemacs/set-leader-keys "on" 'open-notes)
+ (spacemacs/set-leader-keys "oc" 'org-capture)
   #+END_SRC
 
 * auto complete
@@ -174,8 +175,8 @@ Trying to get some order up in here
 
 ** eval in repl with org mode
     #+BEGIN_SRC emacs-lisp
-(use-package org-babel-eval-in-repl
-     :after ob
+    (use-package org-babel-eval-in-repl
+     :after org
      :init (setq eir-jump-after-eval nil)
      :config
      (progn
@@ -241,6 +242,26 @@ Trying to get some order up in here
                                            ;(push (org-projectile:todo-files) org-agenda-files)
      (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
    #+END_SRC
+** org capture templates
+   #+BEGIN_SRC emacs-lisp
+   (setq org-capture-templates
+         '(("n" "Note" entry (file "~/Dropbox/notes/notes.org" "Notes")
+            "* %?\n%T" :prepend t)
+           ("w" "Work Note" entry (file "~/Dropbox/notes/work.org" "Work")
+            "* %?\n%T" :prepend t)
+           ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
+            "* %? %^L %^g \n%T" :prepend t)
+           ("b" "Blog idea" entry (file+headline "~/Dropbox/notes/stuff.org" "Blog Topics")
+            "* %?\n%T" :prepend t)
+           ("t" "To Do Item" entry (file "~/Dropbox/notes/TODOs.org" "To Do Items")
+            "* %?\n%T" :prepend t)
+           ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
+            "* %?\nEntered on %U\n  %i\n  %a")))
+   #+END_SRC
+** insert mode when capturing
+  #+BEGIN_SRC emacs-lisp
+  (add-hook 'org-capture-mode-hook 'evil-insert-state) 
+  #+END_SRC
 * All the icons
   spaceline support
   #+BEGIN_SRC emacs-lisp :tangle no
