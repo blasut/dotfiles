@@ -237,9 +237,9 @@ Trying to get some order up in here
 ** add todo files to org agenda
    Should work when not using a remote todo file. This adds my projectile todo files to the agenda
    #+BEGIN_SRC emacs-lisp
-   (with-eval-after-load 'org-agenda
+   (with-eval-after-load 'org
      (require 'org-projectile)
-                                           ;(push (org-projectile:todo-files) org-agenda-files)
+     ;;(push (org-projectile:todo-files) org-agenda-files)
      (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
    #+END_SRC
 ** org capture templates
