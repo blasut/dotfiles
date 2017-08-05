@@ -266,7 +266,7 @@ Trying to get some order up in here
            ("b" "Blog idea" entry (file+headline "~/Dropbox/notes/stuff.org" "Blog Topics")
             "* %?\n%T" :prepend t)
            ("t" "To Do Item" entry (file "~/Dropbox/notes/TODOs.org" "To Do Items")
-            "* %?\n%T" :prepend t)
+            "* TODO %?\n%T" :prepend t)
            ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
             "* %?\nEntered on %U\n  %i\n")))
    #+END_SRC
