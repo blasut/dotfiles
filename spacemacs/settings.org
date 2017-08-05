@@ -272,8 +272,9 @@ Trying to get some order up in here
    #+END_SRC
 ** insert mode when capturing
   #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-capture-mode-hook 'evil-insert-state) 
-  #+END_SRC}
+  (with-eval-after-load 'org
+    (add-hook 'org-capture-mode-hook 'evil-insert-state))
+  #+END_SRC
 ** orgmobile
    I guess this is a more general setting, but is it alright, because my notes folder has evolved to a general org-folder
    #+BEGIN_SRC emacs-lisp
