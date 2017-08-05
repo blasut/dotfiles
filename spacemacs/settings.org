@@ -271,7 +271,23 @@ Trying to get some order up in here
 ** insert mode when capturing
   #+BEGIN_SRC emacs-lisp
   (add-hook 'org-capture-mode-hook 'evil-insert-state) 
-  #+END_SRC
+  #+END_SRC}
+** orgmobile
+   I guess this is a more general setting, but is it alright, because my notes folder has evolved to a general org-folder
+   #+BEGIN_SRC emacs-lisp
+   (setq org-directory "~/Dropbox/notes")
+   #+END_SRC
+   now for the good stuff
+   #+BEGIN_SRC emacs-lisp
+   (setq org-mobile-inbox-for-pull "~/Dropbox/notes/flagged.org")
+   (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+   #+END_SRC
+   which files do I want to sync?
+   #+BEGIN_SRC emacs-lisp
+        (setq org-mobile-files (list "~/Dropbox/notes/journal.org" 
+                                     "~/Dropbox/notes/stuff.org"
+                                     "~/Dropbox/notes/TODOs.org"))
+   #+END_SRC
 * All the icons
   spaceline support
   #+BEGIN_SRC emacs-lisp :tangle no
