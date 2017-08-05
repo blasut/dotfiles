@@ -288,6 +288,19 @@ Trying to get some order up in here
                                      "~/Dropbox/notes/stuff.org"
                                      "~/Dropbox/notes/TODOs.org"))
    #+END_SRC
+** setup org agenda files
+   #+BEGIN_SRC emacs-lisp
+   (setq org-agenda-files (append org-agenda-files (list "~/Dropbox/notes/TODOs.org"
+                                                         "~/Dropbox/notes/stuff.org"
+                                                         "~/Dropbox/notes/journal.org"
+                                                         "~/Dropbox/notes/notes.org")))
+   #+END_SRC
+
+** set up places for refile
+   #+BEGIN_SRC emacs-lisp
+   (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+   #+END_SRC
+
 * All the icons
   spaceline support
   #+BEGIN_SRC emacs-lisp :tangle no
