@@ -265,6 +265,8 @@ Trying to get some order up in here
             "* %? %^L %^g \n%T" :prepend t)
            ("b" "Blog idea" entry (file+headline "~/Dropbox/notes/stuff.org" "Blog Topics")
             "* %?\n%T" :prepend t)
+           ("c" "Culture" entry (file+headline "~/Dropbox/notes/stuff.org" "Culture")
+            "* %? %^L %^g \n%T" :prepend t)
            ("t" "To Do Item" entry (file "~/Dropbox/notes/TODOs.org" "To Do Items")
             "* TODO %?\n%T" :prepend t)
            ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
