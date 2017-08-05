@@ -246,7 +246,9 @@ Trying to get some order up in here
 
 ** add todo files to org agenda
    Should work when not using a remote todo file. This adds my projectile todo files to the agenda
-   #+BEGIN_SRC emacs-lisp
+  
+   this is not working atm
+   #+BEGIN_SRC emacs-lisp :tangle no
    (with-eval-after-load 'org
      (require 'org-projectile)
      ;;(push (org-projectile:todo-files) org-agenda-files)
