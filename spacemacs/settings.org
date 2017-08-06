@@ -56,6 +56,11 @@ Trying to get some order up in here
  (spacemacs/set-leader-keys "ow" 'open-work-notes)
  (spacemacs/set-leader-keys "oc" 'org-capture)
   #+END_SRC
+  orgmobile stuff
+  #+BEGIN_SRC emacs-lisp
+ (spacemacs/set-leader-keys "omp" 'org-mobile-pull)
+ (spacemacs/set-leader-keys "omu" 'org-mobile-push)
+  #+END_SRC
 
 * auto complete
 #+BEGIN_SRC emacs-lisp :tangle no
