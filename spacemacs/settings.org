@@ -6,9 +6,9 @@ Trying to get some order up in here
   (setq-default evil-escape-key-sequence "fj")
   (setq-default evil-escape-delay 0.2)
   #+END_SRC
-  always turn of fill column
+  lets use truncate lines instead of fci mode
   #+BEGIN_SRC emacs-lisp
-  (turn-on-fci-mode)
+  (spacemacs/toggle-truncate-lines-on)
   #+END_SRC
 
 * Defuns 
