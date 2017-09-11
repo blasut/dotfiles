@@ -49,6 +49,15 @@ Trying to get some order up in here
    #+END_SRC
 
    
+* Example of dir-locals
+#+BEGIN_SRC emacs-lisp :tangle no
+((nil . ((projectile-globally-ignored-file-suffixes . ( ".cs" ".ttf" ))
+         (eval . (set (make-local-variable 'projectile-globally-ignored-directories)
+                      (append projectile-globally-ignored-directories
+                              (push "FOLDERNAME" projectile-globally-ignored-files)))))
+      ))
+#+END_SRC
+   
 * Key bindings
   my own keybindings
   #+BEGIN_SRC emacs-lisp
@@ -139,23 +148,24 @@ Trying to get some order up in here
 
 * Web-mode and js2-mode binding
    #+BEGIN_SRC emacs-lisp
-        (setq-default
-         ;; js2-mode
-         js2-basic-offset 2
-         js-indent-level 2
-         js2-strict-missing-semi-warning nil
-         ;; web-mode
-         css-indent-offset 2
-         web-mode-markup-indent-offset 2
-         web-mode-css-indent-offset 2
-         web-mode-code-indent-offset 2
-         web-mode-attr-indent-offset 2)
-        (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
-        ;; react config
-        (with-eval-after-load 'web-mode
-          (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
-          (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
-          (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+      (setq-default
+       ;; js2-mode
+       js2-basic-offset 2
+       js-indent-level 2
+       js2-strict-missing-semi-warning nil
+       js2-strict-trailing-comma-warning nil
+       ;; web-mode
+       css-indent-offset 2
+       web-mode-markup-indent-offset 2
+       web-mode-css-indent-offset 2
+       web-mode-code-indent-offset 2
+       web-mode-attr-indent-offset 2)
+      (add-to-list 'auto-mode-alist '("\\.ejs\\'" . js2-mode))
+      ;; react config
+      (with-eval-after-load 'web-mode
+        (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+        (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+        (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
    #+END_SRC
 * Smartparens
    autopairing is sort of nice
