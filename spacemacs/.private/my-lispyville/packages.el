@@ -96,6 +96,7 @@ Each entry is either:
   (setq sp-highlight-wrap-overlay nil)
   (setq sp-highlight-wrap-tag-overlay nil))
 
+;; Smartparens should be turned on where lispy is not used... Maybe I can jsut turn it off in those modes?
 (defun my-lispyville/post-init-smartparens ()
   (show-smartparens-global-mode -1))
 
