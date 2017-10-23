@@ -440,7 +440,7 @@ layers configuration. You are free to put any user code."
     ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
  '(lispy-safe-actions-no-pull-delimiters-into-comments t)
  '(lispyville-commands-put-into-special nil)
- '(lispyville-motions-put-into-special nil)
+ '(lispyville-motions-put-into-special t)
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
