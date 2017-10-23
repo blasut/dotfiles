@@ -113,6 +113,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      clojure-semantic
                                       interleave
                                       ruby-refactor
                                       visual-regexp
@@ -385,7 +386,9 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (spacemacs/toggle-smartparens-globally-off)
   (org-babel-load-file
-   (expand-file-name "~/settings.org")))
+   (expand-file-name "~/settings.org"))
+  (require clojure-wy)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
