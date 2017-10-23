@@ -70,21 +70,25 @@ Each entry is either:
     ))
 
 (defun my-lispyville//add-hooks-for-lispyville ()
-  (add-hook 'emacs-lisp-mode-hook (lambda () (lispyville-mode 1)))
-  (add-hook 'ielm-mode-hook (lambda () (lispyville-mode 1)))
-  (add-hook 'inferior-emacs-lisp-mode-hook (lambda () (lispyville-mode 1)))
-  ;; (add-hook 'spacemacs-mode-hook (lambda () (lispyville-mode 1)))
-  (add-hook 'clojure-mode-hook (lambda () (lispyville-mode 1)))
-  (add-hook 'scheme-mode-hook (lambda () (lispyville-mode 1)))
-  (add-hook 'cider-repl-mode-hook (lambda () (lispyville-mode 1))))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'ielm-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'inferior-emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+  ;; (add-hook 'spacemacs-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'lispy-mode-hook #'lispyville-mode))
 
 (defun my-lispyville//set-lispyville-keytheme ()
   (with-eval-after-load 'lispyville
     (lispyville-set-key-theme '(operators
-                                additional-movement
                                 slurp/barf-lispy
                                 additional
+                                (escape insert)
+                                (additional-movement normal visual motion)
                                 mark))
+    (my-lispyville/post-init-smartparens)
+    (my-lispyville/post-init-evil)
     (spacemacs/set-leader-keys "o." 'lispyville-mode)))
 
 (defun my-lispyville/pre-init-smartparens ()

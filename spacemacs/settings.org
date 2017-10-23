@@ -4,7 +4,7 @@ Trying to get some order up in here
 * Defaults and simple binding
   #+BEGIN_SRC emacs-lisp
   (setq-default evil-escape-key-sequence "fj")
-  (setq-default evil-escape-delay 0.2)
+  (setq-default evil-escape-delay 0.1)
   #+END_SRC
   lets use truncate lines instead of fci mode
   #+BEGIN_SRC emacs-lisp

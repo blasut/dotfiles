@@ -342,7 +342,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode t
+   dotspacemacs-smartparens-strict-mode nil
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -383,6 +383,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (spacemacs/toggle-smartparens-globally-off)
   (org-babel-load-file
    (expand-file-name "~/settings.org")))
 
@@ -437,6 +438,9 @@ layers configuration. You are free to put any user code."
  '(hl-fg-colors
    (quote
     ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
+ '(lispy-safe-actions-no-pull-delimiters-into-comments t)
+ '(lispyville-commands-put-into-special nil)
+ '(lispyville-motions-put-into-special nil)
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
