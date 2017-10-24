@@ -332,7 +332,9 @@ Trying to get some order up in here
   
 * lispy
   #+BEGIN_SRC emacs-lisp
-  (spacemacs/toggle-smartparens-globally-off)
+  ;; (spacemacs/toggle-smartparens-globally-off)
   ;; Should bind lispy-splice to sth...
 
   #+END_SRC
+ 
+  

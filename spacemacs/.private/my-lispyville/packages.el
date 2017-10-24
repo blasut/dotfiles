@@ -59,48 +59,83 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+
+
+(defun my-lispyville/init-lispy ()
+  (use-package lispy
+    :init
+    (progn  (message "lispy init")
+            (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'ielm-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'inferior-emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
+
+            (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'common-lisp-mode-hook (lambda () (lispy-mode 1)))
+
+            (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
+            (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
+
+            ;; Turn off smartparens
+            (add-hook 'emacs-mode-hook #'turn-off-smartparens-mode)
+            (add-hook 'clojure-mode-hook #'turn-off-smartparens-mode)
+            (add-hook 'cider-repl-mode-hook #'turn-off-smartparens-mode)
+            (add-hook 'common-lisp-mode-hook #'turn-off-smartparens-mode)
+            (add-hook 'scheme-mode-hook #'turn-off-smartparens-mode)
+            (add-hook 'lisp-mode-hook #'turn-off-smartparens-mode)
+
+            (add-hook 'lispy-mode-hook #'my-lispyville/setup-keybindings-for-lispy)
+            )
+
+    :config
+    (progn
+      (message "lispy config")
+      (spacemacs|diminish lispy-mode " Ⓛ" " L")
+      )
+    ))
+
+(defun my-lispyville/setup-keybindings-for-lispy ()
+  (message "setup keybindings for lispy")
+  (define-key lispy-mode-map (kbd "M-RET") nil)
+  (define-key key-translation-map (kbd "<M-return>") (kbd "M-RET"))
+  )
+
 (defun my-lispyville/init-lispyville ()
   (use-package lispyville
     :defer t
     :init
-    (my-lispyville//add-hooks-for-lispyville)
+    (progn
+      (message "lispyville init")
+      (add-hook 'lispy-mode-hook #'lispyville-mode))
     :config
-    (progn (my-lispyville//set-lispyville-keytheme)
-           (spacemacs|diminish evil-lispy-mode " Ⓛ" " L"))
-    ))
-
-(defun my-lispyville//add-hooks-for-lispyville ()
-  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-  (add-hook 'ielm-mode-hook (lambda () (lispy-mode 1)))
-  (add-hook 'inferior-emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-  ;; (add-hook 'spacemacs-mode-hook (lambda () (lispy-mode 1)))
-  (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
-  (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
-  (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
-  (add-hook 'lispy-mode-hook #'lispyville-mode))
+    (progn
+      (message "lispyville config")
+      (my-lispyville//set-lispyville-keytheme)
+      (spacemacs|diminish lispyville-mode " ")
+      )))
 
 (defun my-lispyville//set-lispyville-keytheme ()
   (with-eval-after-load 'lispyville
     (lispyville-set-key-theme '(operators
+                                s-operators
                                 slurp/barf-lispy
                                 additional
                                 (escape insert)
                                 (additional-movement normal visual motion)
-                                mark))
-    (my-lispyville/post-init-smartparens)
-    (my-lispyville/post-init-evil)
+                                mark
+                                ))
     (spacemacs/set-leader-keys "o." 'lispyville-mode)))
 
-(defun my-lispyville/pre-init-smartparens ()
-  (setq sp-highlight-pair-overlay nil)
-  (setq sp-highlight-wrap-overlay nil)
-  (setq sp-highlight-wrap-tag-overlay nil))
+;; (defun my-lispyville/pre-init-smartparens ()
+;;   (setq sp-highlight-pair-overlay nil)
+;;   (setq sp-highlight-wrap-overlay nil)
+;;   (setq sp-highlight-wrap-tag-overlay nil))
 
 ;; Smartparens should be turned on where lispy is not used... Maybe I can jsut turn it off in those modes?
-(defun my-lispyville/post-init-smartparens ()
-  (show-smartparens-global-mode -1))
+;; (defun my-lispyville/post-init-smartparens ()
+;;   (show-smartparens-global-mode -1))
 
-(defun my-lispyville/post-init-evil ()
-  (setq evil-move-beyond-eol t))
+;; (defun my-lispyville/post-init-evil ()
+;;   (setq evil-move-beyond-eol t))
 
 ;;; packages.el ends here
