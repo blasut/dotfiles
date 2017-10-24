@@ -330,11 +330,11 @@ Trying to get some order up in here
     :config (spaceline-all-the-icons-theme))
   #+END_SRC
   
-* lispy
+* clojure
   #+BEGIN_SRC emacs-lisp
-  ;; (spacemacs/toggle-smartparens-globally-off)
-  ;; Should bind lispy-splice to sth...
-
+  (evil-set-initial-state 'cider-browse-spec-mode 'insert)
+  (evil-set-initial-state 'cider-browse-spec-view-mode 'insert)
+  (evil-set-initial-state 'cider-browse-spec-example-mode 'insert)
   #+END_SRC
  
   
