@@ -7,3 +7,6 @@
 [submodule "spacemacs/.emacs.d"]
 	path = spacemacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+[submodule "spacemacs/.private/local/clojure-scemantic"]
+	path = spacemacs/.private/local/clojure-scemantic
+	url = https://github.com/abo-abo/clojure-semantic.git
