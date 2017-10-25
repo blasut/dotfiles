@@ -387,7 +387,9 @@ layers configuration. You are free to put any user code."
    (expand-file-name "~/settings.org"))
 
   (add-to-list 'load-path "~/.private/local/clojure-scemantic/")
-  (load "clojure.el"))
+  (load "clojure.el")
+
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
