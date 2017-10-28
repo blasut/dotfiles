@@ -77,7 +77,7 @@ values."
      ;; org stuff
      (org :variables org-projectile-file "~/Dropbox/TODOs.org")
      bibtex
-     pdf-tools
+     ;; pdf-tools
 
      ;; Misc needed
      csv
