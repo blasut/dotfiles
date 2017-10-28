@@ -111,6 +111,7 @@ Each entry is either:
     (progn
       (message "lispyville config")
       (my-lispyville//set-lispyville-keytheme)
+      (evil-set-initial-state 'special-mode 'insert)
       (spacemacs|diminish lispyville-mode " ")
       )))
 

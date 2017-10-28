@@ -339,10 +339,3 @@ Trying to get some order up in here
  
   
   
-* lispy
-  #+BEGIN_SRC emacs-lisp
-  (evil-set-initial-state 'special-mode 'insert)
-  #+END_SRC
- 
-  
-  
