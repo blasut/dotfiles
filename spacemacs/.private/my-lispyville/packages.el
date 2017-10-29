@@ -77,12 +77,15 @@ Each entry is either:
             (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
 
             ;; Turn off smartparens
-            (add-hook 'emacs-mode-hook #'turn-off-smartparens-mode)
+            (add-hook 'emacs-lisp-mode-hook #'turn-off-smartparens-mode)
             (add-hook 'clojure-mode-hook #'turn-off-smartparens-mode)
             (add-hook 'cider-repl-mode-hook #'turn-off-smartparens-mode)
             (add-hook 'common-lisp-mode-hook #'turn-off-smartparens-mode)
             (add-hook 'scheme-mode-hook #'turn-off-smartparens-mode)
             (add-hook 'lisp-mode-hook #'turn-off-smartparens-mode)
+
+            ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
+            ;; (spacemacs/toggle-smartparens-globally-off)
 
             (add-hook 'lispy-mode-hook #'my-lispyville/setup-keybindings-for-lispy)
             )
