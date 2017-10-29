@@ -388,6 +388,7 @@ layers configuration. You are free to put any user code."
   (org-babel-load-file
    (expand-file-name "~/settings.org"))
 
+  ;; experimentation area after settings has loaded, when working as expcted it should be mved to settings.org
   (require 'ivy-rich)
   (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
   (setq ivy-rich-abbreviate-paths t)
