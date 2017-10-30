@@ -22,11 +22,15 @@ The ivymacs folder is an expteriment with using def-package, which-key, evil, an
 - Figure this out: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#replacing-text-in-several-files
 
 
+## Setup
+
+In the setup folder there are some scripts to help get my comp to the same settings
+
 
 TODO:
 
-- # Check this out: http://whattheemacsd.com/project-defuns.el-01.html
-- # Check out: http://inclojurewetrust.blogspot.de/2013/01/duplicating-s-expressions-on-line.html
-- # Check out: http://batsov.com/projectile/
-- # Check out: http://tuhdo.github.io/helm-projectile.html
-- # Check out: https://github.com/magnars/.emacs.d/blob/master/settings/key-bindings.el#L30-L43
+- Check this out: http://whattheemacsd.com/project-defuns.el-01.html
+- Check out: http://inclojurewetrust.blogspot.de/2013/01/duplicating-s-expressions-on-line.html
+- Check out: http://batsov.com/projectile/
+- Check out: http://tuhdo.github.io/helm-projectile.html
+- Check out: https://github.com/magnars/.emacs.d/blob/master/settings/key-bindings.el#L30-L43

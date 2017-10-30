@@ -1,0 +1,30 @@
+# nvm
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
+
+# no analytics to homebrew
+export HOMEBREW_NO_ANALYTICS=1
+
+# Prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+export HISTCONTROL=ignoreboth
+
+# for unlimited history
+export HISTSIZE=
+export HISTFILESIZE=
+
+# timestamp for history
+export HISTTIMEFORMAT="[%F %T] "
+
+# Force prompt to write history after every command.
+# http://superuser.com/questions/20900/bash-history-loss
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+export TERM=xterm-256color
