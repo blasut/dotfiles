@@ -89,7 +89,7 @@ brew install yarn
 brew install cairo # ocaml
 
 # misc
-brew install ctags
+brew install global --with-pygments --with-ctags
 brew install colordiff
 brew install youtube-dl
 brew install pdf-tools
