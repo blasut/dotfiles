@@ -50,8 +50,8 @@ brew install ruby-build
 brew install rbenv
 
 # Install more recent versions of some OS X tools.
-brew install vim --override-system-vi
-brew install homebrew/dupes/grep
+brew install vim --with-override-system-vi
+brew install grep
 brew install homebrew/dupes/openssh
 
 # Install font tools.
