@@ -337,5 +337,3 @@ Trying to get some order up in here
   (evil-set-initial-state 'cider-browse-spec-example-mode 'insert)
   #+END_SRC
  
-  
-  
