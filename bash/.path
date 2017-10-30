@@ -21,3 +21,6 @@ export PATH=$PATH:/usr/local/go/bin
 
 # erlang
 export PATH=$PATH:~/.cache/rebar3/bin
+
+# for using coreutils
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
