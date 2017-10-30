@@ -22,3 +22,4 @@ ivymacs/.emacs.d/elpa/*
 /ivymacs/.emacs.d/eshell/*
 /ivymacs/.emacs.d/bookmarks
 /ivymacs/.emacs.d/persp-confs/*
+/vim/.vim/.netrwhist
