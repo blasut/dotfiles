@@ -56,9 +56,6 @@ values."
                       auto-completion-return-key-behavior nil
                       auto-completion-enable-sort-by-usage t)
 
-     ;; gtags
-     my-gtags
-
      ;; programming languages
      (haskell :variables haskell-process-type 'stack-ghci
               haskell-completion-backend 'intero)
@@ -105,8 +102,12 @@ values."
      ;; swift
      ;; c-c++
      ;; python
+
+     ;; my private stuff
      my-lispyville
 
+     ;; gtags
+     my-gtags
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these

@@ -30,8 +30,7 @@
 ;;; Code:
 
 (defconst my-gtags-packages
-  '(ggtags
-    counsel-gtags)
+  '(counsel-gtags)
   "The list of Lisp packages required by the my-gtags layer.
 
 Each entry is either:
@@ -61,10 +60,22 @@ Each entry is either:
 
 (defun my-gtags/init-counsel-gtags ()
   (use-package counsel-gtags
+    :init
+    (add-hook 'prog-mode-hook 'counsel-gtags-mode)
     :config
     (progn
+      (spacemacs|diminish counsel-gtags-mode " Ⓖ" " G")
+      (add-hook 'counsel-gtags-mode-hook #'my-gtags/setup-global-bindings-for-tags)
       (my-gtags/define-keys-for-mode 'js2-mode)
       (my-gtags/define-keys-for-mode 'react-mode))))
+
+(defun my-gtags/setup-global-bindings-for-tags ()
+  (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+  (define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
+  (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
+  (define-key counsel-gtags-mode-map (kbd "M-*") 'counsel-gtags-go-backward)
+  ;; (define-key ggtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
+  )
 
 (defun my-gtags/define-keys-for-mode (mode)
   (spacemacs/set-leader-keys-for-major-mode mode
