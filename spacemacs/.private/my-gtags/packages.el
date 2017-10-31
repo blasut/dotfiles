@@ -67,7 +67,8 @@ Each entry is either:
       (spacemacs|diminish counsel-gtags-mode " Ⓖ" " G")
       (add-hook 'counsel-gtags-mode-hook #'my-gtags/setup-global-bindings-for-tags)
       (my-gtags/define-keys-for-mode 'js2-mode)
-      (my-gtags/define-keys-for-mode 'react-mode))))
+      (my-gtags/define-keys-for-mode 'react-mode)
+      (my-gtags/define-keys-for-mode 'emacs-lisp-mode))))
 
 (defun my-gtags/setup-global-bindings-for-tags ()
   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
