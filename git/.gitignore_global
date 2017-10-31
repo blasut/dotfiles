@@ -67,3 +67,5 @@ GRTAGS
 GTAGS
 
 .projectile
+
+.dir-locals.el
