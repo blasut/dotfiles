@@ -181,12 +181,14 @@ Trying to get some order up in here
         (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
         (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
    #+END_SRC
+
 * Smartparens
    autopairing is sort of nice
    #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-k") 'sp-kill-hybrid-sexp)
       (global-set-key (kbd "M-k") 'sp-backward-kill-sexp)
    #+END_SRC
+
 * PHP-mode
    #+BEGIN_SRC emacs-lisp
   (add-hook 'php-mode-hook 'my-php-mode-hook)
@@ -198,6 +200,7 @@ Trying to get some order up in here
       (set (make-local-variable 'tab-stop-list)
            (number-sequence my-tab-width 200 my-tab-width))))
    #+END_SRC
+
 * Org-mode
 ** org babel
     #+BEGIN_SRC emacs-lisp
@@ -351,3 +354,10 @@ Trying to get some order up in here
   (evil-set-initial-state 'cider-browse-spec-example-mode 'insert)
   #+END_SRC
  
+* lisp mode
+  lisp mode is for all lisps that are NOT emacs-lisp. Not sure if this doesn't work well with cider
+#+BEGIN_SRC emacs-lisp
+(add-hook 'lisp-mode-hook 'prettify-symbols-mode)
+#+END_SRC
+
+* which function mode
