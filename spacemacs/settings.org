@@ -48,7 +48,21 @@ Trying to get some order up in here
         (open-file-in-new-buffer "~/Dropbox/notes/work.org"))
    #+END_SRC
 
+** visit-ielm
+   doesn't actually work
+   #+BEGIN_SRC emacs-lisp
+   (defun visit-ielm ()
+     "Create or visit a `ielm' buffer."
+     (interactive)
+     (if (not (get-buffer "*ielm*"))
+         (progn
+           (split-window-sensibly (selected-window))
+           (other-window 1)
+           (ielm))
+       (switch-to-buffer-other-window "*ielm*")))
+   #+END_SRC
    
+
 * Example of dir-locals
 #+BEGIN_SRC emacs-lisp :tangle no
 ((nil . ((projectile-globally-ignored-file-suffixes . ( ".cs" ".ttf" ))
