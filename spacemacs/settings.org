@@ -124,13 +124,13 @@ Trying to get some order up in here
   #+END_SRC
 
 * Evil mode rebindings
-  I like helm swoop more for regular searches as well, it is easier to get an overview
+  I like swiper
   #+BEGIN_SRC emacs-lisp
   (define-key evil-normal-state-map (kbd "/") 'swiper)
   #+END_SRC
 
   Really nice to keep pasting after the first paste.
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (defun evil-paste-after-from-0 ()
     (interactive)
     (let ((evil-this-register ?0))
@@ -145,7 +145,7 @@ Trying to get some order up in here
   (add-hook 'git-commit-mode-hook 'evil-insert-state) 
   #+END_SRC
 
-
+  
 * Web-mode and js2-mode binding
    #+BEGIN_SRC emacs-lisp
       (setq-default
