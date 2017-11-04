@@ -71,7 +71,20 @@ Each entry is either:
       (my-gtags/define-keys-for-mode 'emacs-lisp-mode))))
 
 (defun my-gtags/setup-global-bindings-for-tags ()
-  (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+  ;; this is getting ugly...
+  (with-eval-after-load 'js2-mode
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim))
+
+  (with-eval-after-load 'slime-mode
+    (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
+    (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack))
+
+  (with-eval-after-load 'react-mode
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim))
+
+  ;; I don't want this to override when another layer already defines a reasonable M-.
+  ;; (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+
   (define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
   (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
   (define-key counsel-gtags-mode-map (kbd "M-*") 'counsel-gtags-go-backward)
