@@ -64,59 +64,51 @@ Each entry is either:
 (defun my-lispyville/init-lispy ()
   (use-package lispy
     :init
-    (progn  (message "lispy init")
-            (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'ielm-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'inferior-emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
+    (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'ielm-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'inferior-emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
 
-            (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'common-lisp-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'common-lisp-mode-hook (lambda () (lispy-mode 1)))
 
-            (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
-            (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
+           (add-hook 'cider-repl-mode-hook (lambda () (lispy-mode 1)))
 
-            ;; Turn off smartparens
-            (add-hook 'emacs-lisp-mode-hook #'turn-off-smartparens-mode)
-            (add-hook 'clojure-mode-hook #'turn-off-smartparens-mode)
-            (add-hook 'cider-repl-mode-hook #'turn-off-smartparens-mode)
-            (add-hook 'common-lisp-mode-hook #'turn-off-smartparens-mode)
-            (add-hook 'scheme-mode-hook #'turn-off-smartparens-mode)
-            (add-hook 'lisp-mode-hook #'turn-off-smartparens-mode)
+           ;; Turn off smartparens
+           (add-hook 'emacs-lisp-mode-hook #'turn-off-smartparens-mode)
+           (add-hook 'clojure-mode-hook #'turn-off-smartparens-mode)
+           (add-hook 'cider-repl-mode-hook #'turn-off-smartparens-mode)
+           (add-hook 'common-lisp-mode-hook #'turn-off-smartparens-mode)
+           (add-hook 'scheme-mode-hook #'turn-off-smartparens-mode)
+           (add-hook 'lisp-mode-hook #'turn-off-smartparens-mode)
 
-            ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
-            ;; (spacemacs/toggle-smartparens-globally-off)
+           ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
+           ;; (spacemacs/toggle-smartparens-globally-off)
 
-            (add-hook 'lispy-mode-hook #'my-lispyville/setup-keybindings-for-lispy)
-            )
+           (add-hook 'lispy-mode-hook #'my-lispyville/setup-keybindings-for-lispy)
+           )
 
     :config
     (progn
-      (message "lispy config")
-      (spacemacs|diminish lispy-mode " Ⓛ" " L")
-      )
-    ))
+      (spacemacs|diminish lispy-mode " Ⓛ" " L"))))
 
 (defun my-lispyville/setup-keybindings-for-lispy ()
   (message "setup keybindings for lispy")
   (define-key lispy-mode-map (kbd "M-RET") nil)
-  (define-key key-translation-map (kbd "<M-return>") (kbd "M-RET"))
-  )
+  (define-key key-translation-map (kbd "<M-return>") (kbd "M-RET")))
 
 (defun my-lispyville/init-lispyville ()
   (use-package lispyville
     :defer t
     :init
     (progn
-      (message "lispyville init")
       (add-hook 'lispy-mode-hook #'lispyville-mode))
     :config
     (progn
-      (message "lispyville config")
       (my-lispyville//set-lispyville-keytheme)
       (evil-set-initial-state 'special-mode 'insert)
-      (spacemacs|diminish lispyville-mode " ")
-      )))
+      (spacemacs|diminish lispyville-mode " "))))
 
 (defun my-lispyville//set-lispyville-keytheme ()
   (with-eval-after-load 'lispyville
@@ -126,8 +118,7 @@ Each entry is either:
                                 additional
                                 (escape insert)
                                 (additional-movement normal visual motion)
-                                mark
-                                ))
+                                mark))
     (spacemacs/set-leader-keys "o." 'lispyville-mode)))
 
 ;; (defun my-lispyville/pre-init-smartparens ()
