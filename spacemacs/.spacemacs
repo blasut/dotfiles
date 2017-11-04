@@ -52,9 +52,9 @@ values."
      syntax-checking
 
      ;; auto-complete
-     (auto-completion :variables
-                      auto-completion-return-key-behavior nil
-                      auto-completion-enable-sort-by-usage t)
+     ;; (auto-completion :variables
+     ;;                  auto-completion-return-key-behavior nil
+     ;;                  auto-completion-enable-sort-by-usage t)
 
      ;; programming languages
      (haskell :variables haskell-process-type 'stack-ghci
