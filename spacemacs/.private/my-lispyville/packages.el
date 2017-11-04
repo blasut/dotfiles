@@ -94,6 +94,13 @@ Each entry is either:
 
 (defun my-lispyville/setup-keybindings-for-lispy ()
   (message "setup keybindings for lispy")
+  ;; lispy-eval-and-insert is the standard binding for E
+  ;; (cond ((eq major-mode 'clojure-mode)
+  ;;        (define-key lispy-mode-map (kbd "E") 'spacemacs/cider-send-last-sexp-to-repl))
+  ;;       ((eq major-mode 'slime-mode)
+  ;;        (define-key lispy-mode-map (kbd "E") 'slime-eval-last-expression-in-repl)))
+
+  ;; reset the m-ret behaviour
   (define-key lispy-mode-map (kbd "M-RET") nil)
   (define-key key-translation-map (kbd "<M-return>") (kbd "M-RET")))
 
