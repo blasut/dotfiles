@@ -116,7 +116,7 @@ Each entry is either:
              (let ((buf (current-buffer)))
                (slime-eval-last-expression-in-repl args)
                (pop-to-buffer buf))))
-          (t (lispy-eval-and-insert)))))
+          (t (message "Not yet implemeted for %s" major-mode)))))
 
 (defun my-lispyville/init-lispyville ()
   (use-package lispyville
