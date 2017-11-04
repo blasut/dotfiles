@@ -30,8 +30,8 @@
 ;;; Code:
 
 (defconst my-lispyville-packages
-  '(lispyville
-    lispy)
+  '(lispy
+    lispyville)
   "The list of Lisp packages required by the my-lispyville layer.
 
 Each entry is either:
@@ -86,11 +86,10 @@ Each entry is either:
            ;; (remove-hook 'prog-mode-hook #'smartparens-mode)
            ;; (spacemacs/toggle-smartparens-globally-off)
 
-           (add-hook 'lispy-mode-hook #'my-lispyville/setup-keybindings-for-lispy)
-           )
-
+           (add-hook 'lispy-mode-hook #'my-lispyville/setup-keybindings-for-lispy))
     :config
     (progn
+      (setq lispy-eval-display-style 'overlay)
       (spacemacs|diminish lispy-mode " Ⓛ" " L"))))
 
 (defun my-lispyville/setup-keybindings-for-lispy ()
