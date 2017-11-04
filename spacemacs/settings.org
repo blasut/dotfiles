@@ -381,6 +381,21 @@ want it to work for slime aswell
         ad-do-it)
     ad-do-it))
 #+END_SRC
+
+and I don't want slime eval to change my current buffer...
+#+BEGIN_SRC emacs-lisp
+(defun blasut/slime-eval-exp-in-repl-keep-script-buffer-focus (orig-fun &rest args)
+  (let ((script-buffer (current-buffer))
+        (res (apply orig-fun args)))
+    (unless (eq (current-buffer) script-buffer)
+      (pop-to-buffer script-buffer t))
+    res))
+#+END_SRC
+hook it up
+#+BEGIN_SRC emacs-lisp
+(advice-add 'slime-eval-last-expression-in-repl :around #'blasut/slime-eval-exp-in-repl-keep-script-buffer-focus)
+#+END_SRC
+
 * elisp
 this should probably not be here, maybe in the spacemacs layer?
 anyway check out: https://github.com/syl20bnr/spacemacs/pull/4647/files
