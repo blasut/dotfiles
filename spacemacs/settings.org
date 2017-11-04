@@ -381,6 +381,100 @@ want it to work for slime aswell
         ad-do-it)
     ad-do-it))
 #+END_SRC
+* elisp
+this should probably not be here, maybe in the spacemacs layer?
+anyway check out: https://github.com/syl20bnr/spacemacs/pull/4647/files
+
+might be a good start to "fix" the elisp layer
+  #+BEGIN_SRC emacs-lisp
+    (defun blasut/my-edebug ()
+      (progn
+          (evilified-state-evilify-map edebug-mode-map
+            :eval-after-load edebug
+            :bindings
+            ;; normal by spacemacs
+            "a" 'edebug-stop
+            "s" 'edebug-step-mode
+            "S" 'edebug-next-mode
+
+            ;; the rest default bindings... fixed for spacemacs
+            "B" 'edebug-next-breakpoint
+            "C" 'edebug-Continue-fast-mode
+            "E" 'edebug-visit-eval-list
+            "G" 'edebug-Go-nonstop-mode
+            "I" 'edebug-instrument-callee
+            "P" 'edebug-view-outside
+            "Q" 'edebug-top-level-nonstop
+            ;; "S" 'edebug-stop
+            "T" 'edebug-Trace-fast-mode
+            "W" 'edebug-toggle-save-windows
+            "X" 'edebug-set-global-break-condition
+            "b" 'edebug-set-breakpoint
+            "c" 'edebug-continue-mode
+            "d" 'edebug-backtrace
+            "e" 'edebug-eval-expression
+            "f" 'edebug-forward-sexp
+            "g" 'edebug-go-mode
+            "h" 'edebug-goto-here
+            "i" 'edebug-step-in
+            "n" 'edebug-next-mode
+            "o" 'edebug-step-out
+            "p" 'edebug-bounce-point
+            "q" 'top-level
+            "r" 'edebug-previous-result
+            "t" 'edebug-trace-mode
+            "u" 'edebug-unset-breakpoint
+            "v" 'edebug-view-outside
+            "w" 'edebug-where
+            "x" 'edebug-set-conditional-breakpoint
+            )
+      
+
+
+          (evilified-state-evilify-map edebug-eval-mode-map
+            :eval-after-load edebug
+            :bindings
+            "a" 'edebug-stop
+            "s" 'edebug-step-mode
+            "S" 'edebug-next-mode
+
+            ;; the rest default bindings... fixed for spacemacs
+            "B" 'edebug-next-breakpoint
+            "C" 'edebug-Continue-fast-mode
+            "E" 'edebug-visit-eval-list
+            "G" 'edebug-Go-nonstop-mode
+            "I" 'edebug-instrument-callee
+            "P" 'edebug-view-outside
+            "Q" 'edebug-top-level-nonstop
+            ;; "S" 'edebug-stop
+            "T" 'edebug-Trace-fast-mode
+            "W" 'edebug-toggle-save-windows
+            "X" 'edebug-set-global-break-condition
+            "b" 'edebug-set-breakpoint
+            "c" 'edebug-continue-mode
+            "d" 'edebug-backtrace
+            "e" 'edebug-eval-expression
+            "f" 'edebug-forward-sexp
+            "g" 'edebug-go-mode
+            "h" 'edebug-goto-here
+            "i" 'edebug-step-in
+            "n" 'edebug-next-mode
+            "o" 'edebug-step-out
+            "p" 'edebug-bounce-point
+            "q" 'top-level
+            "r" 'edebug-previous-result
+            "t" 'edebug-trace-mode
+            "u" 'edebug-unset-breakpoint
+            "v" 'edebug-view-outside
+            "w" 'edebug-where
+            "x" 'edebug-set-conditional-breakpoint)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(blasut/my-edebug)
+#+END_SRC
+
+
 * which function mode
   the default is ??? but n/a is nicer I think
   #+BEGIN_SRC emacs-lisp
