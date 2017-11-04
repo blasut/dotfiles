@@ -151,5 +151,8 @@ brew cask install --appdir="/Applications" calibre
 # LaTeX dist MacTex
 brew cask install --appdir="/Applications" mactex
 
+## Fonts
+brew install caskroom/fonts/font-hack
+
 ## Remove outdated versions from the cellar.
 brew cleanup
