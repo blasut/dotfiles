@@ -353,6 +353,17 @@ Trying to get some order up in here
   (evil-set-initial-state 'cider-browse-spec-view-mode 'insert)
   (evil-set-initial-state 'cider-browse-spec-example-mode 'insert)
   #+END_SRC
+
+it's not sending the right sexp to the repl... this makes it work as it should
+#+BEGIN_SRC emacs-lisp
+(defadvice cider-last-sexp (around evil activate)
+  "In normal-state or motion-state, last sexp ends at point."
+  (if (or (evil-normal-state-p) (evil-motion-state-p))
+      (save-excursion
+        (unless (or (eobp) (eolp)) (forward-char))
+        ad-do-it)
+    ad-do-it))
+#+END_SRC
  
 * lisp mode
   lisp mode is for all lisps that are NOT emacs-lisp. Not sure if this doesn't work well with cider
@@ -360,6 +371,16 @@ Trying to get some order up in here
 (add-hook 'lisp-mode-hook 'prettify-symbols-mode)
 #+END_SRC
 
+want it to work for slime aswell
+#+BEGIN_SRC emacs-lisp
+(defadvice slime-eval-last-expression-in-repl (around evil activate)
+  "In normal-state or motion-state, last sexp ends at point."
+  (if (or (evil-normal-state-p) (evil-motion-state-p))
+      (save-excursion
+        (unless (or (eobp) (eolp)) (forward-char))
+        ad-do-it)
+    ad-do-it))
+#+END_SRC
 * which function mode
   the default is ??? but n/a is nicer I think
   #+BEGIN_SRC emacs-lisp
