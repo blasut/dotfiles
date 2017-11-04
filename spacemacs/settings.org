@@ -388,19 +388,22 @@ want it to work for slime aswell
 
 and I don't want slime eval to change my current buffer...
 #+BEGIN_SRC emacs-lisp
-(defun blasut/slime-eval-exp-in-repl-keep-script-buffer-focus (orig-fun &rest args)
+(defun blasut/slime-eval-last-expression-in-repl (args)
+  (interactive "p")
   (let ((script-buffer (current-buffer))
-        (res (apply orig-fun args)))
-    ;; for some reason the buffer doesn't change until after some the unless somehow... Well it works just telling it to switch back so
-    ;; I maybe have to use windows or sth instead?
-    ;; (unless (eq (current-buffer) script-buffer)
-    ;;   (pop-to-buffer script-buffer t))
+        (res (slime-eval-last-expression-in-repl args)))
     (pop-to-buffer script-buffer t)
     res))
+
+(defun blasut/slime-eval-last-expression-in-repl-focus (args)
+  (interactive "p")
+  (slime-eval-last-expression-in-repl args)
+  (evil-insert-mode))
 #+END_SRC
 hook it up
 #+BEGIN_SRC emacs-lisp
-(advice-add 'slime-eval-last-expression-in-repl :around #'blasut/slime-eval-exp-in-repl-keep-script-buffer-focus)
+(spacemacs/set-leader-keys-for-major-mode 'lisp-mode "se" 'blasut/slime-eval-last-expression-in-repl)
+(spacemacs/set-leader-keys-for-major-mode 'lisp-mode "sE" 'blasut/slime-eval-last-expression-in-repl-focus)
 #+END_SRC
 
 * elisp
