@@ -62,6 +62,7 @@ values."
      ;; lisps
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
+     common-lisp
 
      ;;(ruby :variables ruby-enable-enh-ruby-mode t ruby-version-manager 'rbenv ruby-test-runner 'rspec)
      ruby-on-rails
