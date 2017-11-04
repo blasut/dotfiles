@@ -361,3 +361,10 @@ Trying to get some order up in here
 #+END_SRC
 
 * which function mode
+  the default is ??? but n/a is nicer I think
+  #+BEGIN_SRC emacs-lisp
+  (which-function-mode)
+  (setq which-func-unknown "n/a")
+  #+END_SRC
+
+
