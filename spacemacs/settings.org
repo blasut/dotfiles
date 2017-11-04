@@ -387,6 +387,7 @@ and I don't want slime eval to change my current buffer...
   (let ((script-buffer (current-buffer))
         (res (apply orig-fun args)))
     ;; for some reason the buffer doesn't change until after some the unless somehow... Well it works just telling it to switch back so
+    ;; I maybe have to use windows or sth instead?
     ;; (unless (eq (current-buffer) script-buffer)
     ;;   (pop-to-buffer script-buffer t))
     (pop-to-buffer script-buffer t)
