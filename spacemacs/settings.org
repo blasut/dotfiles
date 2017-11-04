@@ -386,8 +386,10 @@ and I don't want slime eval to change my current buffer...
 (defun blasut/slime-eval-exp-in-repl-keep-script-buffer-focus (orig-fun &rest args)
   (let ((script-buffer (current-buffer))
         (res (apply orig-fun args)))
-    (unless (eq (current-buffer) script-buffer)
-      (pop-to-buffer script-buffer t))
+    ;; for some reason the buffer doesn't change until after some the unless somehow... Well it works just telling it to switch back so
+    ;; (unless (eq (current-buffer) script-buffer)
+    ;;   (pop-to-buffer script-buffer t))
+    (pop-to-buffer script-buffer t)
     res))
 #+END_SRC
 hook it up
