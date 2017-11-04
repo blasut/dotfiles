@@ -95,14 +95,28 @@ Each entry is either:
 (defun my-lispyville/setup-keybindings-for-lispy ()
   (message "setup keybindings for lispy")
   ;; lispy-eval-and-insert is the standard binding for E
-  ;; (cond ((eq major-mode 'clojure-mode)
-  ;;        (define-key lispy-mode-map (kbd "E") 'spacemacs/cider-send-last-sexp-to-repl))
-  ;;       ((eq major-mode 'slime-mode)
-  ;;        (define-key lispy-mode-map (kbd "E") 'slime-eval-last-expression-in-repl)))
+  (define-key lispy-mode-map (kbd "E") 'blasut/send-to-repl-and-eval)
 
   ;; reset the m-ret behaviour
   (define-key lispy-mode-map (kbd "M-RET") nil)
   (define-key key-translation-map (kbd "<M-return>") (kbd "M-RET")))
+
+(defun blasut/send-to-repl-and-eval (args)
+  (interactive "p")
+  (save-excursion
+    (unless (or (lispy-right-p) (region-active-p))
+      (lispy-forward 1))
+    (cond ((eq major-mode 'clojure-mode)
+           (progn (let ((buf (current-buffer)))
+                    (cider-insert-last-sexp-in-repl t)
+                    (pop-to-buffer buf)
+                    (message "%s" ""))))
+          ((eq major-mode 'lisp-mode)
+           (progn
+             (let ((buf (current-buffer)))
+               (slime-eval-last-expression-in-repl args)
+               (pop-to-buffer buf))))
+          (t (lispy-eval-and-insert)))))
 
 (defun my-lispyville/init-lispyville ()
   (use-package lispyville
