@@ -95,7 +95,7 @@ Each entry is either:
 (defun my-lispyville/setup-keybindings-for-lispy ()
   (message "setup keybindings for lispy")
   ;; lispy-eval-and-insert is the standard binding for E
-  (lispy-define-key lispy-mode-map (kbd "E") 'blasut/send-to-repl-and-eval)
+  (lispy-define-key lispy-mode-map "E" 'blasut/send-to-repl-and-eval)
 
   ;; reset the m-ret behaviour
   (define-key lispy-mode-map (kbd "M-RET") nil)
