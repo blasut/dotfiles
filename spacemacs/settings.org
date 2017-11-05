@@ -374,6 +374,24 @@ REPLs are the new black
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.clj.repl\\'" . clojure-mode))
 #+END_SRC
+
+I only like the f-function and lambda fancy symbols
+#+BEGIN_SRC emacs-lisp
+(defun blasut/fancify-clojure-symbols (mode)
+  "Pretty symbols for Clojure's anonymous functions and lambdas,
+   like (λ [a] (+ a 5)), ƒ(+ % 5)"
+  (font-lock-add-keywords mode
+                          `(("(\\(fn\\)[\[[:space:]]"
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "λ"))))
+                            ("\\(#\\)("
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "ƒ")))))))
+
+(dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
+          (blasut/fancify-clojure-symbols m))
+
+#+END_SRC
  
 * lisp mode
   lisp mode is for all lisps that are NOT emacs-lisp. Not sure if this doesn't work well with cider
