@@ -375,6 +375,11 @@ REPLs are the new black
 (add-to-list 'auto-mode-alist '("\\.clj.repl\\'" . clojure-mode))
 #+END_SRC
 
+pretty print by default
+#+BEGIN_SRC emacs-lisp
+(setq cider-repl-use-pretty-printing t)
+#+END_SRC
+
 I only like the f-function and lambda fancy symbols
 #+BEGIN_SRC emacs-lisp
 (defun blasut/fancify-clojure-symbols (mode)
