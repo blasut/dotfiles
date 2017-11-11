@@ -97,6 +97,9 @@ Each entry is either:
   ;; lispy-eval-and-insert is the standard binding for E
   (lispy-define-key lispy-mode-map "E" 'blasut/send-to-repl-and-eval)
 
+  ;; super is not really used any, but I don't have it on my external keyboard...
+  (lispy-define-key lispy-mode-map "<s-return>" 'lispy-meta-return)
+
   ;; reset the m-ret behaviour
   (define-key lispy-mode-map (kbd "M-RET") nil)
   (define-key key-translation-map (kbd "<M-return>") (kbd "M-RET")))
