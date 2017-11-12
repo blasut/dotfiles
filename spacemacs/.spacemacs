@@ -399,6 +399,14 @@ layers configuration. You are free to put any user code."
   (add-to-list 'load-path "~/.private/local/clojure-scemantic/")
   (load "clojure.el")
 
+  (defcustom clojure-inf-repl-command "lein repl"
+    "Command to use for inferior lisp repl with clojure")
+
+  (defun clojure-inf-repl ()
+    "Start inf repl"
+    (interactive)
+    (run-lisp clojure-inf-repl-command))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
