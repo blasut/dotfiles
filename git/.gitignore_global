@@ -69,3 +69,6 @@ GTAGS
 .projectile
 
 .dir-locals.el
+
+# For ag the silver searcher
+.ignore
