@@ -52,7 +52,7 @@ brew install rbenv
 # Install more recent versions of some OS X tools.
 brew install vim --with-override-system-vi
 brew install grep
-brew install homebrew/dupes/openssh
+# brew install homebrew/dupes/openssh
 
 # Install font tools.
 brew tap bramstein/webfonttools
@@ -123,8 +123,8 @@ brew cask install --appdir="/Applications" karabiner-elements
 # it's the database ui from intellij
 # brew cask install --appdir="/Applications" datagrip
 # brew cask install --appdir="/Applications" sequel-pro
-brew cask install --appdir="/Applications" atom
-brew cask install --appdir="/Applications" visual-studio-code
+# brew cask install --appdir="/Applications" atom
+# brew cask install --appdir="/Applications" visual-studio-code
 # brew cask install --appdir="/Applications" android-studio
 
 
@@ -134,8 +134,8 @@ brew cask install --appdir="/Applications" visual-studio-code
 # brew cask install --appdir="/Applications" parallels
 
 ## Misc
-brew cask install --appdir="/Applications" google-chrome
-brew cask install --appdir="/Applications" firefox
+# brew cask install --appdir="/Applications" google-chrome
+# brew cask install --appdir="/Applications" firefox
 brew cask install --appdir="/Applications" skype
 brew cask install --appdir="/Applications" slack
 brew cask install --appdir="/Applications" dropbox
@@ -152,7 +152,8 @@ brew cask install --appdir="/Applications" calibre
 brew cask install --appdir="/Applications" mactex
 
 ## Fonts
-brew install caskroom/fonts/font-hack
+brew tap caskroom/fonts
+brew cask install font-hack
 
 ## Remove outdated versions from the cellar.
 brew cleanup
