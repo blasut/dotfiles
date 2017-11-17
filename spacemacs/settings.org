@@ -397,6 +397,20 @@ I only like the f-function and lambda fancy symbols
           (blasut/fancify-clojure-symbols m))
 
 #+END_SRC
+
+while debugging, save a let with the current locals
+#+BEGIN_SRC emacs-lisp
+(defun cider-debug-create-local-let (start end)
+  (interactive "r")
+  (if cider--debug-mode-response
+      (nrepl-dbind-response cider--debug-mode-response (locals)
+        (let* ((code (buffer-substring-no-properties start end))
+               (bindings (apply #'append locals))
+               (formatted-bindings (mapconcat 'identity bindings " ")))
+          (kill-new (format "(let [%s]\n %s)" formatted-bindings code))
+          (message "copied let form to kill ring")))
+    (message "No debugging information found.")))
+#+END_SRC
  
 * lisp mode
   lisp mode is for all lisps that are NOT emacs-lisp. Not sure if this doesn't work well with cider
