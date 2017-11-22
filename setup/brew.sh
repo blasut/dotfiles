@@ -107,8 +107,7 @@ heroku update
 ###############################################################################
 # Casks                                                                       #
 ###############################################################################
-brew install caskroom/cask/brew-cask
-brew tap caskroom/versions
+brew tap caskroom/cask
 
 ## Core casks
 brew cask install --appdir="~/Applications" iterm2
