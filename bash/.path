@@ -24,7 +24,7 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/.cache/rebar3/bin
 
 # for using coreutils
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
