@@ -100,7 +100,7 @@ brew install imagemagick --with-webp
 brew install tree
 
 # Install Heroku
-brew install heroku-toolbelt
+brew install heroku
 brew install watchman
 heroku update
 
