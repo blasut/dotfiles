@@ -10,3 +10,5 @@
 [submodule "spacemacs/.private/local/clojure-scemantic"]
 	path = spacemacs/.private/local/clojure-scemantic
 	url = https://github.com/abo-abo/clojure-semantic.git
+[submodule "spacemacs"]
+	branch = develop
