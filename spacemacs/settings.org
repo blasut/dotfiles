@@ -380,24 +380,6 @@ pretty print by default
 (setq cider-repl-use-pretty-printing t)
 #+END_SRC
 
-I only like the f-function and lambda fancy symbols
-#+BEGIN_SRC emacs-lisp
-(defun blasut/fancify-clojure-symbols (mode)
-  "Pretty symbols for Clojure's anonymous functions and lambdas,
-   like (λ [a] (+ a 5)), ƒ(+ % 5)"
-  (font-lock-add-keywords mode
-                          `(("(\\(fn\\)[\[[:space:]]"
-                             (0 (progn (compose-region (match-beginning 1)
-                                                       (match-end 1) "λ"))))
-                            ("\\(#\\)("
-                             (0 (progn (compose-region (match-beginning 1)
-                                                       (match-end 1) "ƒ")))))))
-
-(dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
-          (blasut/fancify-clojure-symbols m))
-
-#+END_SRC
-
 while debugging, save a let with the current locals
 #+BEGIN_SRC emacs-lisp
 (defun cider-debug-create-local-let (start end)
