@@ -150,6 +150,8 @@ brew cask install --appdir="/Applications" calibre
 # LaTeX dist MacTex
 brew cask install --appdir="/Applications" mactex
 
+brew cask install --appdir="/Applications" gpg-suite
+
 ## Fonts
 brew tap caskroom/fonts
 brew cask install font-hack

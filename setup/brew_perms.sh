@@ -41,6 +41,10 @@ sudo chmod -R g+w /usr/local/Frameworks
 sudo chgrp -R staff /usr/local/var/homebrew
 sudo chmod -R g+w /usr/local/var/homebrew
 
+# Fix persm for casks
+sudo chgrp -R staff /usr/local/Caskroom
+sudo chmod -R g+w /usr/local/Caskroom
+
 # allow staffs to homebrew's local cache of formulae and source files
 sudo chgrp -R staff ~/Library/Caches/Homebrew
 sudo chmod -R g+w ~/Library/Caches/Homebrew
