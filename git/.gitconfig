@@ -1,9 +1,9 @@
 [core]
-  editor = emacs
-  excludesfile = ~/.gitignore_global
+	editor = emacs
+	excludesfile = ~/.gitignore_global
 
 [color]
-  ui = auto
+	ui = auto
 	branch = auto
 	diff = auto
 	status = auto
@@ -12,27 +12,27 @@
 	st = status
 	ci = commit
 	cm = commit -m
-  co = checkout
+	co = checkout
 	chkecout = checkout
 	cehckout = checkout
-  di = diff
-  dc = diff --cached
-  b = branch
-  aa = add --all
-  sync = pull --rebase 
-  p = push
-  pu = push
-  psuh = push
-  r = rebase
-  s = pull --rebase
-  f = log --follow
+	di = diff
+	dc = diff --cached
+	b = branch
+	aa = add --all
+	sync = pull --rebase
+	p = push
+	pu = push
+	psuh = push
+	r = rebase
+	s = pull --rebase
+	f = log --follow
 
 [format]
-  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
+	pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 
 [push]
-  default = simple
+	default = simple
 
 [user]
-  email = blasut937@gmail.com
-  name = blasut
+	email = blasut937@gmail.com
+	name = blasut
