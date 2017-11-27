@@ -46,4 +46,10 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
     __git_complete gr _git_rebase
 fi
 
+GPG_TTY=$(tty)
+export GPG_TTY
+if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
+    export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+fi
+
 
