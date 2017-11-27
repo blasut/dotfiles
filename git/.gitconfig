@@ -19,7 +19,7 @@
 	dc = diff --cached
 	b = branch
 	aa = add --all
-	sync = pull --rebase
+	# sync = pull --rebase # This is behaving not well atm, it asks if I want to remove all changes locally...
 	p = push
 	pu = push
 	psuh = push
