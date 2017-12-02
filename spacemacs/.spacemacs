@@ -439,6 +439,9 @@ layers configuration. You are free to put any user code."
   (add-to-list 'load-path "~/.private/local/clojure-scemantic/")
   (load "clojure.el")
 
+  ;; temp bugfix, probably
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+
   (defcustom clojure-inf-repl-command "lein repl"
     "Command to use for inferior lisp repl with clojure")
 
