@@ -518,6 +518,14 @@ might be a good start to "fix" the elisp layer
 (blasut/my-edebug)
 #+END_SRC
 
+* ivy
+  use ivy-rich, it's nice for switching buffers
+#+BEGIN_SRC emacs-lisp
+(require 'ivy-rich)
+(ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+(setq ivy-rich-abbreviate-paths t)
+#+END_SRC
+  todo: maybe use use-package?
 
 * which function mode
   the default is ??? but n/a is nicer I think

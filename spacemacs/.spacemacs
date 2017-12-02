@@ -436,10 +436,6 @@ layers configuration. You are free to put any user code."
    (expand-file-name "~/settings.org"))
 
   ;; experimentation area after settings has loaded, when working as expcted it should be mved to settings.org
-  (require 'ivy-rich)
-  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
-  (setq ivy-rich-abbreviate-paths t)
-
   (add-to-list 'load-path "~/.private/local/clojure-scemantic/")
   (load "clojure.el")
 
