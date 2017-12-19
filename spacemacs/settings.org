@@ -535,9 +535,14 @@ might be a good start to "fix" the elisp layer
   #+END_SRC
 
 
+* Ruby mode
+  Include cap files as ruby files
+  #+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
+  #+END_SRC
 
 * when .enving
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.env\\'" . sh-mode))
-#+END_SRC
+  #+END_SRC
