@@ -128,6 +128,7 @@ brew cask install --appdir="/Applications" karabiner-elements
 
 
 ## VM stuff
+# brew cask install --appdir="/Applications" vagrant
 # brew cask install --appdir="/Applications" virtualbox
 # brew cask install --appdir="/Applications" vagrant
 # brew cask install --appdir="/Applications" parallels
