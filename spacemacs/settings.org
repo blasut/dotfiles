@@ -216,7 +216,7 @@ Trying to get some order up in here
     #+END_SRC
 
 ** eval in repl with org mode
-    #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp :tangle no
     (use-package org-babel-eval-in-repl
      :after org
      :init (setq eir-jump-after-eval nil)
