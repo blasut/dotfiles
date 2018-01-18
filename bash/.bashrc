@@ -1,3 +1,4 @@
+#!/bin/bash
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -34,11 +35,10 @@ for option in autocd globstar; do
     shopt -s "$option" 2> /dev/null;
 done;
 
-# setup bash completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+    . $(brew --prefix)/share/bash-completion/bash_completion
     GIT_PS1_SHOWDIRTYSTATE=true
-    export PS1='[\u@mbp \w$(__git_ps1)]\$ '
+    # export PS1='[\u@mbp \w$(__git_ps1)]\$ '
 
     # Add git completion to aliases
     __git_complete g __git_main
