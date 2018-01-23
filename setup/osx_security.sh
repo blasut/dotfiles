@@ -55,3 +55,11 @@ chflags -R uchg ~/Library/LanguageModeling ~/Library/Spelling ~/Library/Suggesti
 rm -rfv ~/Library/Assistant/SiriAnalytics.db
 chmod -R 000 ~/Library/Assistant/SiriAnalytics.db
 chflags -R uchg ~/Library/Assistant/SiriAnalytics.db
+
+# Remove logs of downloaded files
+# https://gist.github.com/hellais/4552537
+sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent where LSQuarantineEventIdentifier like "%%";'
+
+# To never store such information you can sym link it to dev null
+ln -s /dev/null ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2
+
