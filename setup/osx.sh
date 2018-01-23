@@ -245,15 +245,3 @@ defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Set tab width to 4 instead of the default 8
 defaults write com.apple.TextEdit "TabWidth" '4'
-
-###############################################################################
-# Security                                                                    #
-###############################################################################
-# this destroys the filevault key when going to standby
-sudo pmset -a destroyfvkeyonstandby 1
-
-# enter hibernate immedialety after going to sleep
-sudo pmset -a hibernatemode 25
-
-# Set firmware password
-# https://support.apple.com/en-us/HT204455
