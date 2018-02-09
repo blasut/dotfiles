@@ -204,15 +204,16 @@ Trying to get some order up in here
 * Org-mode
 ** org babel
     #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((js         . t)
-     (emacs-lisp . t)
-     (python     . t)
-     (lisp       . t)
-     (clojure    . t)
-     (dot        . t))))
+    (with-eval-after-load 'org
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((js         . t)
+         (emacs-lisp . t)
+         (python     . t)
+         (lisp       . t)
+         (clojure    . t)
+         (dot        . t)
+         (shell         . t))))
     #+END_SRC
 
 ** eval in repl with org mode
