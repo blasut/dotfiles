@@ -84,6 +84,10 @@ Trying to get some order up in here
  (spacemacs/set-leader-keys "omp" 'org-mobile-pull)
  (spacemacs/set-leader-keys "omu" 'org-mobile-push)
   #+END_SRC
+  rebind search and replace for visual query replace.
+  #+BEGIN_SRC emacs-lisp
+  (define-key global-map (kbd "M-%") 'vr/query-replace)
+  #+END_SRC
 
 * auto complete
 #+BEGIN_SRC emacs-lisp :tangle no
