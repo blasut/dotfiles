@@ -447,10 +447,6 @@ layers configuration. You are free to put any user code."
   ;; temp bugfix, probably
   (global-set-key (kbd "M-x") 'counsel-M-x)
 
-  ;; hopefully make flycheck faster, only check when saving file
-  (setq flycheck-check-syntax-automatically '(save mode-enable))
-  ;; the default value was '(save idle-change new-line mode-enabled)
-
   (defcustom clojure-inf-repl-command "lein repl"
     "Command to use for inferior lisp repl with clojure")
 

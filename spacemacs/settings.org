@@ -525,11 +525,11 @@ might be a good start to "fix" the elisp layer
 
 * ivy
   use ivy-rich, it's nice for switching buffers
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
 (require 'ivy-rich)
 (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
 (setq ivy-rich-abbreviate-paths t)
-#+END_SRC
+  #+END_SRC
   todo: maybe use use-package?
 
 * which function mode
@@ -539,6 +539,12 @@ might be a good start to "fix" the elisp layer
   (setq which-func-unknown "n/a")
   #+END_SRC
 
+* flycheck mode
+  hopefully make flycheck faster, only check when saving file
+  #+BEGIN_SRC emacs-lisp
+(setq flycheck-check-syntax-automatically '(save mode-enable))
+  #+END_SRC
+  the default value was '(save idle-change new-line mode-enabled)
 
 * Ruby mode
   Include cap files as ruby files
