@@ -126,8 +126,6 @@ This function should only modify configuration layer settings."
                                       ruby-refactor
                                       visual-regexp
                                       ivy-bibtex
-                                      all-the-icons
-                                      spaceline-all-the-icons
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
