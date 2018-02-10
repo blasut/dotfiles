@@ -545,7 +545,6 @@ might be a good start to "fix" the elisp layer
 (setq flycheck-check-syntax-automatically '(save mode-enable))
   #+END_SRC
   the default value was '(save idle-change new-line mode-enabled)
-
 * Ruby mode
   Include cap files as ruby files
   #+BEGIN_SRC emacs-lisp
@@ -553,7 +552,7 @@ might be a good start to "fix" the elisp layer
   #+END_SRC
 
 * when .enving
-
   #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.env\\'" . sh-mode))
   #+END_SRC
+  

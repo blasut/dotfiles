@@ -58,49 +58,29 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-(defun my-gtags/init-counsel-gtags ()
-  (use-package counsel-gtags
-    :init
-    (add-hook 'prog-mode-hook 'counsel-gtags-mode)
-    :config
-    (progn
-      (spacemacs|diminish counsel-gtags-mode " Ⓖ" " G")
-      (add-hook 'counsel-gtags-mode-hook #'my-gtags/setup-global-bindings-for-tags)
-      (my-gtags/define-keys-for-mode 'js2-mode)
-      (my-gtags/define-keys-for-mode 'react-mode)
-      (my-gtags/define-keys-for-mode 'emacs-lisp-mode))))
-
-(defun my-gtags/setup-global-bindings-for-tags ()
+(defun my-gtags/post-init-counsel-gtags ()
   ;; this is getting ugly...
+  (message "Post init counsel gtags")
   (with-eval-after-load 'js2-mode
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim))
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+    (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
+
+  (with-eval-after-load 'react-mode
+    (spacemacs/counsel-gtags-define-keys-for-mode 'react-mode)
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
 
   (with-eval-after-load 'slime-mode
     (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
     (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack))
 
-  (with-eval-after-load 'react-mode
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim))
-
   ;; I don't want this to override when another layer already defines a reasonable M-.
   ;; (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
 
-  (define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
-  (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
-  (define-key counsel-gtags-mode-map (kbd "M-*") 'counsel-gtags-go-backward)
+  ;; (define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
+  ;; (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
+  ;; (define-key counsel-gtags-mode-map (kbd "M-*") 'counsel-gtags-go-backward)
   ;; (define-key ggtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
   )
-
-(defun my-gtags/define-keys-for-mode (mode)
-  (spacemacs/set-leader-keys-for-major-mode mode
-    "gc" 'counsel-gtags-create-tags
-    "gf" 'counsel-gtags-find-file
-    "gd" 'counsel-gtags-find-definition
-    "gg" 'counsel-gtags-dwim
-    "gr" 'counsel-gtags-find-reference
-    "gn" 'counsel-gtags-go-forward
-    "gp" 'counsel-gtags-go-backward
-    "gs" 'counsel-gtags-find-symbol
-    "gG" nil))
 
 ;;; packages.el ends here
