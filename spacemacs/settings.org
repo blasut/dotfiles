@@ -525,7 +525,7 @@ might be a good start to "fix" the elisp layer
 
 * ivy
   use ivy-rich, it's nice for switching buffers
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
 (require 'ivy-rich)
 (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
 (setq ivy-rich-abbreviate-paths t)
@@ -550,7 +550,7 @@ might be a good start to "fix" the elisp layer
   #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
   #+END_SRC
-
+  
 * when .enving
   #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.env\\'" . sh-mode))
