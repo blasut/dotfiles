@@ -453,14 +453,6 @@ layers configuration. You are free to put any user code."
   ;; temp bugfix, probably
   (global-set-key (kbd "M-x") 'counsel-M-x)
 
-  (defcustom clojure-inf-repl-command "lein repl"
-    "Command to use for inferior lisp repl with clojure")
-
-  (defun clojure-inf-repl ()
-    "Start inf repl"
-    (interactive)
-    (run-lisp clojure-inf-repl-command))
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

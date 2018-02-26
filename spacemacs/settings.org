@@ -398,6 +398,20 @@ while debugging, save a let with the current locals
           (message "copied let form to kill ring")))
     (message "No debugging information found.")))
 #+END_SRC
+
+** inf clojure mode
+   setting:
+   #+BEGIN_SRC emacs-lisp
+   (defcustom clojure-inf-repl-command "lein repl"
+     "Command to use for inferior lisp repl with clojure")
+   #+END_SRC
+   and the command:
+   #+BEGIN_SRC emacs-lisp
+   (defun clojure-inf-repl ()
+    "Start inf repl"
+    (interactive)
+    (run-lisp clojure-inf-repl-command))
+   #+END_SRC
  
 * lisp mode
   lisp mode is for all lisps that are NOT emacs-lisp. Not sure if this doesn't work well with cider
