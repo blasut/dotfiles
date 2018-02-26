@@ -453,7 +453,11 @@ layers configuration. You are free to put any user code."
   ;; temp bugfix, probably
   (global-set-key (kbd "M-x") 'counsel-M-x)
 
-  )
+  (use-package ivy-rich
+    :commands (ivy-switch-buffer)
+    :config (progn
+              (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+              (setq ivy-rich-abbreviate-paths t))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
