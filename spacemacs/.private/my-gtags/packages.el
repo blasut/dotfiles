@@ -70,6 +70,14 @@ Each entry is either:
     (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
     (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
 
+  (with-eval-after-load 'ruby-mode
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
+
+  (with-eval-after-load 'web-mode
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
+
   (with-eval-after-load 'slime-mode
     (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
     (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack))
