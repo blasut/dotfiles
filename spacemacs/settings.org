@@ -88,6 +88,13 @@ Trying to get some order up in here
   #+BEGIN_SRC emacs-lisp
   (define-key global-map (kbd "M-%") 'vr/query-replace)
   #+END_SRC
+  
+  add bindings for increasing font size
+  #+BEGIN_SRC emacs-lisp
+  (spacemacs/set-leader-keys "ofi" 'text-scale-increase)
+  (spacemacs/set-leader-keys "off" 'text-scale-adjust)
+  (spacemacs/set-leader-keys "ofd" 'text-scale-decrease)
+  #+END_SRC
 
 * auto complete
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -569,4 +576,5 @@ might be a good start to "fix" the elisp layer
   #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.env\\'" . sh-mode))
   #+END_SRC
+  
   
