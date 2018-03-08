@@ -226,7 +226,16 @@ Trying to get some order up in here
          (dot        . t)
          (shell         . t))))
     #+END_SRC
-
+** indent when newline
+   
+   Tried org indented but messes up all my org files...
+   #+BEGIN_SRC emacs-lisp :tangle no
+    (with-eval-after-load 'org
+      (setq org-startup-indented t))
+   #+END_SRC
+   
+   I just want a it to indent when pressing return... Anyway have to fix it later.
+   
 ** eval in repl with org mode
     #+BEGIN_SRC emacs-lisp :tangle no
     (use-package org-babel-eval-in-repl
@@ -285,8 +294,6 @@ Trying to get some order up in here
    (with-eval-after-load 'org-ref
      (setq org-fontify-whole-heading-line t))
    #+END_SRC
-
-   #+RESULTS:
 
 ** add todo files to org agenda
    Should work when not using a remote todo file. This adds my projectile todo files to the agenda
