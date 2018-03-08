@@ -228,13 +228,19 @@ Trying to get some order up in here
     #+END_SRC
 ** indent when newline
    
-   Tried org indented but messes up all my org files...
+   Tried org indented, it messed up all my org files... But gonna try it a single file for now
    #+BEGIN_SRC emacs-lisp :tangle no
     (with-eval-after-load 'org
       (setq org-startup-indented t))
    #+END_SRC
    
    I just want a it to indent when pressing return... Anyway have to fix it later.
+   
+   So by looking into org.el, org-return-indent just calls org-return with the indent-option set to "t", should be able to just rebind the key
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'org
+     (define-key org-mode-map (kbd "<return>") 'org-return-indent))
+   #+END_SRC
    
 ** eval in repl with org mode
     #+BEGIN_SRC emacs-lisp :tangle no
