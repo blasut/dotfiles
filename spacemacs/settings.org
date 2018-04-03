@@ -591,3 +591,18 @@ might be a good start to "fix" the elisp layer
   #+END_SRC
   
   
+* elixir mode
+
+  I should add the source code...
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (setq alchemist-goto-erlang-source-dir "/path/to/erlang/source/") 
+    (setq alchemist-goto-elixir-source-dir "/path/to/elixir/source/")
+  #+END_SRC
+
+  add support for jumping back from erlang mode
+  #+BEGIN_SRC emacs-lisp :tangle no
+  (defun custom-erlang-mode-hook ()
+    (define-key erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back))
+
+  (add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
+  #+END_SRC
