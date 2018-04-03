@@ -61,26 +61,33 @@ Each entry is either:
 (defun my-gtags/post-init-counsel-gtags ()
   ;; this is getting ugly...
   (message "Post init counsel gtags")
-  (with-eval-after-load 'js2-mode
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
-    (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
+  (define-key evil-normal-state-map (kbd "M-.") nil)
 
-  (with-eval-after-load 'react-mode
-    (spacemacs/counsel-gtags-define-keys-for-mode 'react-mode)
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
+  ;; (with-eval-after-load 'js2-mode
+  ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+  ;;   (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
 
-  (with-eval-after-load 'ruby-mode
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
+  ;; (with-eval-after-load 'react-mode
+  ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+  ;;   (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
 
-  (with-eval-after-load 'web-mode
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
-    (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-go-backward))
+  ;; (with-eval-after-load 'elixir-mode
+  ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+  ;;   (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
 
-  (with-eval-after-load 'slime-mode
-    (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
-    (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack))
+  ;; (with-eval-after-load 'ruby-mode
+  ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
+  ;;   (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
+
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (define-key web-mode-map (kbd "M-.") 'counsel-gtags-dwim)
+              (define-key web-mode-map (kbd "M-,") 'counsel-gtags-go-backward)))
+
+
+  ;; (with-eval-after-load 'slime-mode
+  ;;   (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
+  ;;   (define-key evil-normal-state-map (kbd "M-,") 'slime-pop-find-definition-stack))
 
   ;; I don't want this to override when another layer already defines a reasonable M-.
   ;; (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
