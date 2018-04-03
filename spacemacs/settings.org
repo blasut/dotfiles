@@ -594,9 +594,9 @@ might be a good start to "fix" the elisp layer
 * elixir mode
 
   I should add the source code...
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (setq alchemist-goto-erlang-source-dir "/path/to/erlang/source/") 
-    (setq alchemist-goto-elixir-source-dir "/path/to/elixir/source/")
+  #+BEGIN_SRC emacs-lisp
+   ; (setq alchemist-goto-erlang-source-dir "/path/to/erlang/source/") 
+    (setq alchemist-goto-elixir-source-dir "~/code/elixir/")
   #+END_SRC
 
   add support for jumping back from erlang mode
