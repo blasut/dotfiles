@@ -12,3 +12,6 @@
 	url = https://github.com/abo-abo/clojure-semantic.git
 [submodule "spacemacs"]
 	branch = develop
+[submodule "spacemacs/.private/local/ivy-rich"]
+	path = spacemacs/.private/local/ivy-rich
+	url = git@github.com:Yevgnen/ivy-rich.git
