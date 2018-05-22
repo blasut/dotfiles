@@ -213,6 +213,10 @@ Trying to get some order up in here
    #+END_SRC
 
 * Org-mode
+** org directory setting
+   #+BEGIN_SRC emacs-lisp
+   (setq org-directory "~/Dropbox/notes/")
+   #+END_SRC
 ** org babel
     #+BEGIN_SRC emacs-lisp
     (with-eval-after-load 'org
@@ -327,18 +331,56 @@ Trying to get some order up in here
            ("t" "To Do Item" entry (file "~/Dropbox/notes/TODOs.org" "To Do Items")
             "* TODO %?\n%T" :prepend t)
            ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
-            "* %?\nEntered on %U\n  %i\n")))
+            "* %?\nEntered on %U\n  %i\n")
+           ("d" "Dump Code Snippet" entry
+            (file "~/Dropbox/notes/snippets.org")
+            ;; Prompt for tag and language
+            "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
+           ("s" "Smart Code Snippet" entry (file "~/Dropbox/notes/snippets.org")
+            "* %?\n%(my/org-capture-code-snippet \"%F\")" :empty-lines 1)))
    #+END_SRC
+
+   make smarter snippet into: ~"* %?\t%^g\n%(my/org-capture-code-snippet \"%F\")"~ for tag prompt
+
+   "smarter" code snippets
+   stolen from: https://www.reddit.com/r/emacs/comments/8fg34h/capture_code_snippet_using_org_capture_template/dy83k1h/
+   #+BEGIN_SRC emacs-lisp
+   (defun my/org-capture-get-src-block-string (major-mode)
+     "Given a major mode symbol, return the associated org-src block
+       string that will enable syntax highlighting for that language
+
+       E.g. tuareg-mode will return 'ocaml', python-mode 'python', etc..."
+     (let ((mm (intern (replace-regexp-in-string "-mode" "" (format "%s" major-mode)))))
+       (or (car (rassoc mm org-src-lang-modes)) (format "%s" mm))))
+
+   (defun my/org-capture-code-snippet (f)
+     (with-current-buffer (find-buffer-visiting f)
+       (let ((code-snippet (buffer-substring-no-properties (mark) (point)))
+             (func-name (which-function))
+             (file-name (buffer-file-name))
+             (line-number (line-number-at-pos (region-beginning)))
+             (org-src-mode (my/org-capture-get-src-block-string major-mode)))
+         (format
+          "file:%s::%s
+   In ~%s~:
+   ,#+BEGIN_SRC %s
+   %s
+   ,#+END_SRC"
+          file-name
+          line-number
+          func-name
+          org-src-mode
+          code-snippet))))
+
+   #+END_SRC
+
+
 ** insert mode when capturing
   #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org
     (add-hook 'org-capture-mode-hook 'evil-insert-state))
   #+END_SRC
 ** orgmobile
-   I guess this is a more general setting, but is it alright, because my notes folder has evolved to a general org-folder
-   #+BEGIN_SRC emacs-lisp
-   (setq org-directory "~/Dropbox/notes")
-   #+END_SRC
    now for the good stuff
    #+BEGIN_SRC emacs-lisp
    (setq org-mobile-inbox-for-pull "~/Dropbox/notes/flagged.org")
