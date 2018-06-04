@@ -657,3 +657,15 @@ might be a good start to "fix" the elisp layer
     (progn
       (add-hook 'dired-mode-hook #'dired-collapse-mode)))
   #+END_SRC
+  
+  add subtree mode
+  #+BEGIN_SRC emacs-lisp
+  (use-package dired-subtree
+    :config
+    (progn
+      (bind-keys :map dired-mode-map
+                 ("i" . dired-subtree-insert)
+                 (";" . dired-subtree-remove)
+                 ("C-;" . dired-subtree-remove))
+      (add-hook 'dired-mode-hook #'dired-subtree-mode)))
+  #+END_SRC
