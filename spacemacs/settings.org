@@ -648,3 +648,12 @@ might be a good start to "fix" the elisp layer
 
   (add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
   #+END_SRC
+
+* dired
+  add collapsed mode
+  #+BEGIN_SRC emacs-lisp
+  (use-package dired-collapse
+    :config
+    (progn
+      (add-hook 'dired-mode-hook #'dired-collapse-mode)))
+  #+END_SRC
