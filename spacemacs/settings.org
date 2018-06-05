@@ -121,6 +121,7 @@ Trying to get some order up in here
   lets ignore some stuff
   #+BEGIN_SRC emacs-lisp
   (add-to-list 'aggressive-indent-excluded-modes 'slim-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'haml-mode)
   #+END_SRC
 
 * show path in buffer title
