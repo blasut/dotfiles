@@ -319,9 +319,9 @@ Trying to get some order up in here
 ** org capture templates
    #+BEGIN_SRC emacs-lisp
    (setq org-capture-templates
-         '(("n" "Note" entry (file "~/Dropbox/notes/notes.org" "Notes")
+         '(("n" "Note" entry (file+headline "~/Dropbox/notes/notes.org" "Notes")
             "* %?\n%T" :prepend t)
-           ("w" "Work Note" entry (file "~/Dropbox/notes/work.org" "Work")
+           ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work.org" "unsorted")
             "* %?\n%T" :prepend t)
            ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
             "* %? %^L %^g \n%T" :prepend t)
@@ -329,7 +329,7 @@ Trying to get some order up in here
             "* %?\n%T" :prepend t)
            ("c" "Culture" entry (file+headline "~/Dropbox/notes/stuff.org" "Culture")
             "* %? %^L %^g \n%T" :prepend t)
-           ("t" "To Do Item" entry (file "~/Dropbox/notes/TODOs.org" "To Do Items")
+           ("t" "To Do Item" entry (file+headline "~/Dropbox/notes/TODOs.org" "Todos")
             "* TODO %?\n%T" :prepend t)
            ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
             "* %?\nEntered on %U\n  %i\n")
