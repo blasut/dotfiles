@@ -122,6 +122,7 @@ Trying to get some order up in here
   #+BEGIN_SRC emacs-lisp
   (add-to-list 'aggressive-indent-excluded-modes 'slim-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haml-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'haskell-mode)
   #+END_SRC
 
 * show path in buffer title
@@ -318,7 +319,7 @@ Trying to get some order up in here
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
-   (with-eval-after-load 'org
+   (with-eval-after-load 'org-agenda
      (use-package org-projectile
        ;; :bind (("C-c n p" . org-projectile-project-todo-completing-read))
        :config
