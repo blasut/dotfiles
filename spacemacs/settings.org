@@ -480,7 +480,7 @@ while debugging, save a let with the current locals
 ** inf clojure mode
    setting:
    #+BEGIN_SRC emacs-lisp
-   (defcustom clojure-inf-repl-command "lein repl"
+   (defcustom clojure-inf-repl-command "clj"
      "Command to use for inferior lisp repl with clojure")
    #+END_SRC
    and the command:
