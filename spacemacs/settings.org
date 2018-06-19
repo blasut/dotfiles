@@ -333,27 +333,29 @@ Trying to get some order up in here
 
 ** org capture templates
    #+BEGIN_SRC emacs-lisp
-   (setq org-capture-templates
-         '(("n" "Note" entry (file+headline "~/Dropbox/notes/notes.org" "Notes")
-            "* %?\n%T" :prepend t)
-           ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work.org" "unsorted")
-            "* %?\n%T" :prepend t)
-           ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
-            "* %? %^L %^g \n%T" :prepend t)
-           ("b" "Blog idea" entry (file+headline "~/Dropbox/notes/stuff.org" "Blog Topics")
-            "* %?\n%T" :prepend t)
-           ("c" "Culture" entry (file+headline "~/Dropbox/notes/stuff.org" "Culture")
-            "* %? %^L %^g \n%T" :prepend t)
-           ("t" "To Do Item" entry (file+headline "~/Dropbox/notes/TODOs.org" "Todos")
-            "* TODO %?\n%T" :prepend t)
-           ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
-            "* %?\nEntered on %U\n  %i\n")
-           ("d" "Dump Code Snippet" entry
-            (file "~/Dropbox/notes/snippets.org")
-            ;; Prompt for tag and language
-            "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
-           ("s" "Smart Code Snippet" entry (file "~/Dropbox/notes/snippets.org")
-            "* %?\n%(my/org-capture-code-snippet \"%F\")" :empty-lines 1)))
+         (setq org-capture-templates
+               '(("n" "Note" entry (file+headline "~/Dropbox/notes/notes.org" "Notes")
+                  "* %?\n%T" :prepend t)
+                 ("k" "Keybindings" entry (file "~/Dropbox/notes/keybindings.org")
+                  "* ~%^{prompt}~ => %^{prompt}\t%^g\n  %t\n  %?" :prepend t :empty-lines 1)
+                 ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work.org" "unsorted")
+                  "* %?\n%T" :prepend t)
+                 ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
+                  "* %? %^L %^g \n%T" :prepend t)
+                 ("b" "Blog idea" entry (file+headline "~/Dropbox/notes/stuff.org" "Blog Topics")
+                  "* %?\n%T" :prepend t)
+                 ("c" "Culture" entry (file+headline "~/Dropbox/notes/stuff.org" "Culture")
+                  "* %? %^L %^g \n%T" :prepend t)
+                 ("t" "To Do Item" entry (file+headline "~/Dropbox/notes/TODOs.org" "Todos")
+                  "* TODO %?\n%T" :prepend t)
+                 ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
+                  "* %?\nEntered on %U\n  %i\n")
+                 ("d" "Dump Code Snippet" entry
+                  (file "~/Dropbox/notes/snippets.org")
+                  ;; Prompt for tag and language
+                  "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
+                 ("s" "Smart Code Snippet" entry (file "~/Dropbox/notes/snippets.org")
+                  "* %?\n%(my/org-capture-code-snippet \"%F\")" :empty-lines 1)))
    #+END_SRC
 
    make smarter snippet into: ~"* %?\t%^g\n%(my/org-capture-code-snippet \"%F\")"~ for tag prompt
@@ -390,7 +392,7 @@ Trying to get some order up in here
 
    #+END_SRC
 
-
+   
 ** insert mode when capturing
   #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'org
