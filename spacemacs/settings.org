@@ -412,19 +412,21 @@ Trying to get some order up in here
    #+END_SRC
 ** setup org agenda files
    #+BEGIN_SRC emacs-lisp
-   (setq org-agenda-files (append org-agenda-files (list "~/Dropbox/notes/TODOs.org"
-                                                         "~/Dropbox/notes/stuff.org"
-                                                         "~/Dropbox/notes/journal.org"
-                                                         "~/Dropbox/notes/reading/index.org"
-                                                         "~/Dropbox/notes/work.org"
-                                                         "~/Dropbox/notes/keybindings.org"
-                                                         "~/Dropbox/notes/snippets.org"
-                                                         "~/Dropbox/notes/notes.org")))
+   (with-eval-after-load 'org
+     (setq org-agenda-files (append org-agenda-files (list "~/Dropbox/notes/TODOs.org"
+                                                           "~/Dropbox/notes/stuff.org"
+                                                           "~/Dropbox/notes/journal.org"
+                                                           "~/Dropbox/notes/reading/index.org"
+                                                           "~/Dropbox/notes/work.org"
+                                                           "~/Dropbox/notes/keybindings.org"
+                                                           "~/Dropbox/notes/snippets.org"
+                                                           "~/Dropbox/notes/notes.org"))))
    #+END_SRC
 
 ** set up places for refile
    #+BEGIN_SRC emacs-lisp
-   (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+   (with-eval-after-load 'org
+     (setq org-refile-targets '((org-agenda-files :maxlevel . 3))))
    #+END_SRC
    
 ** org agenda custom commands
@@ -533,7 +535,7 @@ while debugging, save a let with the current locals
     (interactive)
     (run-lisp clojure-inf-repl-command))
    #+END_SRC
- 
+   
 * lisp mode
   lisp mode is for all lisps that are NOT emacs-lisp. Not sure if this doesn't work well with cider
 #+BEGIN_SRC emacs-lisp
