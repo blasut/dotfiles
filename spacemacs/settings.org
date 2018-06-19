@@ -337,7 +337,7 @@ Trying to get some order up in here
                '(("n" "Note" entry (file+headline "~/Dropbox/notes/notes.org" "Notes")
                   "* %?\n%T" :prepend t)
                  ("k" "Keybindings" entry (file "~/Dropbox/notes/keybindings.org")
-                  "* ~%^{prompt}~ => %^{prompt}\t%^g\n  %t\n  %?" :prepend t :empty-lines 1)
+                  "* ~%^{prompt}~ => %^{prompt}\t:keybinding:%^g\n  %t\n  %?" :prepend t :empty-lines 0)
                  ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work.org" "unsorted")
                   "* %?\n%T" :prepend t)
                  ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
