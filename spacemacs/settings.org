@@ -426,6 +426,44 @@ Trying to get some order up in here
    #+BEGIN_SRC emacs-lisp
    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
    #+END_SRC
+   
+** org agenda custom commands
+  #+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    (setq org-agenda-custom-commands
+          '(("k" "Keybindings view"
+             ((tags "keybinding"
+                    (
+                     (org-agenda-overriding-header "Keybindings:")
+                     (org-agenda-prefix-format "")
+                     )
+                    )))
+            ("a" "Agenda and all TODOs"
+             ((agenda "")
+              (alltodo "")))
+
+            ("p" "Project TODOs"
+             ((todo ""
+                       (
+                        (org-agenda-files '("~/Dropbox/notes//projects.org"))
+                        (org-tags-match-list-sublevels 'indented)
+                        (org-todos-match-list-sublevels 'indented)
+                        (org-agenda-prefix-format "%c: %l")
+                        ;;(org-columns t)
+                        ;;(ps-number-of-columns 2)
+                        ;;(org-agenda-compact-blocks t)
+                        ;;(ps-landscape-mode t)
+                        )
+                        )))
+
+             ;; TODO
+             ("n" "Notes"
+              ((agenda "")
+               (alltodo ""))
+              (org-tags-match-list-sublevels t))
+
+             )))
+  #+END_SRC
 
 * All the icons
   spaceline support
