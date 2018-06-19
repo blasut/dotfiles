@@ -416,6 +416,9 @@ Trying to get some order up in here
                                                          "~/Dropbox/notes/stuff.org"
                                                          "~/Dropbox/notes/journal.org"
                                                          "~/Dropbox/notes/reading/index.org"
+                                                         "~/Dropbox/notes/work.org"
+                                                         "~/Dropbox/notes/keybindings.org"
+                                                         "~/Dropbox/notes/snippets.org"
                                                          "~/Dropbox/notes/notes.org")))
    #+END_SRC
 
