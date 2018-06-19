@@ -480,6 +480,7 @@ Trying to get some order up in here
   (evil-set-initial-state 'cider-browse-spec-mode 'insert)
   (evil-set-initial-state 'cider-browse-spec-view-mode 'insert)
   (evil-set-initial-state 'cider-browse-spec-example-mode 'insert)
+  (evil-set-initial-state 'cider-macroexpansion-mode 'insert)
   #+END_SRC
 
 it's not sending the right sexp to the repl... this makes it work as it should
