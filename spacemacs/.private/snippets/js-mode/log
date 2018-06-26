@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Christopher
-# name: Log simple
-# key: log
-# --
-console.log("$1")
