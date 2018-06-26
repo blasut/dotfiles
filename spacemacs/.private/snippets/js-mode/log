@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Christopher
-# name: Log a value with the value as the logged string
+# name: Log simple
 # key: log
 # --
-console.log("$1", $1)
+console.log("$1")
