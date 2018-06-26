@@ -123,6 +123,7 @@ Trying to get some order up in here
   (add-to-list 'aggressive-indent-excluded-modes 'slim-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haml-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'haskell-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'coffee-mode)
   #+END_SRC
 
 * show path in buffer title
