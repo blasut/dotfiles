@@ -153,7 +153,7 @@ Trying to get some order up in here
   #+END_SRC
 
   Let's try using s-KEY for swedish chars when using american layout
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (message "Binding super keys to swedish special chars")
   (global-set-key (kbd "s-[") "å")
   (global-set-key (kbd "s-'") "ä")
