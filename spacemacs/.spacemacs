@@ -57,6 +57,7 @@ This function should only modify configuration layer settings."
 
      ;; auto-complete
      (auto-completion :variables
+                      auto-completion-private-snippets-directory (expand-file-name "~/.private/snippets")
                       auto-completion-return-key-behavior nil
                       auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t)
