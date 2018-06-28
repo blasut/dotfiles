@@ -1,6 +1,9 @@
 # From spacemacs
 export PATH=~/.local/bin:$PATH
 
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
 # android
 export ANDROID_HOME=~/Library/Android/sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
@@ -26,10 +29,12 @@ export PATH=$PATH:~/.cache/rebar3/bin
 # for using coreutils
 # export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-export PATH="/usr/local/sbin:$PATH"
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH=$(brew --prefix qt@5.5)/bin:$PATH
+
+# aws client
+export PATH=$PATH:~/bin
