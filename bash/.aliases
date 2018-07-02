@@ -90,3 +90,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # clojure
 alias nrepl="clj -Sdeps '{:deps {cider/cider-nrepl {:mvn/version \"0.17.0\"} refactor-nrepl {:mvn/version \"2.4.0-SNAPSHOT\"} }}' -e '(require (quote cider-nrepl.main) (quote refactor-nrepl.middleware)) (cider-nrepl.main/init [\"cider.nrepl/cider-middleware\" \"refactor-nrepl.middleware/wrap-refactor\"])'"
+
+# stolen from: https://apple.stackexchange.com/questions/17622/how-can-i-make-rm-move-files-to-the-trash-can
+alias trash="rmtrash"
+alias del="rmtrash"
+alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"

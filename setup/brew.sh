@@ -104,6 +104,10 @@ brew install heroku
 brew install watchman
 heroku update
 
+
+# rm to trash
+brew install rmtrash
+
 ###############################################################################
 # Casks                                                                       #
 ###############################################################################
