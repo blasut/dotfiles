@@ -69,7 +69,7 @@ This function should only modify configuration layer settings."
               haskell-completion-backend 'intero)
      ;; lisps
      emacs-lisp
-     (clojure)
+     clojure
      common-lisp
 
      ;;(ruby :variables ruby-enable-enh-ruby-mode t ruby-version-manager 'rbenv ruby-test-runner 'rspec)
@@ -135,6 +135,7 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      org-plus-contrib
                                       ztree
                                       ivy-rich
                                       interleave
@@ -526,6 +527,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   )
 
 (defun dotspacemacs/user-load ()
