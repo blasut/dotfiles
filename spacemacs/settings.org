@@ -418,9 +418,10 @@ Trying to get some order up in here
    #+END_SRC
    which files do I want to sync?
    #+BEGIN_SRC emacs-lisp
-        (setq org-mobile-files (list "~/Dropbox/notes/journal.org" 
-                                     "~/Dropbox/notes/stuff.org"
-                                     "~/Dropbox/notes/TODOs.org"))
+   (setq org-mobile-files (list "~/Dropbox/notes/journal.org" 
+                                "~/Dropbox/notes/stuff.org"
+                                "~/Dropbox/notes/TODOs.org"
+                                "~/Dropbox/notes/flagged.org"))
    #+END_SRC
 ** setup org agenda files
    #+BEGIN_SRC emacs-lisp
