@@ -744,3 +744,21 @@ might be a good start to "fix" the elisp layer
                  ("C-;" . dired-subtree-remove))
       (add-hook 'dired-mode-hook #'dired-subtree-mode)))
   #+END_SRC
+
+* prettier-js
+  #+BEGIN_SRC emacs-lisp
+  (use-package prettier-js
+    :init
+    (add-hook 'vue-mode-hook #'prettier-js-mode)
+    (add-hook 'vue-mode-hook #'add-node-modules-path)
+
+    (add-hook 'web-mode-hook #'prettier-js-mode)
+    (add-hook 'web-mode-hook #'add-node-modules-path)
+
+    (add-hook 'js2-mode-hook #'prettier-js-mode)
+    (add-hook 'js2-mode-hook #'add-node-modules-path)
+
+    :config
+    (spacemacs|diminish prettier-js-mode "P" " P"))
+
+  #+END_SRC
