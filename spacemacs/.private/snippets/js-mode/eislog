@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Christopher
+# name: Log and ignore eslint
+# key: eislog
+# --
+console.log("$1", $1)$0 // eslint-disable-line
