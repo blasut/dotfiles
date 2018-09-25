@@ -137,12 +137,43 @@ Trying to get some order up in here
   #+END_SRC
 
 * Mac + Swedish keyboard bindings
+  let's try to use the recommended by spacemacs...
   
-  This stuff is configed in .spacemacs, because of ordering issues
   #+BEGIN_SRC emacs-lisp :tangle no
   (setq mac-command-modifier 'meta)  ; set command to meta
   (setq mac-option-modifier 'super)  ; set option to super
   (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
+  #+END_SRC
+
+  stolen from osx layer
+  #+BEGIN_SRC emacs-lisp :tangle no
+  (when (spacemacs/system-is-mac)
+    ;; this is only applicable to GUI mode
+    (when (display-graphic-p)
+      (defun kbd-mac-option (keys)
+        (kbd (concat "s-" keys)))
+
+      ;; Keybindings
+      (global-set-key (kbd-mac-option "=") 'spacemacs/scale-up-font)
+      (global-set-key (kbd-mac-option "-") 'spacemacs/scale-down-font)
+      (global-set-key (kbd-mac-option "0") 'spacemacs/reset-font-size)
+      (global-set-key (kbd-mac-option "q") 'save-buffers-kill-terminal)
+      (global-set-key (kbd-mac-option "v") 'yank)
+      (global-set-key (kbd-mac-option "c") 'evil-yank)
+      (global-set-key (kbd-mac-option "a") 'mark-whole-buffer)
+      (global-set-key (kbd-mac-option "x") 'kill-region)
+      (global-set-key (kbd-mac-option "w") 'delete-window)
+      (global-set-key (kbd-mac-option "W") 'delete-frame)
+      (global-set-key (kbd-mac-option "n") 'make-frame)
+      (global-set-key (kbd-mac-option "`") 'other-frame)
+      (global-set-key (kbd-mac-option "z") 'undo-tree-undo)
+      (global-set-key (kbd-mac-option "s")
+                      (lambda ()
+                        (interactive)
+                        (call-interactively (key-binding "\C-x\C-s"))))
+
+      (global-set-key (kbd-mac-option "Z") 'undo-tree-redo)
+      (global-set-key (kbd-mac-option "C-f") 'spacemacs/toggle-frame-fullscreen)))
   #+END_SRC
 
   
@@ -765,3 +796,4 @@ might be a good start to "fix" the elisp layer
     (spacemacs|diminish prettier-js-mode "P" " P"))
 
   #+END_SRC
+  

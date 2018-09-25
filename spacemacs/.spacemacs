@@ -45,7 +45,8 @@ This function should only modify configuration layer settings."
      ivy
 
      ;; TODO: look at this settings and compare in .org
-     (osx :variables osx-use-option-as-meta nil)
+     (osx ;; :variables osx-use-option-as-meta nil
+      )
 
      ;; version-control
      (version-control :variables
@@ -531,11 +532,6 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-
-  ;; This has to run before layer config, so the osx-layer config works
-  (setq mac-command-modifier 'meta)  ; set command to meta
-  (setq mac-option-modifier 'super)  ; set option to super
-  (setq ns-function-modifier 'hyper) ; set FN to hyper modifier
 
   ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
   ;;                                           ("org" . "orgmode.org/elpa/")
