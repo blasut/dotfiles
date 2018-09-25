@@ -753,7 +753,7 @@ might be a good start to "fix" the elisp layer
   add support for jumping back from erlang mode
   #+BEGIN_SRC emacs-lisp :tangle no
   (defun custom-erlang-mode-hook ()
-    (define-key erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back))
+    (define-key erlang-mode-map (kbd "H-,") 'alchemist-goto-jump-back))
 
   (add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
   #+END_SRC
@@ -780,7 +780,7 @@ might be a good start to "fix" the elisp layer
   #+END_SRC
 
 * prettier-js
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (use-package prettier-js
     :init
     (add-hook 'vue-mode-hook #'prettier-js-mode)

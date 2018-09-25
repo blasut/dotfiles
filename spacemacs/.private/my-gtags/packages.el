@@ -61,11 +61,32 @@ Each entry is either:
 (defun my-gtags/post-init-counsel-gtags ()
   ;; this is getting ugly...
   (message "Post init counsel gtags")
-  (define-key evil-normal-state-map (kbd "M-.") nil)
+  ;; (define-key evil-normal-state-map (kbd "H-.") nil)
 
-  ;; (with-eval-after-load 'js2-mode
-  ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
-  ;;   (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
+  (defun kbd-mac-command (keys)
+    "Wraps `kbd' function with Mac OSX compatible Command-key (⌘).
+KEYS should be a string such as \"f\" which will be turned into values
+such as \"H-f\", \"s-f\", or \"A-f\" depending on the value of
+`mac-commmand-modifier' which could be `hyper', `super', or `alt'.
+KEYS with a string of \"C-f\" are also valid and will be turned into
+values such as \"H-C-f\".
+Returns nil if `mac-command-modifier' is set to `none' or something
+other than the three sane values listed above."
+    (let ((found (assoc mac-command-modifier
+                        '((hyper . "H-")
+                          (super . "s-")
+                          (alt   . "A-")))))
+      (when found (kbd (concat (cdr found) keys)))))
+
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (define-key web-mode-map (kbd-mac-command ".") 'counsel-gtags-dwim)
+              (define-key web-mode-map (kbd-mac-command ",") 'counsel-gtags-go-backward)))
+
+  (with-eval-after-load 'js2-mode
+    (add-hook 'js2-mode-hook
+              (define-key evil-normal-state-map (kbd-mac-command ".") 'counsel-gtags-dwim)
+              (define-key evil-normal-state-map (kbd-mac-command ",") 'counsel-gtags-go-backward)))
 
   ;; (with-eval-after-load 'react-mode
   ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
@@ -78,12 +99,6 @@ Each entry is either:
   ;; (with-eval-after-load 'ruby-mode
   ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
   ;;   (define-key evil-normal-state-map (kbd "M-,") 'counsel-gtags-go-backward))
-
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (define-key web-mode-map (kbd "M-.") 'counsel-gtags-dwim)
-              (define-key web-mode-map (kbd "M-,") 'counsel-gtags-go-backward)))
-
 
   ;; (with-eval-after-load 'slime-mode
   ;;   (define-key evil-normal-state-map (kbd "M-.") 'slime-edit-definition)
