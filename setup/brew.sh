@@ -42,13 +42,6 @@ chsh -s /usr/local/bin/bash
 # Stuff I want                                                                #
 ###############################################################################
 
-# Install `wget` with IRI support.
-brew install wget --with-iri
-
-# Install ruby-build and rbenv
-brew install ruby-build
-brew install rbenv
-
 # Install more recent versions of some OS X tools.
 brew install vim --with-override-system-vi
 brew install grep
@@ -73,13 +66,17 @@ brew install hub
 
 # ag!
 brew install the_silver_searcher
+# pt!
+brew install the_platinum_searcher
 
 # db
 brew install sqlite
 
 # langs
-brew install elixir
-brew install erlang
+brew install ruby-build
+brew install rbenv
+# brew install elixir
+# brew install erlang
 brew install leiningen
 brew install boot-clj
 brew install python
@@ -87,6 +84,8 @@ brew install valgrind
 brew install nvm
 brew install yarn
 brew install cairo # ocaml
+brew install clojure
+brew install idris
 
 # misc
 brew install global --with-pygments --with-ctags
@@ -94,16 +93,16 @@ brew install colordiff
 brew install youtube-dl
 brew install pdf-tools
 brew install pandoc
-
-# other useful stuff
+brew install editorconfig
+## other useful stuff
 brew install imagemagick --with-webp
 brew install tree
+brew install wget --with-iri
 
 # Install Heroku
 brew install heroku
 brew install watchman
 heroku update
-
 
 # rm to trash
 brew install rmtrash
@@ -112,6 +111,9 @@ brew install rmtrash
 # Casks                                                                       #
 ###############################################################################
 brew tap caskroom/cask
+
+# Editor
+brew cask install --appdir="~/Applications" emacs
 
 ## Core casks
 brew cask install --appdir="~/Applications" iterm2
@@ -153,7 +155,7 @@ brew cask install --appdir="/Applications" adium
 brew cask install --appdir="/Applications" calibre
 # brew cask install --appdir="/Applications" telegram-desktop
 # LaTeX dist MacTex
-brew cask install --appdir="/Applications" mactex
+# brew cask install --appdir="/Applications" mactex
 
 brew cask install --appdir="/Applications" gpg-suite
 
