@@ -796,4 +796,6 @@ might be a good start to "fix" the elisp layer
     (spacemacs|diminish prettier-js-mode "P" " P"))
 
   #+END_SRC
-  
+
+* idris-mode
+  TODO: rebind 'q' in idris info mode to close the buffer...
