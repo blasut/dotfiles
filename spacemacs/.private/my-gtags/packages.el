@@ -83,10 +83,10 @@ other than the three sane values listed above."
               (define-key web-mode-map (kbd-mac-command ".") 'counsel-gtags-dwim)
               (define-key web-mode-map (kbd-mac-command ",") 'counsel-gtags-go-backward)))
 
-  (with-eval-after-load 'js2-mode
-    (add-hook 'js2-mode-hook
-              (define-key evil-normal-state-map (kbd-mac-command ".") 'counsel-gtags-dwim)
-              (define-key evil-normal-state-map (kbd-mac-command ",") 'counsel-gtags-go-backward)))
+  ;; (with-eval-after-load 'js2-mode
+  ;;   (add-hook 'js2-mode-hook
+  ;;             (define-key evil-normal-state-map (kbd-mac-command ".") 'counsel-gtags-dwim)
+  ;;             (define-key evil-normal-state-map (kbd-mac-command ",") 'counsel-gtags-go-backward)))
 
   ;; (with-eval-after-load 'react-mode
   ;;   (define-key evil-normal-state-map (kbd "M-.") 'counsel-gtags-dwim)
