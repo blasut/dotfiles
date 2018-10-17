@@ -10,6 +10,10 @@ Trying to get some order up in here
   #+BEGIN_SRC emacs-lisp
   (spacemacs/toggle-truncate-lines-on)
   #+END_SRC
+  oh yes!
+  #+BEGIN_SRC emacs-lisp
+  (spacemacs/toggle-camel-case-motion-on)
+  #+END_SRC
 
 * Defuns 
 ** Insert my files
