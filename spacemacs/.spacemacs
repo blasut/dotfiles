@@ -107,6 +107,7 @@ This function should only modify configuration layer settings."
 
      ;; Misc useful
      command-log
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
 
      ;; Misc fun
      ;; Really unsure about this package, but might be worth trying
