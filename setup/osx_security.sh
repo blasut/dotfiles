@@ -49,6 +49,9 @@ brew install openssl
 # Remove info about what I type
 rm -rfv "~/Library/LanguageModeling/*" "~/Library/Spelling/*" "~/Library/Suggestions/*"
 chmod -R 000 ~/Library/LanguageModeling ~/Library/Spelling ~/Library/Suggestions
+## suggestd keeps crashing
+chmod -R 755 /Users/jite/Library/Suggestions/journals
+chmod -R 755 /Users/jite/Library/Suggestions/
 chflags -R uchg ~/Library/LanguageModeling ~/Library/Spelling ~/Library/Suggestions
 
 # Clean the Siri db
