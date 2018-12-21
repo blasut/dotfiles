@@ -803,3 +803,16 @@ might be a good start to "fix" the elisp layer
 
 * idris-mode
   TODO: rebind 'q' in idris info mode to close the buffer...
+
+* typescript
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (tide-hl-identifier-mode +1)
+
+    (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  ;; Add shortcut for tide-refactor
+ (spacemacs/set-leader-keys "rr" 'tide-refactor)
+ (spacemacs/set-leader-keys "rs" 'tide-rename-symbol)
+
+  #+END_SRC
