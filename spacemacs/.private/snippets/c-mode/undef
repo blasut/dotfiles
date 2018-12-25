@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: undef
+# key: ud
+# --
+#undef $0
