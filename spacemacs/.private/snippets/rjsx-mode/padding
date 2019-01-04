@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: padding
+# key: pd
+# --
+paddingTop: ${1:0},
+paddingLeft: ${2:0},
+paddingRight: ${3:0},
+paddingBottom: ${4:0},
