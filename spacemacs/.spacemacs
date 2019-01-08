@@ -88,6 +88,9 @@ This function should only modify configuration layer settings."
      ;; js
      (javascript
       :variables
+      ;; javascript-backend 'tern
+      javascript-backend 'lsp
+      javascript-fmt-tool 'prettier
       node-add-modules-path t)
      react
      ;; random
@@ -138,7 +141,7 @@ This function should only modify configuration layer settings."
 
      ;; gtags
      gtags
-     my-gtags
+     ;; my-gtags
 
      go
      )
