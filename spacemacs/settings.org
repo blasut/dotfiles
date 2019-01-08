@@ -38,10 +38,10 @@ Trying to get some order up in here
 
 ** open-notes
    #+BEGIN_SRC emacs-lisp
-      (defun open-notes ()
-        (interactive)
-        (split-window-right)
-        (open-file-in-new-buffer "~/Dropbox/notes/notes.org"))
+   (defun open-notes ()
+     (interactive)
+     (split-window-right)
+     (open-file-in-new-buffer "~/Dropbox/notes/notes.org"))
    #+END_SRC
 
 ** open-work-notes
