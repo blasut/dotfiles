@@ -38,7 +38,7 @@ This function should only modify configuration layer settings."
      (typescript
       :variables
       ;; typescript-fmt-on-save t
-      ;; typescript-backend 'lsp
+      typescript-backend 'lsp
       typescript-fmt-tool 'typescript-formatter)
      elm
      html
