@@ -549,6 +549,11 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
+  (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind)
+
+  (setq lsp-clients-typescript-server "typescript-language-server"
+        lsp-clients-typescript-server-args '("--stdio"))
+
   ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
   ;;                                           ("org" . "orgmode.org/elpa/")
   ;;                                           ("gnu" . "elpa.gnu.org/packages/")))
@@ -577,7 +582,10 @@ before packages are loaded."
   ;; temp bugfix, probably
   (global-set-key (kbd "M-x") 'counsel-M-x)
 
-  (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind)
+
+  ;; (with-eval-after-load 'lsp
+  ;;   (setq lsp-clients-typescript-server "typescript-language-server"
+  ;;         lsp-clients-typescript-server-args '("--stdio")))
 
   (add-to-list 'load-path "~/.private/local/ivy-rich/")
   (require 'ivy-rich)
