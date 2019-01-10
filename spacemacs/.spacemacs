@@ -583,10 +583,6 @@ before packages are loaded."
   (global-set-key (kbd "M-x") 'counsel-M-x)
 
 
-  ;; (with-eval-after-load 'lsp
-  ;;   (setq lsp-clients-typescript-server "typescript-language-server"
-  ;;         lsp-clients-typescript-server-args '("--stdio")))
-
   (add-to-list 'load-path "~/.private/local/ivy-rich/")
   (require 'ivy-rich)
   (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
