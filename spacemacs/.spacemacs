@@ -99,7 +99,8 @@ This function should only modify configuration layer settings."
      ;; org stuff
      (org :variables
           org-projectile-file "~/Dropbox/TODOs.org"
-          org-enable-reveal-js-support t
+          ;; the package needs to be updted to support org 9.2
+          ;; org-enable-reveal-js-support t
           )
      bibtex
      ;; pdf-tools
