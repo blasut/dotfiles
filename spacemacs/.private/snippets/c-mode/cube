@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: cube
+# key: cube
+# --
+if (s.equals("${1:10}")) {
+return 0x${2:10};
+}
+$0
+
+case 0x$2:
+return "$1";
