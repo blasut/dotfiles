@@ -14,7 +14,22 @@ sudo pmset -a powernap 0
 sudo pmset -a standby 0
 sudo pmset -a standbydelay 0
 sudo pmset -a autopoweroff 0
+sudo pmset -a autopoweroffdelay 0
 
+# actually use hibernate!
+sudo pmset -a acwake 0
+sudo pmset -a lidwake 0
+sudo pmset -a ttyskeepawake 0
+sudo pmset -a darkwakes 0
+
+sudo pmset -a proximitywake 0
+
+# wait XX seconds until hibernate
+sudo pmset -a standbydelaylow 10
+sudo pmset -a standbydelayhigh 10
+
+# no keepalive
+## sudo pmset -a tcpkeepalive 0
 
 # Set firmware password
 # https://support.apple.com/en-us/HT204455

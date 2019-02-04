@@ -7,7 +7,7 @@ Trying to get some order up in here
   (setq-default evil-escape-delay 0.1)
   #+END_SRC
   lets use truncate lines instead of fci mode
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (spacemacs/toggle-truncate-lines-on)
   #+END_SRC
   oh yes!
