@@ -739,6 +739,32 @@ might be a good start to "fix" the elisp layer
   #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
   #+END_SRC
+
+  try using dap
+  #+begin_src emacs-lisp :tangle no
+  (if (configuration-layer/layer-used-p 'dap)
+      (progn
+        (require 'dap-ruby)
+        (spacemacs/dap-bind-keys-for-mode 'ruby-mode))
+    (message "`dap' layer is not installed, please add `dap' layer to your dotfile."))
+  #+end_src
+
+  maybe set correct path
+  #+begin_src emacs-lisp :tangle no
+  (setq dap-ruby-debug-program '("node" "/Users/box/.vscode/extensions/rebornix.Ruby-0.13.0/out/main.js"))
+  #+end_src
+
+  setup with rails
+  #+begin_src emacs-lisp :tangle no
+  (dap-register-debug-template "Rails Run Configuration"
+                               (list :type "Ruby"
+                                     :cwd "[abs_path_to_proj]"
+                                     :request "launch"
+                                     :program "[abs_path_to_proj]/bin/rails"
+                                     :args "server"
+                                     :name "Ruby::Rails::Server"))
+  #+end_src
+
   
 * when .enving
   #+BEGIN_SRC emacs-lisp
