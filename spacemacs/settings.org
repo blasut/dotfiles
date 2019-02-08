@@ -842,9 +842,9 @@ might be a good start to "fix" the elisp layer
  (spacemacs/set-leader-keys "rs" 'tide-rename-symbol)
 
   #+END_SRC
+  
 * c/c++
   #+BEGIN_SRC emacs-lisp
-
   (define-key c-mode-map (kbd "H-<return>") 'srefactor-refactor-at-point)
-
   #+END_SRC
+  

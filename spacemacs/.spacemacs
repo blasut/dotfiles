@@ -555,6 +555,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq lsp-clients-typescript-server "typescript-language-server"
         lsp-clients-typescript-server-args '("--stdio"))
 
+  ;; to stop lsp to ask if it should restart the lsp server when quitting emacs
+  (setq lsp-restart 'ignore)
+
   ;; (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
   ;;                                           ("org" . "orgmode.org/elpa/")
   ;;                                           ("gnu" . "elpa.gnu.org/packages/")))
