@@ -602,7 +602,7 @@ before packages are loaded."
                        "please add `lsp' layer to your dotfile."))))
 
   ;; (spacemacs//elixir-setup-lsp)
-  (add-hook 'elixir-mode-hook #'spacemacs//elixir-setup-lsp)
+  ;; (add-hook 'elixir-mode-hook #'spacemacs//elixir-setup-lsp)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
