@@ -38,3 +38,6 @@ export PATH=$(brew --prefix qt@5.5)/bin:$PATH
 
 # aws client
 export PATH=$PATH:~/bin
+
+# elixir LS server
+export PATH=$PATH:~/code/elixir-ls/release
