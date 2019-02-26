@@ -844,7 +844,7 @@ might be a good start to "fix" the elisp layer
   #+END_SRC
   
 * c/c++
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
   (define-key c-mode-map (kbd "H-<return>") 'srefactor-refactor-at-point)
   #+END_SRC
   
