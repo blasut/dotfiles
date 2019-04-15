@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -30,6 +30,7 @@ This function should only modify configuration layer settings."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '("~/.private/")
+
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -117,6 +118,7 @@ This function should only modify configuration layer settings."
      ;; Misc useful
      command-log
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
+     spell-checking
 
      ;; Misc fun
      ;; Really unsure about this package, but might be worth trying
