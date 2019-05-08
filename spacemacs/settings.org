@@ -388,7 +388,7 @@ Trying to get some order up in here
                   "* %?\n%T" :prepend t)
                  ("k" "Keybindings" entry (file "~/Dropbox/notes/keybindings.org")
                   "* ~%^{prompt}~ => %^{prompt}\t:keybinding:%^g\n  %t\n  %?" :prepend t :empty-lines 0)
-                 ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work.org" "unsorted")
+                 ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work/work.org" "unsorted")
                   "* %?\n%T" :prepend t)
                  ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
                   "* %? %^L %^g \n%T" :prepend t)
@@ -396,9 +396,9 @@ Trying to get some order up in here
                   "* %?\n%T" :prepend t)
                  ("c" "Culture" entry (file+headline "~/Dropbox/notes/stuff.org" "Culture")
                   "* %? %^L %^g \n%T" :prepend t)
-                 ("t" "To Do Item" entry (file+headline "~/Dropbox/notes/TODOs.org" "Todos")
+                 ("t" "To Do Item" entry (file+headline "~/Dropbox/notes/beorg/TODOs.org" "Todos")
                   "* TODO %?\n%T" :prepend t)
-                 ("j" "Journal" entry (file+datetree "~/Dropbox/notes/journal.org")
+                 ("j" "Journal" entry (file+datetree "~/Dropbox/notes/beorg/journal.org")
                   "* %?\nEntered on %U\n  %i\n")
                  ("d" "Dump Code Snippet" entry
                   (file "~/Dropbox/notes/snippets.org")
@@ -448,9 +448,9 @@ Trying to get some order up in here
   (with-eval-after-load 'org
     (add-hook 'org-capture-mode-hook 'evil-insert-state))
   #+END_SRC
-** orgmobile
+** orgmobile :not-used:
    now for the good stuff
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
    (setq org-mobile-inbox-for-pull "~/Dropbox/notes/flagged.org")
    (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
    #+END_SRC
@@ -464,11 +464,12 @@ Trying to get some order up in here
 ** setup org agenda files
    #+BEGIN_SRC emacs-lisp
    (with-eval-after-load 'org
-     (setq org-agenda-files (append org-agenda-files (list "~/Dropbox/notes/TODOs.org"
-                                                           "~/Dropbox/notes/stuff.org"
-                                                           "~/Dropbox/notes/journal.org"
+     (setq org-agenda-files (append org-agenda-files (list "~/Dropbox/notes/beorg/TODOs.org"
+                                                           "~/Dropbox/notes/beorg/journal.org"
+                                                           "~/Dropbox/notes/beorg/inbox.org"
+                                                           "~/Dropbox/notes/beorg/projects.org"
                                                            "~/Dropbox/notes/reading/index.org"
-                                                           "~/Dropbox/notes/work.org"
+                                                           "~/Dropbox/notes/work/work.org"
                                                            "~/Dropbox/notes/keybindings.org"
                                                            "~/Dropbox/notes/snippets.org"
                                                            "~/Dropbox/notes/notes.org"))))
@@ -498,7 +499,7 @@ Trying to get some order up in here
             ("p" "Project TODOs"
              ((todo ""
                        (
-                        (org-agenda-files '("~/Dropbox/notes//projects.org"))
+                        (org-agenda-files '("~/Dropbox/notes/beorg/projects.org"))
                         (org-tags-match-list-sublevels 'indented)
                         (org-todos-match-list-sublevels 'indented)
                         (org-agenda-prefix-format "%c: %l")
