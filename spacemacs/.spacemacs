@@ -31,8 +31,7 @@ This function should only modify configuration layer settings."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '("~/.private/")
 
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
+   ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(windows-scripts
      (typescript
@@ -119,6 +118,7 @@ This function should only modify configuration layer settings."
      command-log
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      spell-checking
+     treemacs
 
      ;; Misc fun
      ;; Really unsure about this package, but might be worth trying
