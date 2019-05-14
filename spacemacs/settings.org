@@ -44,12 +44,24 @@ Trying to get some order up in here
      (open-file-in-new-buffer "~/Dropbox/notes/notes.org"))
    #+END_SRC
 
+** open-keybindings
+   #+BEGIN_SRC emacs-lisp
+      (defun open-keybindings ()
+        (interactive)
+        (if (not (get-buffer "keybindings.org"))
+            (progn
+              (split-window-sensibly (selected-window))
+              (other-window 1)
+              (open-file-in-new-buffer "~/Dropbox/notes/keybindings.org"))
+          (switch-to-buffer-other-window "keybindings.org")))
+   #+END_SRC
+
 ** open-work-notes
    #+BEGIN_SRC emacs-lisp
       (defun open-work-notes ()
         (interactive)
         (split-window-right)
-        (open-file-in-new-buffer "~/Dropbox/notes/work.org"))
+        (open-file-in-new-buffer "~/Dropbox/notes/work/work.org"))
    #+END_SRC
 
 ** visit-ielm
@@ -80,11 +92,13 @@ Trying to get some order up in here
   my own keybindings
   #+BEGIN_SRC emacs-lisp
  (spacemacs/set-leader-keys "on" 'open-notes)
- (spacemacs/set-leader-keys "ow" 'open-work-notes)
+ (spacemacs/set-leader-keys "oon" 'open-notes)
+ (spacemacs/set-leader-keys "ook" 'open-keybindings)
+ (spacemacs/set-leader-keys "oow" 'open-work-notes)
  (spacemacs/set-leader-keys "oc" 'org-capture)
   #+END_SRC
   orgmobile stuff
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
  (spacemacs/set-leader-keys "omp" 'org-mobile-pull)
  (spacemacs/set-leader-keys "omu" 'org-mobile-push)
   #+END_SRC
