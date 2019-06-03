@@ -389,7 +389,7 @@ Trying to get some order up in here
        :config
        (progn
          (setq org-projectile-projects-file
-               "~/Dropbox/notes/projects.org")
+               "~/Dropbox/notes/beorg/projects.org")
          (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
          (push (org-projectile-project-todo-entry) org-capture-templates))
        :ensure t))
@@ -521,6 +521,17 @@ Trying to get some order up in here
                         ;;(ps-number-of-columns 2)
                         ;;(org-agenda-compact-blocks t)
                         ;;(ps-landscape-mode t)
+                        )
+                        )))
+
+            ("w" "Work"
+             ((agenda "" ((org-agenda-files '("~/Dropbox/notes/work/work.org"))))
+              (todo ""
+                       (
+                        (org-agenda-files '("~/Dropbox/notes/work/work.org"))
+                        (org-tags-match-list-sublevels 'indented)
+                        (org-todos-match-list-sublevels 'indented)
+                        (org-agenda-prefix-format "%c: %l")
                         )
                         )))
 
