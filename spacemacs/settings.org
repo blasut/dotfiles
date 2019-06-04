@@ -525,7 +525,10 @@ Trying to get some order up in here
                         )))
 
             ("w" "Work"
-             ((agenda "" ((org-agenda-files '("~/Dropbox/notes/work/work.org"))))
+             ((agenda "" (
+                          (org-agenda-files '("~/Dropbox/notes/work/work.org"))
+                          (org-agenda-span 28) ;; 28 days or 4 weeks
+                          ))
               (todo ""
                        (
                         (org-agenda-files '("~/Dropbox/notes/work/work.org"))
