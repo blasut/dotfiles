@@ -90,7 +90,9 @@ This function should only modify configuration layer settings."
       ;; javascript-backend 'tern
       javascript-backend 'lsp
       javascript-fmt-tool 'prettier
+      javascript-import-tool 'import-js
       node-add-modules-path t)
+     prettier
      react
      ;; random
      octave
@@ -168,7 +170,6 @@ This function should only modify configuration layer settings."
                                       dired-subtree
                                       idris-mode
                                       vue-mode
-                                      prettier-js
                                       )
 
    ;; A list of packages that cannot be updated.
