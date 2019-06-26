@@ -53,3 +53,13 @@ if [ -S "$HOME/.gnupg/S.gpg-agent.ssh" ]; then
 fi
 
 
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /Users/box/.nvm/versions/node/v11.2.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . /Users/box/.nvm/versions/node/v11.2.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /Users/box/.nvm/versions/node/v11.2.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . /Users/box/.nvm/versions/node/v11.2.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /Users/box/.nvm/versions/node/v11.2.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /Users/box/.nvm/versions/node/v11.2.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
