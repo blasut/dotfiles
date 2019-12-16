@@ -600,9 +600,9 @@ before packages are loaded."
   (global-set-key (kbd "M-x") 'counsel-M-x)
 
 
-  (add-to-list 'load-path "~/.private/local/ivy-rich/")
-  (require 'ivy-rich)
-  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+  ;; (add-to-list 'load-path "~/.private/local/ivy-rich/")
+  ;; (require 'ivy-rich)
+  ;; (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
   (setq ivy-virtual-abbreviate 'full
         ivy-rich-switch-buffer-align-virtual-buffer t
         ivy-rich-path-style 'abbrev)
