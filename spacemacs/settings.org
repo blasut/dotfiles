@@ -144,6 +144,7 @@ Trying to get some order up in here
   (add-to-list 'aggressive-indent-excluded-modes 'idris-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'coffee-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'vue-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'clojure-mode)
   #+END_SRC
 
 * show path in buffer title
