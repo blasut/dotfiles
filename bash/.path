@@ -15,9 +15,9 @@ export PATH="$HOME/Library/Haskell/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-# postgres
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
+# postgres; not used atm
+#export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
+#export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 
 # golang
 export GOPATH=$HOME/code/golang
@@ -34,10 +34,14 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-export PATH=$(brew --prefix qt@5.5)/bin:$PATH
+# not used?
+# export PATH=$(brew --prefix qt@5.5)/bin:$PATH
 
 # aws client
 export PATH=$PATH:~/bin
 
 # elixir LS server
 export PATH=$PATH:~/code/elixir-ls/release
+
+# npm path
+# export PATH=$PATH:~/.nvm/versions/node/v13.6.0/bin/node
