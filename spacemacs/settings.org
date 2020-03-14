@@ -64,6 +64,14 @@ Trying to get some order up in here
         (open-file-in-new-buffer "~/Dropbox/notes/work/work.org"))
    #+END_SRC
 
+** open-inbox
+   #+BEGIN_SRC emacs-lisp
+      (defun open-inbox ()
+        (interactive)
+        (split-window-right)
+        (open-file-in-new-buffer "~/Dropbox/notes/beorg/inbox.org"))
+   #+END_SRC
+
 ** visit-ielm
    doesn't actually work
    #+BEGIN_SRC emacs-lisp
@@ -95,6 +103,7 @@ Trying to get some order up in here
  (spacemacs/set-leader-keys "oon" 'open-notes)
  (spacemacs/set-leader-keys "ook" 'open-keybindings)
  (spacemacs/set-leader-keys "oow" 'open-work-notes)
+ (spacemacs/set-leader-keys "ooi" 'open-inbox)
  (spacemacs/set-leader-keys "oc" 'org-capture)
   #+END_SRC
   orgmobile stuff
