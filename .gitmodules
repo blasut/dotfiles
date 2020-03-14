@@ -15,9 +15,6 @@
 [submodule "spacemacs/.private/local/ivy-rich"]
 	path = spacemacs/.private/local/ivy-rich
 	url = git@github.com:Yevgnen/ivy-rich.git
-[submodule "spacemacs/.private/local/dap-mode"]
-	path = spacemacs/.private/local/dap-mode
-	url = git@github.com:yyoncho/dap-mode.git
-[submodule "spacemacs/.private/local/lsp-mode"]
-	path = spacemacs/.private/local/lsp-mode
-	url = git@github.com:blasut/lsp-mode.git
+[submodule "spacemacs/.private/local/lsp-docker"]
+	path = spacemacs/.private/local/lsp-docker
+	url = https://github.com/emacs-lsp/lsp-docker
