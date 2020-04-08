@@ -653,7 +653,8 @@ before packages are loaded."
   ;;  :path-mappings '(("~/.private/local/lsp-docker/demo-projects" . "/projects"))
   ;;  :client-packages lsp-docker-client-packages
   ;;  :client-configs lsp-docker-client-configs)
-  
+
+  (add-hook 'vue-mode-hook #'lsp-deferred)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
