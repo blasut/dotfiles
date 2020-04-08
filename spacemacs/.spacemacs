@@ -171,6 +171,7 @@ This function should only modify configuration layer settings."
                                       dired-subtree
                                       idris-mode
                                       vue-mode
+                                      company-tabnine
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -655,6 +656,8 @@ before packages are loaded."
   ;;  :client-configs lsp-docker-client-configs)
 
   (add-hook 'vue-mode-hook #'lsp-deferred)
+
+  (add-to-list 'company-backends #'company-tabnine)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
