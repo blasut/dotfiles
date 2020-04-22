@@ -34,6 +34,11 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+; TODO: use these AND SPC
+(setq ;doom-leader-key ","
+      doom-localleader-key "\\")
+
+
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
