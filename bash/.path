@@ -45,3 +45,6 @@ export PATH=$PATH:~/code/elixir-ls/release
 
 # npm path
 # export PATH=$PATH:~/.nvm/versions/node/v13.6.0/bin/node
+#
+# doom emacs
+export PATH="~/.emacs.d/bin:$PATH"
