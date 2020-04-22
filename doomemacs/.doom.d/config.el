@@ -47,6 +47,20 @@
       "n" #'org-narrow-to-subtree
       "w" #'widen)
 
+;; (winum-select-window-1 &optional ARG)
+(map!
+  (:when (featurep! :ui workspaces)
+    :g "M-1"   #'winum-select-window-1
+    :g "M-2"   #'winum-select-window-2
+    :g "M-3"   #'winum-select-window-3
+    :g "M-4"   #'winum-select-window-4
+    :g "M-5"   #'winum-select-window-5
+    :g "M-6"   #'winum-select-window-6
+    :g "M-7"   #'winum-select-window-7
+    :g "M-8"   #'winum-select-window-7
+    :g "M-9"   #'winum-select-window-8
+    ))
+;;    ;;:g "M-0"   #'winum-select-window-final))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
