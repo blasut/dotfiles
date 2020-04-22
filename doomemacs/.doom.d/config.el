@@ -38,6 +38,14 @@
 (setq ;doom-leader-key ","
       doom-localleader-key "\\")
 
+; org-narrow-to-subtree
+; widen
+;   (define-key org-src-mode-map (kbd "C-c C-c") #'org-edit-src-exit)
+(map! :map org-mode-map
+      :localleader
+      "N" #'org-store-link
+      "n" #'org-narrow-to-subtree
+      "w" #'widen)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
