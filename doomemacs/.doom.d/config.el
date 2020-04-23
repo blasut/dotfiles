@@ -62,7 +62,8 @@
     :g "M-9"   #'winum-select-window-8
     ))
 
-;;    ;;:g "M-0"   #'winum-select-window-final))
+;; Remap the regular search to use swiper
+(map! :n "/" #'swiper-isearch)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
