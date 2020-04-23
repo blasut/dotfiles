@@ -28,7 +28,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Dropbox/notes/work")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -41,11 +41,12 @@
 ; org-narrow-to-subtree
 ; widen
 ;   (define-key org-src-mode-map (kbd "C-c C-c") #'org-edit-src-exit)
-(map! :map org-mode-map
-      :localleader
-      "N" #'org-store-link
-      "n" #'org-narrow-to-subtree
-      "w" #'widen)
+(after! org
+  (map! :map org-mode-map
+        :localleader
+        "N" #'org-store-link
+        "n" #'org-narrow-to-subtree
+        "w" #'widen))
 
 ;; (winum-select-window-1 &optional ARG)
 (map!
@@ -60,6 +61,7 @@
     :g "M-8"   #'winum-select-window-7
     :g "M-9"   #'winum-select-window-8
     ))
+
 ;;    ;;:g "M-0"   #'winum-select-window-final))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
