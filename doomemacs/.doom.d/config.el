@@ -65,6 +65,11 @@
 ;; Remap the regular search to use swiper
 (map! :n "/" #'swiper-isearch)
 
+;; Rename leader . to project search instead
+(map! :leader
+        "." #'+ivy/projectile-find-file
+        )
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
