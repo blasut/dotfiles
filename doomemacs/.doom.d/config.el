@@ -46,7 +46,12 @@
         :localleader
         "N" #'org-store-link
         "n" #'org-narrow-to-subtree
-        "w" #'widen))
+        "w" #'widen)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "PROJ(p)" "STRT(s)" "WAIT(w)" "HOLD(h)" "|" "DONE(d!)" "KILL(k)")
+          (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")))
+  (setq org-log-into-drawer t)
+  )
 
 ;; (winum-select-window-1 &optional ARG)
 (map!
@@ -65,7 +70,7 @@
 ;; Remap the regular search to use swiper
 (map! :n "/" #'swiper-isearch)
 
-;; Rename leader . to project search instead
+;; Remap leader . to project search instead
 (map! :leader
         "." #'+ivy/projectile-find-file
         )
