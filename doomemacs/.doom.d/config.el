@@ -75,6 +75,13 @@
         "." #'+ivy/projectile-find-file
         )
 
+
+(map!
+ :g "C-k" 'sp-kill-hybrid-sexp
+ :g "M-k" 'sp-backward-kill-sexp
+ )
+
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
