@@ -48,3 +48,4 @@ export PATH=$PATH:~/code/elixir-ls/release
 #
 # doom emacs
 export PATH="~/.emacs.d/bin:$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH"
