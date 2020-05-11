@@ -75,6 +75,10 @@
         "." #'+ivy/projectile-find-file
         )
 
+;; Remap SPC SPC to M-x like spacemacs
+(map! :leader
+        "SPC" #'counsel-M-x
+        )
 
 (map!
  :g "C-k" 'sp-kill-hybrid-sexp
