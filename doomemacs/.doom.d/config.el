@@ -85,6 +85,8 @@
  :g "M-k" 'sp-backward-kill-sexp
  )
 
+;; Allow me to mash the keys in any order yes good
+(setq evil-escape-unordered-key-sequence t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
