@@ -56,15 +56,26 @@
 ;; (winum-select-window-1 &optional ARG)
 (map!
   (:when (featurep! :ui workspaces)
-    :g "M-1"   #'winum-select-window-1
-    :g "M-2"   #'winum-select-window-2
-    :g "M-3"   #'winum-select-window-3
-    :g "M-4"   #'winum-select-window-4
-    :g "M-5"   #'winum-select-window-5
-    :g "M-6"   #'winum-select-window-6
-    :g "M-7"   #'winum-select-window-7
-    :g "M-8"   #'winum-select-window-7
-    :g "M-9"   #'winum-select-window-8
+    :n "s-1"   #'winum-select-window-1
+    :n "s-2"   #'winum-select-window-2
+    :n "s-3"   #'winum-select-window-3
+    :n "s-4"   #'winum-select-window-4
+    :n "s-5"   #'winum-select-window-5
+    :n "s-6"   #'winum-select-window-6
+    :n "s-7"   #'winum-select-window-7
+    :n "s-8"   #'winum-select-window-7
+    :n "s-9"   #'winum-select-window-8
+
+    :g "M-1"   #'+workspace/switch-to-0
+    :g "M-2"   #'+workspace/switch-to-1
+    :g "M-3"   #'+workspace/switch-to-2
+    :g "M-4"   #'+workspace/switch-to-3
+    :g "M-5"   #'+workspace/switch-to-4
+    :g "M-6"   #'+workspace/switch-to-5
+    :g "M-7"   #'+workspace/switch-to-6
+    :g "M-8"   #'+workspace/switch-to-7
+    :g "M-9"   #'+workspace/switch-to-8
+    :g "M-0"   #'+workspace/switch-to-final
     ))
 
 ;; Remap the regular search to use swiper
