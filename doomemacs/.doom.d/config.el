@@ -99,6 +99,9 @@
 ;; Allow me to mash the keys in any order yes good
 (setq evil-escape-unordered-key-sequence t)
 
+;; C-o to open the hydra
+(setq ivy-read-action-function #'ivy-hydra-read-action)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
