@@ -102,6 +102,25 @@
 ;; C-o to open the hydra
 (setq ivy-read-action-function #'ivy-hydra-read-action)
 
+;; Let's try tabnine
+(use-package! company-tabnine
+  :after company
+  :config
+  (setq company-backends '(company-tabnine)))
+  ;(cl-pushnew 'company-tabnine (default-value 'company-backends)))
+
+(add-hook! prog-mode-hook
+   (setq company-backends '(company-tabnine)))
+
+;; (add-hook! lsp-after-open (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate)))
+
+;; (set-company-backend! 'conf-mode
+;;                    'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
+;;                  (set-company-backend! 'prog-mode
+;;                    'company-tabnine 'company-capf 'company-yasnippet)))
+
+
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
