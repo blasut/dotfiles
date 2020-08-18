@@ -38,3 +38,5 @@
 	name = blasut
 [github]
 	user = blasut
+[url "git@github.com:"]
+	insteadOf = https://github.com/
