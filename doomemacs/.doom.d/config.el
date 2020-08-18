@@ -103,14 +103,14 @@
 (setq ivy-read-action-function #'ivy-hydra-read-action)
 
 ;; Let's try tabnine
-(use-package! company-tabnine
-  :after company
-  :config
-  (setq company-backends '(company-tabnine)))
-  ;(cl-pushnew 'company-tabnine (default-value 'company-backends)))
-
-(add-hook! prog-mode-hook
-   (setq company-backends '(company-tabnine)))
+;(use-package! company-tabnine
+;  :after company
+;  :config
+;  (setq company-backends '(company-tabnine)))
+;  ;(cl-pushnew 'company-tabnine (default-value 'company-backends)))
+;
+;(add-hook! prog-mode-hook
+;   (setq company-backends '(company-tabnine)))
 
 ;; (add-hook! lsp-after-open (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate)))
 
