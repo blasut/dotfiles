@@ -2,7 +2,10 @@
 set -euo pipefail
 
 ## To install emacs with native json compilation
-# brew install emacs-plus --with-emacs-27-branch --with-jansson --HEAD
+# brew install stow
+# brew install emacs-plus
+# brew install ripgrep
+# brew install fd
 
 ## To install required LSPs
 
