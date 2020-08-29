@@ -6,6 +6,7 @@ set -euo pipefail
 # brew install emacs-plus
 # brew install ripgrep
 # brew install fd
+# brew install coreutils
 
 ## To install required LSPs
 
