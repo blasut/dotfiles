@@ -126,7 +126,7 @@ brew cask install --appdir="/Applications" karabiner-elements
 
 ## Dev tools
 # it's the database ui from intellij
-# brew cask install --appdir="/Applications" datagrip
+brew cask install --appdir="/Applications" datagrip
 # brew cask install --appdir="/Applications" sequel-pro
 # brew cask install --appdir="/Applications" atom
 # brew cask install --appdir="/Applications" visual-studio-code
@@ -141,7 +141,8 @@ brew cask install --appdir="/Applications" karabiner-elements
 
 ## Misc
 # brew cask install --appdir="/Applications" google-chrome
-# brew cask install --appdir="/Applications" firefox
+brew cask install --appdir="/Applications" firefox
+brew cask install --appdir="/Applications" firefox-developer-edition
 brew cask install --appdir="/Applications" skype
 brew cask install --appdir="/Applications" slack
 brew cask install --appdir="/Applications" dropbox
@@ -153,6 +154,7 @@ brew cask install --appdir="/Applications" vlc
 brew cask install --appdir="/Applications" sketch
 brew cask install --appdir="/Applications" adium
 brew cask install --appdir="/Applications" calibre
+brew cask install --appdir="/Applications" whatsapp
 # brew cask install --appdir="/Applications" telegram-desktop
 # LaTeX dist MacTex
 # brew cask install --appdir="/Applications" mactex
