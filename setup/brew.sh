@@ -100,7 +100,7 @@ brew install tree
 brew install wget --with-iri
 
 # Install Heroku
-brew install heroku
+brew install heroku/brew/heroku
 brew install watchman
 heroku update
 
