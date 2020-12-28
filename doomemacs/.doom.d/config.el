@@ -102,6 +102,15 @@
 ;; C-o to open the hydra
 (setq ivy-read-action-function #'ivy-hydra-read-action)
 
+
+;; setup lsp clangd defaults
+(setq lsp-clients-clangd-args '("-j=3"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
+
 ;; Let's try tabnine
 ;(use-package! company-tabnine
 ;  :after company
