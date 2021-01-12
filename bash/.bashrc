@@ -59,5 +59,5 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(starship init bash)"
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+[ -s "$HOME/.asdf/asdf.sh" ] && \. $HOME/.asdf/asdf.sh
+[ -s "$HOME/.asdf/completions/asdf.bash" ] && \. $HOME/.asdf/completions/asdf.bash
