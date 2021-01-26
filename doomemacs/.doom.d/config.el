@@ -111,6 +111,13 @@
                                 "--header-insertion=never"))
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
+
+(after! lsp
+  (setq lsp-treemacs-sync-mode 1)
+  ;; :global/:workspace/:file
+  (setq lsp-modeline-diagnostics-scope :workspace)
+  )
+
 ;; Let's try tabnine
 ;(use-package! company-tabnine
 ;  :after company

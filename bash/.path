@@ -42,6 +42,7 @@ export PATH=$PATH:~/bin
 
 # elixir LS server
 export PATH=$PATH:~/code/elixir-ls/release
+export PATH=$PATH:~/opt/elixir-ls-1.11/
 
 # npm path
 # export PATH=$PATH:~/.nvm/versions/node/v13.6.0/bin/node
