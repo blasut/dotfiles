@@ -143,8 +143,11 @@
    (list :command-name "serve-http-dir"
          :command-line "python3 -m http.server 8000")
 
-   (list :command-name "gmake default"
-         :command-line "gmake")
+   ;; make commands defaults
+   (list :command-name "format project"
+         :command-line "docker-compose exec backend mix format"
+         :working-dir (projectile-project-root)
+         )
 
    ))
 
