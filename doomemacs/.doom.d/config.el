@@ -137,28 +137,34 @@
 
 (use-package run-command
   :bind (("C-c c" . run-command)
-         ("C-c C-c" . run-command)))
+         ("C-c C-c" . run-command)
+         ("C-c d" . recompile)
+         ("C-c C-d" . recompile)
+         )
+  :config
+  (setq compilation-scroll-output t)
+  (setq scroll-conservatively 101)
+  )
 
 (defun run-command-recipe-local ()
-  (list
-   (list :command-name "say-hello"
-         :command-line "echo Hello, World!")
+    (list
+     (list :command-name "say-hello"
+           :command-line "echo Hello, World!")
 
-   (list :command-name "serve-http-dir"
-         :command-line "python3 -m http.server 8000")
+     ;; make commands for docker project
+     (list :command-name "format project"
+           :command-line "docker-compose exec backend mix format"
+           :working-dir (projectile-project-root)
+           )
 
-   ;; make commands defaults
-   (list :command-name "format project"
-         :command-line "docker-compose exec backend mix format"
-         :working-dir (projectile-project-root)
-         )
+     (list :command-name "mix tests"
+           :command-line "docker-compose exec backend mix test"
+           :working-dir (projectile-project-root)
+           )
 
-   (list :command-name "mix tests"
-         :command-line "docker-compose exec backend mix test"
-         :working-dir (projectile-project-root)
-         )
+     )
+  )
 
-   ))
 ;; Let's try tabnine
 ;(use-package! company-tabnine
 ;  :after company
