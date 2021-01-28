@@ -151,29 +151,71 @@
      (list :command-name "say-hello"
            :command-line "echo Hello, World!")
 
+     )
+  )
+
+(defun run-command-recipe-package-json--get-scripts (package-json-file)
+  "Extract NPM scripts from `package-json-file'."
+  (with-temp-buffer
+    (insert-file-contents package-json-file)
+    (let* ((json-data (json-parse-buffer))
+           (script-hash (gethash "scripts" json-data))
+           (scripts '()))
+      (maphash (lambda (key _value) (push key scripts)) script-hash)
+      scripts)))
+
+(defun run-command-recipe-package-json ()
+  (when-let* ((find-package-json
+               (locate-dominating-file default-directory "package.json"))
+              (project-dir
+               (concat (projectile-project-root) "/" "web" "/"))
+              (scripts
+               (run-command-recipe-package-json--get-scripts (concat project-dir "package.json")))
+              (script-runner
+               (if (file-exists-p (concat project-dir "yarn.lock")) "yarn" "npm")))
+    (mapcar (lambda (script)
+              (list :command-name script
+                    :command-line (concat "docker-compose exec web " script-runner " run " script)
+                    :display script
+                    :working-dir project-dir))
+            scripts)))
+
+(defun run-command-recipe-mix ()
+  (when-let* ((project-dir
+               ;; check if there is a mix file somwewhere
+               (locate-dominating-file default-directory "mix.exs"))
+              ;; then we'll use the projectile project root for monorepos. Should work with non-mono repos aswell
+              (working-dir (projectile-project-root)))
+    (list
      ;; make commands for docker project
      (list :command-name "format project"
            :command-line "docker-compose exec backend mix format"
-           :working-dir (projectile-project-root)
+           :working-dir working-dir
            )
 
      (list :command-name "mix tests"
            :command-line "docker-compose exec backend mix test"
-           :working-dir (projectile-project-root)
+           :working-dir working-dir
            )
 
-     )
+     (list :command-name "mix tests.watch failed"
+           :command-line "docker-compose exec backend mix test.watch --failed"
+           :working-dir working-dir
+           )
+
+     )    )
   )
 
+
 ;; Let's try tabnine
-;(use-package! company-tabnine
-;  :after company
-;  :config
-;  (setq company-backends '(company-tabnine)))
-;  ;(cl-pushnew 'company-tabnine (default-value 'company-backends)))
-;
-;(add-hook! prog-mode-hook
-;   (setq company-backends '(company-tabnine)))
+                                        ;(use-package! company-tabnine
+                                        ;  :after company
+                                        ;  :config
+                                        ;  (setq company-backends '(company-tabnine)))
+                                        ;  ;(cl-pushnew 'company-tabnine (default-value 'company-backends)))
+                                        ;
+                                        ;(add-hook! prog-mode-hook
+                                        ;   (setq company-backends '(company-tabnine)))
 
 ;; (add-hook! lsp-after-open (add-to-list 'company-backends '(company-lsp :with company-tabnine :separate)))
 
