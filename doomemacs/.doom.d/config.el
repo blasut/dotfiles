@@ -135,6 +135,10 @@
   (setq lsp-modeline-diagnostics-scope :workspace)
   )
 
+(use-package run-command
+  :bind (("C-c c" . run-command)
+         ("C-c C-c" . run-command)))
+
 (defun run-command-recipe-local ()
   (list
    (list :command-name "say-hello"
@@ -149,12 +153,12 @@
          :working-dir (projectile-project-root)
          )
 
+   (list :command-name "mix tests"
+         :command-line "docker-compose exec backend mix test"
+         :working-dir (projectile-project-root)
+         )
+
    ))
-
-(use-package run-command
-  :bind (("C-c c" . run-command)
-         ("C-c C-c" . run-command)))
-
 ;; Let's try tabnine
 ;(use-package! company-tabnine
 ;  :after company
