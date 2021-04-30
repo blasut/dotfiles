@@ -150,6 +150,12 @@
                  (org-present-show-cursor)
                  (org-present-read-write)))))
 
+
+;; (with-eval-after-load "moom"
+;;   (with-eval-after-load "org"
+;;     (add-hook 'moom-font-after-resize-hook #'org-redisplay-inline-images)))
+
+
 (use-package run-command
   :bind (("C-c c" . run-command)
          ("C-c C-c" . run-command)
