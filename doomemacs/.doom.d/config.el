@@ -151,23 +151,30 @@
                  (org-present-read-write)))))
 
 
+(defun blasut/presentation-setup ()
+  (setq text-scale-mode-amount 3)
+  (org-display-inline-images)
+  (text-scale-mode 1))
+
+(defun blasut/presentation-end ()
+  (text-scale-mode 0))
+
 (use-package org-tree-slide
+  :hook ((org-tree-slide-play . blasut/presentation-setup)
+         (org-tree-slide-stop . blasut/presentation-end))
+
+  :custom
+  (org-tree-slide-activate-message "Presentation started!")
+  (org-tree-slide-deactivate-message "Presentation finished!")
+  ;; make sure images don't take up too much space
+  (org-image-actual-width nil)
+
   :bind (("<f5>" . org-tree-slide-mode)
          (:map org-tree-slide-mode-map
           ("<mouse-3>" . org-tree-slide-move-previous-tree)
           ("<mouse-4>" . org-tree-slide-move-next-tree)))
 
-
- ;; (define-key org-tree-slide-mode-map (kbd "<f9>")
- ;;    'org-tree-slide-move-previous-tree)
- ;;  (define-key org-tree-slide-mode-map (kbd "<f10>")
- ;;    'org-tree-slide-move-next-tree)
   )
-
-
-;; (with-eval-after-load "moom"
-;;   (with-eval-after-load "org"
-;;     (add-hook 'moom-font-after-resize-hook #'org-redisplay-inline-images)))
 
 
 (use-package run-command
