@@ -31,6 +31,9 @@
 (package! org-present
   :recipe (:host github :repo "rlister/org-present"))
 
+(package! org-tree-slide
+  :recipe (:host github :repo "takaxp/org-tree-slide"))
+
 ;; To install a package directly from a particular repo, you'll need to specify
 ;; a `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
