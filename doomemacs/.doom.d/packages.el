@@ -26,6 +26,8 @@
 
 (package! run-command)
 
+(package! markdown-toc)
+
 (package! org-present
   :recipe (:host github :repo "rlister/org-present"))
 
