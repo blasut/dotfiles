@@ -150,6 +150,17 @@
                  (org-present-show-cursor)
                  (org-present-read-write)))))
 
+(defun blasut/org-present-hide-cursor ()
+  "Hide the cursor for current window.
+
+  Stolen from the org-present library"
+  (interactive)
+  (internal-show-cursor (selected-window) nil))
+
+(defun blasut/org-present-show-cursor ()
+  "Show the cursor for current window."
+  (interactive)
+  (internal-show-cursor (selected-window) t))
 
 (defun blasut/presentation-setup ()
   (setq text-scale-mode-amount 3)
