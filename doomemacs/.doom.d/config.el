@@ -152,7 +152,12 @@
 
 
 (use-package org-tree-slide
-  :bind (("<f5>" . org-tree-slide-mode))
+  :bind (("<f5>" . org-tree-slide-mode)
+         (:map org-tree-slide-mode-map
+          ("<mouse-3>" . org-tree-slide-move-previous-tree)
+          ("<mouse-4>" . org-tree-slide-move-next-tree)))
+
+
  ;; (define-key org-tree-slide-mode-map (kbd "<f9>")
  ;;    'org-tree-slide-move-previous-tree)
  ;;  (define-key org-tree-slide-mode-map (kbd "<f10>")
