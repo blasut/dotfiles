@@ -151,6 +151,15 @@
                  (org-present-read-write)))))
 
 
+(use-package org-tree-slide
+  :bind (("<f5>" . org-tree-slide-mode))
+ ;; (define-key org-tree-slide-mode-map (kbd "<f9>")
+ ;;    'org-tree-slide-move-previous-tree)
+ ;;  (define-key org-tree-slide-mode-map (kbd "<f10>")
+ ;;    'org-tree-slide-move-next-tree)
+  )
+
+
 ;; (with-eval-after-load "moom"
 ;;   (with-eval-after-load "org"
 ;;     (add-hook 'moom-font-after-resize-hook #'org-redisplay-inline-images)))
