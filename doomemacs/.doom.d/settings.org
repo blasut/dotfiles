@@ -1,0 +1,8 @@
+#+TITLE: Settings
+#+PROPERTY: header-args    :results silent
+
+* Defaults and simple binding
+  #+BEGIN_SRC emacs-lisp
+;; Allow me to mash the keys in any order yes good
+(setq evil-escape-unordered-key-sequence t)
+  #+END_SRC

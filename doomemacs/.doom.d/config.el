@@ -114,7 +114,7 @@
  )
 
 ;; Allow me to mash the keys in any order yes good
-(setq evil-escape-unordered-key-sequence t)
+;; (setq evil-escape-unordered-key-sequence t)
 
 ;; C-o to open the hydra
 (setq ivy-read-action-function #'ivy-hydra-read-action)
@@ -265,6 +265,9 @@
      )    )
   )
 
+;; Try using babel org config with doom
+(org-babel-load-file
+   (expand-file-name "~/.doom.d/settings.org"))
 
 ;; Let's try tabnine
                                         ;(use-package! company-tabnine
