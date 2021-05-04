@@ -2,7 +2,36 @@
 #+PROPERTY: header-args    :results silent
 
 * Defaults and simple binding
-  #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 ;; Allow me to mash the keys in any order yes good
 (setq evil-escape-unordered-key-sequence t)
-  #+END_SRC
+#+END_SRC
+
+* Presenation configuration
+
+#+BEGIN_SRC emacs-lisp
+
+(defun blasut/presentation-setup ()
+  (doom-big-font-mode)
+  (org-display-inline-images))
+
+(defun blasut/presentation-end ()
+  (doom-big-font-mode -1))
+
+(use-package org-tree-slide
+  :hook ((org-tree-slide-play . blasut/presentation-setup)
+         (org-tree-slide-stop . blasut/presentation-end))
+
+  :custom
+  (org-tree-slide-activate-message "Presentation started!")
+  (org-tree-slide-deactivate-message "Presentation finished!")
+  ;; make sure images don't take up too much space
+  (org-image-actual-width nil)
+
+  :bind (("<f5>" . org-tree-slide-mode)
+         (:map org-tree-slide-mode-map
+          ("<mouse-3>" . org-tree-slide-move-previous-tree)
+          ("<mouse-4>" . org-tree-slide-move-next-tree)))
+
+  )
+#+END_SRC

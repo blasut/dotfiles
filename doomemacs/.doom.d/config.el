@@ -142,58 +142,6 @@
   (setq lsp-modeline-diagnostics-scope :workspace)
   )
 
-(eval-after-load "org-present"
-  '(progn
-     (add-hook 'org-present-mode-hook
-               (lambda ()
-                 (org-present-big)
-                 (org-display-inline-images)
-                 (org-present-hide-cursor)
-                 (org-present-read-only)))
-     (add-hook 'org-present-mode-quit-hook
-               (lambda ()
-                 (org-present-small)
-                 (org-remove-inline-images)
-                 (org-present-show-cursor)
-                 (org-present-read-write)))))
-
-(defun blasut/org-present-hide-cursor ()
-  "Hide the cursor for current window.
-
-  Stolen from the org-present library"
-  (interactive)
-  (internal-show-cursor (selected-window) nil))
-
-(defun blasut/org-present-show-cursor ()
-  "Show the cursor for current window."
-  (interactive)
-  (internal-show-cursor (selected-window) t))
-
-(defun blasut/presentation-setup ()
-  (doom-big-font-mode)
-  (org-display-inline-images))
-
-(defun blasut/presentation-end ()
-  (doom-big-font-mode -1))
-
-(use-package org-tree-slide
-  :hook ((org-tree-slide-play . blasut/presentation-setup)
-         (org-tree-slide-stop . blasut/presentation-end))
-
-  :custom
-  (org-tree-slide-activate-message "Presentation started!")
-  (org-tree-slide-deactivate-message "Presentation finished!")
-  ;; make sure images don't take up too much space
-  (org-image-actual-width nil)
-
-  :bind (("<f5>" . org-tree-slide-mode)
-         (:map org-tree-slide-mode-map
-          ("<mouse-3>" . org-tree-slide-move-previous-tree)
-          ("<mouse-4>" . org-tree-slide-move-next-tree)))
-
-  )
-
-
 (use-package run-command
   :bind (("C-c c" . run-command)
          ("C-c C-c" . run-command)
