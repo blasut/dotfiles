@@ -163,12 +163,11 @@
   (internal-show-cursor (selected-window) t))
 
 (defun blasut/presentation-setup ()
-  (setq text-scale-mode-amount 3)
-  (org-display-inline-images)
-  (text-scale-mode 1))
+  (doom-big-font-mode)
+  (org-display-inline-images))
 
 (defun blasut/presentation-end ()
-  (text-scale-mode 0))
+  (doom-big-font-mode -1))
 
 (use-package org-tree-slide
   :hook ((org-tree-slide-play . blasut/presentation-setup)
