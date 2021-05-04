@@ -120,6 +120,13 @@
 (setq ivy-read-action-function #'ivy-hydra-read-action)
 
 
+
+;; To compare the init.example.el and my current init.el
+(defun blasut/compare-init ()
+  "Compares the init.example.el file with the current init.el"
+  (interactive)
+  (ediff "~/dotfiles/doomemacs/.doom.d/init.el" "~/dotfiles/doomemacs/.emacs.d/init.example.el"))
+
 ;; setup lsp clangd defaults
 (setq lsp-clients-clangd-args '("-j=3"
                                 "--background-index"
