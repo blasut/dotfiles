@@ -162,8 +162,9 @@ brew cask install --appdir="/Applications" whatsapp
 brew cask install --appdir="/Applications" gpg-suite
 
 ## Fonts
-brew tap caskroom/fonts
-brew cask install font-hack
+brew tap homebrew/cask-fonts
+brew install --cask font-hack
+brew install --cask  font-fira-code   font-fira-mono   font-fira-sans
 
 ## Remove outdated versions from the cellar.
 brew cleanup
