@@ -27,6 +27,13 @@ Let's use lexical bindings
                  "%b"))))
   #+END_SRC
 
+** delete by moving to trash
+
+#+begin_src emacs-lisp
+(setq-default
+ delete-by-moving-to-trash t)
+#+end_src
+
 * Windows
 
 Split in a more sane way
