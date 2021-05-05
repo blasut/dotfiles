@@ -1,13 +1,55 @@
 #+TITLE: Settings
 #+PROPERTY: header-args    :results silent
 
+* Inspiration
+
+https://github.com/tecosaur/emacs-config
+
+https://github.com/angrybacon/dotemacs/blob/master/dotemacs.org
+
 * Defaults and simple binding
+
+Let's use lexical bindings
+#+begin_src emacs-lisp
+;;; config.el -*- lexical-binding: t; -*-
+#+end_src
+
 #+BEGIN_SRC emacs-lisp
 ;; Allow me to mash the keys in any order yes good
 (setq evil-escape-unordered-key-sequence t)
 #+END_SRC
 
-* Presenation configuration
+** show path in buffer title
+  #+BEGIN_SRC emacs-lisp
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+  #+END_SRC
+
+* Windows
+
+Split in a more sane way
+#+begin_src emacs-lisp
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
+#+end_src
+
+Ask for which already opened buffer to open in the splitted window
+
+This was actually pretty nice, I think.
+#+begin_src emacs-lisp
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (+ivy/switch-buffer))
+#+end_src
+
+Preview buffers when switching, not 100% I like this though, it feels a bit too much.
+#+begin_src emacs-lisp
+(setq +ivy-buffer-preview t)
+#+end_src
+
+* Presentation configuration
 
 #+BEGIN_SRC emacs-lisp
 
