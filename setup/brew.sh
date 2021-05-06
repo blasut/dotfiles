@@ -113,7 +113,8 @@ brew install rmtrash
 brew tap caskroom/cask
 
 # Editor
-brew cask install --appdir="~/Applications" emacs
+# brew cask install --appdir="~/Applications" emacs
+brew install emacs-plus@28 --with-native-comp 
 
 ## Core casks
 brew cask install --appdir="~/Applications" iterm2
