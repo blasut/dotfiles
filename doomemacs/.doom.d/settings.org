@@ -11,7 +11,7 @@ https://github.com/angrybacon/dotemacs/blob/master/dotemacs.org
 
 Let's use lexical bindings
 #+begin_src emacs-lisp
-;;; config.el -*- lexical-binding: t; -*-
+;;; settings.el -*- lexical-binding: t; -*-
 #+end_src
 
 #+BEGIN_SRC emacs-lisp
@@ -32,6 +32,41 @@ Let's use lexical bindings
 #+begin_src emacs-lisp
 (setq-default
  delete-by-moving-to-trash t)
+#+end_src
+
+* Doom settings
+
+Some functionality uses this to identify you, e.g. GPG configuration, email
+clients, file templates and snippets.
+#+begin_src emacs-lisp
+(setq user-full-name "John Doe"
+      user-mail-address "john@doe.com")
+#+end_src
+
+** doom fonts
+
+Doom exposes five (optional) variables for controlling fonts in Doom. Here
+are the three important ones:
+
++ `doom-font'
++ `doom-variable-pitch-font'
++ `doom-big-font' -- used for `doom-big-font-mode'; use this for
+  presentations or streaming.
+
+They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+font string. You generally only need these two:
+
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "Fira Mono" :size 16))
+#+end_src
+
+** doom theme
+
+There are two ways to load a theme. Both assume the theme is installed and
+available. You can either set `doom-theme' or manually load a theme with the
+`load-theme' function. This is the default:
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-palenight)
 #+end_src
 
 * Windows
