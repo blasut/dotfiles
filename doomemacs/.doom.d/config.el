@@ -32,81 +32,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-; TODO: use these AND SPC
-(setq ;doom-leader-key ","
-      doom-localleader-key "\\")
-
-; org-narrow-to-subtree
-; widen
-;   (define-key org-src-mode-map (kbd "C-c C-c") #'org-edit-src-exit)
-(after! org
-  (map! :map org-mode-map
-        :localleader
-        "N" #'org-store-link
-        "n" #'org-narrow-to-subtree
-        "w" #'widen)
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "PROJ(p)" "STRT(s)" "WAIT(w)" "HOLD(h)" "|" "DONE(d!)" "KILL(k)")
-          (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")))
-  (setq org-log-into-drawer t)
-  )
-
-;; (winum-select-window-1 &optional ARG)
-(map!
-  (:when (featurep! :ui workspaces)
-    :n "s-1"   #'winum-select-window-1
-    :n "s-2"   #'winum-select-window-2
-    :n "s-3"   #'winum-select-window-3
-    :n "s-4"   #'winum-select-window-4
-    :n "s-5"   #'winum-select-window-5
-    :n "s-6"   #'winum-select-window-6
-    :n "s-7"   #'winum-select-window-7
-    :n "s-8"   #'winum-select-window-7
-    :n "s-9"   #'winum-select-window-8
-
-    :g "M-1"   #'+workspace/switch-to-0
-    :g "M-2"   #'+workspace/switch-to-1
-    :g "M-3"   #'+workspace/switch-to-2
-    :g "M-4"   #'+workspace/switch-to-3
-    :g "M-5"   #'+workspace/switch-to-4
-    :g "M-6"   #'+workspace/switch-to-5
-    :g "M-7"   #'+workspace/switch-to-6
-    :g "M-8"   #'+workspace/switch-to-7
-    :g "M-9"   #'+workspace/switch-to-8
-    :g "M-0"   #'+workspace/switch-to-final
-    ))
-
-;; Remap the regular search to use swiper
-(map! :n "/" #'swiper-isearch)
-
-;; Remap leader . to project search instead
-(map! :leader
-        "." #'+ivy/projectile-find-file
-        )
-
-;; Remap SPC SPC to M-x like spacemacs
-(map! :leader
-        "SPC" #'counsel-M-x
-        )
-
-(map!
- :g "C-k" 'sp-kill-hybrid-sexp
- :g "M-k" 'sp-backward-kill-sexp
- )
-
-;; Allow me to mash the keys in any order yes good
-;; (setq evil-escape-unordered-key-sequence t)
-
 ;; C-o to open the hydra
 (setq ivy-read-action-function #'ivy-hydra-read-action)
-
-
-
-;; To compare the init.example.el and my current init.el
-(defun blasut/compare-init ()
-  "Compares the init.example.el file with the current init.el"
-  (interactive)
-  (ediff "~/dotfiles/doomemacs/.doom.d/init.el" "~/dotfiles/doomemacs/.emacs.d/init.example.el"))
 
 ;; setup lsp clangd defaults
 (setq lsp-clients-clangd-args '("-j=3"
