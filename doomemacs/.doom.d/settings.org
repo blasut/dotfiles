@@ -142,7 +142,7 @@ This was actually pretty nice, I think.
 #+begin_src emacs-lisp
 (defadvice! prompt-for-buffer (&rest _)
   :after '(evil-window-split evil-window-vsplit)
-  (+ivy/switch-buffer))
+  (+ivy/switch-workspace-buffer))
 #+end_src
 
 Preview buffers when switching, not 100% I like this though, it feels a bit too much.
@@ -212,3 +212,28 @@ Makes it a bit more like spacemacs
 
   )
 #+END_SRC
+
+* Typescript
+
+Typescript config
+
+
+I'm trying to set the ~flycheck-checker~ for typescript modes as a local env, and emacs yells at me...
+I'm not sure how to solve this without allowing unsafe dir locals...
+
+Well whatever, I'm allowing unsafe vars for now.
+#+begin_src emacs-lisp
+(setq-default enable-local-variables :t)
+#+end_src
+
+Make sure to use prettier for formatting
+#+begin_src emacs-lisp
+(setq-hook! 'typescript-tsx-mode-hook
+  +format-with-lsp nil
+  )
+#+end_src
+
+the .dir.locals conf:
+#+begin_src emacs-lisp :tangle no
+((typescript-tsx-mode . ((flycheck-checker . javascript-eslint))))
+#+end_src
