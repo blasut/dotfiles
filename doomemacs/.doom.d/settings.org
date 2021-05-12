@@ -213,26 +213,18 @@ Makes it a bit more like spacemacs
   )
 #+END_SRC
 
-* Typescript
+* TypeScript
 
-Typescript config
-
+TypeScript config
 
 I'm trying to set the ~flycheck-checker~ for typescript modes as a local env, and emacs yells at me...
 I'm not sure how to solve this without allowing unsafe dir locals...
 
+NOT USING THIS ATM:
+
 This sucks, so turning it back to the default
 #+begin_src emacs-lisp :tangle no
 (setq-default enable-local-variables :t)
-#+end_src
-
-Make sure to use prettier for formatting
-#+begin_src emacs-lisp
-(setq-hook! 'typescript-tsx-mode-hook
-  +format-with-lsp nil
-  ;; just set the eslint checker for all typescript mode files
-  flycheck-checker 'javascript-eslint
-  )
 #+end_src
 
 Maybe I can set it as safe?
@@ -244,4 +236,24 @@ Maybe I can set it as safe?
 the .dir.locals conf:
 #+begin_src emacs-lisp :tangle no
 ((typescript-tsx-mode . ((flycheck-checker . javascript-eslint))))
+#+end_src
+
+
+Just use global config, yolo.
+
+Make sure to use prettier for formatting
+#+begin_src emacs-lisp
+
+(setq-hook! 'typescript-mode-hook
+  +format-with-lsp nil
+  flycheck-checker 'javascript-eslint
+  )
+#+end_src
+
+pls use 2 spaces as tabs
+#+begin_src emacs-lisp
+(setq typescript-indent-level 2)
+
+;; Don't use built-in syntax checking
+(setq js2-mode-show-strict-warnings nil)
 #+end_src
