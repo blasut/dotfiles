@@ -186,7 +186,9 @@ Makes it a bit more like spacemacs
 
 * Presentation configuration
 
-#+BEGIN_SRC emacs-lisp
+doom already comes with presentation setup :)
+
+#+BEGIN_SRC emacs-lisp :tangle no
 
 (defun blasut/presentation-setup ()
   (doom-big-font-mode)
