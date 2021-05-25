@@ -82,15 +82,14 @@
 (defun run-command-recipe-package-json ()
   (when-let* ((find-package-json
                (locate-dominating-file default-directory "package.json"))
-              (project-dir
-               (concat (projectile-project-root) "/" "web" "/"))
+              (project-dir (projectile-project-root))
               (scripts
                (run-command-recipe-package-json--get-scripts (concat project-dir "package.json")))
               (script-runner
                (if (file-exists-p (concat project-dir "yarn.lock")) "yarn" "npm")))
     (mapcar (lambda (script)
               (list :command-name script
-                    :command-line (concat "docker-compose exec web " script-runner " run " script)
+                    :command-line (concat script-runner " run " script)
                     :display script
                     :working-dir project-dir))
             scripts)))
