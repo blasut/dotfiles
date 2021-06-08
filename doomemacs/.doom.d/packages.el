@@ -24,7 +24,7 @@
 
 (package! lsp-treemacs)
 
-(package! run-command)
+;; (package! run-command)
 
 (package! markdown-toc)
 
