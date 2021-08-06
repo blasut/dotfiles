@@ -117,50 +117,50 @@ brew tap caskroom/cask
 brew install emacs-plus@28 --with-native-comp 
 
 ## Core casks
-brew cask install --appdir="~/Applications" iterm2
+brew install --cask iterm2
 
 ## Nice (musts) to haves
-brew cask install --appdir="/Applications" caffeine
-brew cask install --appdir="/Applications" flux
-brew cask install --appdir="/Applications" shiftit
-brew cask install --appdir="/Applications" karabiner-elements
+brew install --cask caffeine
+brew install --cask flux
+brew install --cask shiftit
+brew install --cask karabiner-elements
 
 ## Dev tools
 # it's the database ui from intellij
-brew cask install --appdir="/Applications" datagrip
-# brew cask install --appdir="/Applications" sequel-pro
-# brew cask install --appdir="/Applications" atom
-# brew cask install --appdir="/Applications" visual-studio-code
-# brew cask install --appdir="/Applications" android-studio
+brew install --cask datagrip
+# brew install --cask sequel-pro
+# brew install --cask atom
+# brew install --cask visual-studio-code
+# brew install --cask android-studio
 
 
 ## VM stuff
-# brew cask install --appdir="/Applications" vagrant
-# brew cask install --appdir="/Applications" virtualbox
-# brew cask install --appdir="/Applications" vagrant
-# brew cask install --appdir="/Applications" parallels
+# brew install --cask vagrant
+# brew install --cask virtualbox
+# brew install --cask vagrant
+# brew install --cask parallels
 
 ## Misc
-# brew cask install --appdir="/Applications" google-chrome
-brew cask install --appdir="/Applications" firefox
-brew cask install --appdir="/Applications" firefox-developer-edition
-brew cask install --appdir="/Applications" skype
-brew cask install --appdir="/Applications" slack
-brew cask install --appdir="/Applications" dropbox
-brew cask install --appdir="/Applications" evernote
-brew cask install --appdir="/Applications" 1password
-brew cask install --appdir="/Applications" openoffice
-brew cask install --appdir="/Applications" transmit
-brew cask install --appdir="/Applications" vlc
-brew cask install --appdir="/Applications" sketch
-brew cask install --appdir="/Applications" adium
-brew cask install --appdir="/Applications" calibre
-brew cask install --appdir="/Applications" whatsapp
-# brew cask install --appdir="/Applications" telegram-desktop
+# brew install --cask google-chrome
+brew install --cask firefox
+brew install --cask firefox-developer-edition
+brew install --cask skype
+brew install --cask slack
+brew install --cask dropbox
+brew install --cask evernote
+brew install --cask 1password
+brew install --cask openoffice
+brew install --cask transmit
+brew install --cask vlc
+brew install --cask sketch
+brew install --cask adium
+brew install --cask calibre
+brew install --cask whatsapp
+# brew install --cask telegram-desktop
 # LaTeX dist MacTex
-# brew cask install --appdir="/Applications" mactex
+# brew install --cask mactex
 
-brew cask install --appdir="/Applications" gpg-suite
+brew install --cask gpg-suite
 
 ## Fonts
 brew tap homebrew/cask-fonts
