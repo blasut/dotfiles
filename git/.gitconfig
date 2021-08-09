@@ -33,9 +33,14 @@
 [push]
 	default = simple
 
-[user]
-	email = blasut937@gmail.com
-	name = blasut
+# Set the user and commit settings in the local config
+# Like:
+# [user]
+#	email = blasut937@gmail.com
+#	name = blasut
+[include]
+    path = ~/.gitconfig.local
+
 [github]
 	user = blasut
 [url "git@github.com:"]
