@@ -75,3 +75,8 @@ GTAGS
 
 ## funky
 .funky
+
+
+## Solargraph setup for rails project
+.solargraph.yml
+config/definitions.rb
