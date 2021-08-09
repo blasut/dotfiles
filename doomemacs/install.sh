@@ -15,3 +15,6 @@ set -euo pipefail
 
 ## javascript https://github.com/sourcegraph/javascript-typescript-langserver.git
 # npm i -g javascript-typescript-langserver
+
+# Trying out funky for local shell scripts
+#  pip install pyfunky
