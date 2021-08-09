@@ -21,6 +21,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 
 # golang
 export GOPATH=$HOME/code/golang
+export PATH=$PATH:~/code/golang/bin
 export PATH=$PATH:/usr/local/go/bin
 
 # erlang
