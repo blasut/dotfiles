@@ -96,3 +96,6 @@ alias nrepl="clj -Sdeps '{:deps {cider/cider-nrepl {:mvn/version \"0.17.0\"} ref
 alias trash="rmtrash"
 alias del="rmtrash"
 alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
+
+# chamber and aws
+alias chamberstaging='aws-vault exec fishbrain-admin -- chamber'
