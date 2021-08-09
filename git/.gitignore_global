@@ -72,3 +72,6 @@ GTAGS
 
 # For ag the silver searcher
 .ignore
+
+## funky
+.funky
