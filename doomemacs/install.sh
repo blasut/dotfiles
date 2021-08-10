@@ -44,6 +44,13 @@ cd ~/dotfiles && stow karabiner && cd
 brew install --cask gpg-suite
 brew install --cask shiftit
 
+# ruby
+brew install rbenv
+
+# Trying out funky for local shell scripts
+brew install python
+pip3 install pyfunky
+
 ## To install required LSPs
 
 ## elixir ls (https://github.com/elixir-lsp/elixir-ls)
@@ -54,9 +61,7 @@ brew install nvm
 brew install yarn
 npm i -g javascript-typescript-langserver
 
-# ruby
-brew install rbenv
-
-# Trying out funky for local shell scripts
-brew install python
-pip3 install pyfunky
+# doom
+brew install shellcheck
+brew install aspell
+brew install languagetool
