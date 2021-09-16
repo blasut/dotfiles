@@ -63,5 +63,14 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -f /usr/local/lib/python3.9/site-packages/scripts/shell/funky.sh ] && source /usr/local/lib/python3.9/site-packages/scripts/shell/funky.sh
 
+# Ruby version
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+
+if which ruby >/dev/null && which gem >/dev/null; then
+  PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
 
 eval "$(starship init bash)"
