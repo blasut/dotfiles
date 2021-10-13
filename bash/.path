@@ -45,3 +45,10 @@ export PATH=$PATH:~/opt/elixir-ls-1.11/
 # doom emacs
 export PATH="~/.emacs.d/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+
+if which ruby >/dev/null && which gem >/dev/null; then
+  PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+# ledger file
+export LEDGER_FILE=~/Documents/ledger-accounting/balances.ledger
