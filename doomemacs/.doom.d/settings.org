@@ -275,10 +275,13 @@ Why doesn't localleader work in org mode by default?
          "p" #'org-priority
          "u" #'org-priority-up)
 
-            )
-  ;(setq org-todo-keywords
-  ;      '((sequence "TODO(t)" "PROJ(p)" "STRT(s)" "WAIT(w)" "HOLD(h)" "|" "DONE(d!)" "KILL(k)")
-  ;        (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")))
+        )
+  (setq org-todo-keywords
+        '((sequence "TODO(t!)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w/!)" "HOLD(h)" "IDEA(i)" "|" "DONE(d!)" "KILL(k!)")
+          (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+          (sequence "|" "OKAY(o)" "YES(y)" "NO(n)"))
+        )
+
   (setq org-log-into-drawer t)
   )
 #+end_src
