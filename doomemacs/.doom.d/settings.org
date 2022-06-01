@@ -286,6 +286,44 @@ Why doesn't localleader work in org mode by default?
   )
 #+end_src
 
+
+Add capture templates for Features, Bugs and Chores
+#+begin_src emacs-lisp :tangle no
+(after! org
+  (add-to-list 'org-capture-templates
+               '("f" "Feature" entry (file+olp "notes.org" "Tuna" "Features")
+                 "* TODO %?  \n:LOGBOOK: \n- State \"TODO\"\t\t from \t\t\t   %U \n:END:"))
+  (add-to-list 'org-capture-templates
+               '("b" "Bug" entry (file+olp "notes.org" "Tuna" "Bugs")
+                 "* TODO %?  \n:LOGBOOK: \n- State \"TODO\"\t\t from \t\t\t   %U \n:END:
+                  \n\n ** Summary \n\n ** Notes\n"))
+
+  (setq org-capture-templates
+        '(("n" "Note" entry (file+headline "~/Dropbox/notes/notes.org" "Notes")
+           "* %?\n%T" :prepend t)
+          ("k" "Keybindings" entry (file "~/Dropbox/notes/keybindings.org")
+           "* ~%^{prompt}~ => %^{prompt}\t:keybinding:%^g\n  %t\n  %?" :prepend t :empty-lines 0)
+          ("w" "Work Note" entry (file+headline "~/Dropbox/notes/work/work.org" "unsorted")
+           "* %?\n%T" :prepend t)
+          ("l" "Link" entry (file+headline "~/Dropbox/notes/stuff.org" "Links")
+           "* %? %^L %^g \n%T" :prepend t)
+          ("b" "Blog idea" entry (file+headline "~/Dropbox/notes/stuff.org" "Blog Topics")
+           "* %?\n%T" :prepend t)
+          ("c" "Culture" entry (file+headline "~/Dropbox/notes/stuff.org" "Culture")
+           "* %? %^L %^g \n%T" :prepend t)
+
+          ("j" "Journal" entry (file+datetree "~/Dropbox/notes/beorg/journal.org")
+           "* %?\nEntered on %U\n  %i\n")
+          ("d" "Dump Code Snippet" entry
+           (file "~/Dropbox/notes/snippets.org")
+           ;; Prompt for tag and language
+           "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC")
+          ("s" "Smart Code Snippet" entry (file "~/Dropbox/notes/snippets.org")
+           "* %?\n%(my/org-capture-code-snippet \"%F\")" :empty-lines 1)))
+  )
+#+end_src
+
+
 * Windows
 
 Split in a more sane way
