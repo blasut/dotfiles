@@ -296,7 +296,7 @@ Add capture templates for Features, Bugs and Chores
   (add-to-list 'org-capture-templates
                '("b" "Bug" entry (file+olp "notes.org" "Tuna" "Bugs")
                  "* TODO %?  \n:LOGBOOK: \n- State \"TODO\"\t\t from \t\t\t   %U \n:END:
-                  \n\n ** Summary \n\n ** Notes\n"))
+                  \n\n** Summary \n\n** Notes\n"))
   )
 #+end_src
 
