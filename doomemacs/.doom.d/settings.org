@@ -98,7 +98,16 @@ There are two ways to load a theme. Both assume the theme is installed and
 available. You can either set `doom-theme' or manually load a theme with the
 `load-theme' function. This is the default:
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-one)
+#+end_src
+
+
+** line numbers
+
+This determines the style of line numbers in effect. If set to `nil', line
+numbers are disabled. For relative line numbers, set this to `relative'.
+#+begin_src emacs-lisp
+(setq display-line-numbers-type t)
 #+end_src
 
 ** compare init file with the example
@@ -107,7 +116,21 @@ available. You can either set `doom-theme' or manually load a theme with the
 (defun blasut/compare-init ()
   "Compares the init.example.el file with the current init.el"
   (interactive)
-  (ediff "~/dotfiles/doomemacs/.doom.d/init.el" "~/dotfiles/doomemacs/.emacs.d/init.example.el"))
+  (ediff "~/dotfiles/doomemacs/.doom.d/init.el" "~/dotfiles/doomemacs/.emacs.d/templates/init.example.el"))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun blasut/compare-config ()
+  "Compares the init.example.el file with the current init.el"
+  (interactive)
+  (ediff "~/dotfiles/doomemacs/.doom.d/config.el" "~/dotfiles/doomemacs/.emacs.d/templates/config.example.el"))
+#+end_src
+
+#+begin_src emacs-lisp
+(defun blasut/compare-packages ()
+  "Compares the init.example.el file with the current init.el"
+  (interactive)
+  (ediff "~/dotfiles/doomemacs/.doom.d/packages.el" "~/dotfiles/doomemacs/.emacs.d/templates/packages.example.el"))
 #+end_src
 
 * Org

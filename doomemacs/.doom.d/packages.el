@@ -19,6 +19,7 @@
 ;(package! some-package)
 ;(package! company-tabnine)
 
+(package! straight :pin "3eca39d")
 
 (package! visual-regexp)
 
@@ -27,6 +28,8 @@
 ;; (package! run-command)
 
 (package! markdown-toc)
+
+(package! ruby-refactor)
 
 ;; (package! org-present
 ;;   :recipe (:host github :repo "rlister/org-present"))
