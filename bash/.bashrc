@@ -74,3 +74,4 @@ if which ruby >/dev/null && which gem >/dev/null; then
 fi
 
 eval "$(starship init bash)"
+export PATH="/Users/lau/work/bonito:$PATH"

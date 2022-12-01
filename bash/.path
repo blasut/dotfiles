@@ -52,3 +52,6 @@ fi
 
 # ledger file
 export LEDGER_FILE=~/Documents/ledger-accounting/balances.ledger
+
+export PATH="~/work/iPhone/swift_bin:$PATH"
+export PATH="$PATH:$HOME/.mint/bin"
