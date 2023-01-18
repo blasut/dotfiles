@@ -135,7 +135,7 @@ numbers are disabled. For relative line numbers, set this to `relative'.
 
 * Org
 
-Some keybindings and keyword settings
+** Some keybindings and keyword settings
 
 Why doesn't localleader work in org mode by default?
 #+begin_src emacs-lisp
@@ -310,7 +310,7 @@ Why doesn't localleader work in org mode by default?
 #+end_src
 
 
-Add capture templates for Features, Bugs and Chores
+** Add capture templates for Features, Bugs and Chores
 #+begin_src emacs-lisp
 (after! org
   (add-to-list 'org-capture-templates
@@ -350,6 +350,41 @@ Add capture templates for Features, Bugs and Chores
            "* %?\n%(my/org-capture-code-snippet \"%F\")" :empty-lines 1)))
   )
 #+end_src
+
+
+** smart snippet to clipboard
+"smarter" code snippets
+stolen from: https://www.reddit.com/r/emacs/comments/8fg34h/capture_code_snippet_using_org_capture_template/dy83k1h/
+#+BEGIN_SRC emacs-lisp
+   (defun blasut/org-capture-get-src-block-string (major-mode)
+     "Given a major mode symbol, return the associated org-src block
+       string that will enable syntax highlighting for that language
+
+       E.g. tuareg-mode will return 'ocaml', python-mode 'python', etc..."
+     (let ((mm (intern (replace-regexp-in-string "-mode" "" (format "%s" major-mode)))))
+       (or (car (rassoc mm org-src-lang-modes)) (format "%s" mm))))
+
+   (defun blasut/org-capture-code-snippet ()
+     (interactive)
+     (with-current-buffer (current-buffer)
+       (let ((code-snippet (buffer-substring-no-properties (mark) (point)))
+             (func-name (which-function))
+             (file-name (buffer-file-name))
+             (line-number (line-number-at-pos (region-beginning)))
+             (org-src-mode (blasut/org-capture-get-src-block-string major-mode)))
+         (kill-new (format
+          "file:%s::%s
+   In ~%s~:
+   \#+BEGIN_SRC %s
+   %s
+   \#+END_SRC"
+          file-name
+          line-number
+          func-name
+          org-src-mode
+          code-snippet))
+        (message "saved to clipboard"))))
+   #+END_SRC
 
 
 * Windows
