@@ -374,10 +374,10 @@ stolen from: https://www.reddit.com/r/emacs/comments/8fg34h/capture_code_snippet
              (org-src-mode (blasut/org-capture-get-src-block-string major-mode)))
          (kill-new (format
           "file:%s::%s
-   In ~%s~:
-   \#+BEGIN_SRC %s
-   %s
-   \#+END_SRC"
+In ~%s~:
+\#+BEGIN_SRC %s
+%s
+\#+END_SRC"
           file-name
           line-number
           func-name
