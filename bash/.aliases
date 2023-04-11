@@ -97,9 +97,6 @@ alias trash="rmtrash"
 alias del="rmtrash"
 alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
 
-# chamber and aws
-alias chamberstaging='aws-vault exec fishbrain-admin -- chamber'
-
 alias dc=docker-compose
 
 alias awslocal='aws --endpoint-url=http://localhost:4566'
