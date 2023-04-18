@@ -121,7 +121,8 @@
        ;;agda              ; types of types of types of types...
        (cc +lsp)           ; C > C++ == 1
        ;;beancount         ; mind the GAAP
-       ;;clojure           ; java with a lisp
+       (clojure
+        :checkers syntax)           ; java with a lisp
        common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c

@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(lsp-solargraph-use-bundler t)
+ '(package-selected-packages '(clojure-mode))
  '(run-command-recipes
    '(run-command-recipe-local run-command-recipe-package-json run-command-recipe-mix))
  '(run-command-run-method 'compile)
