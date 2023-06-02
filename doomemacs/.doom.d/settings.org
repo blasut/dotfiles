@@ -386,6 +386,16 @@ In ~%s~:
         (message "saved to clipboard"))))
    #+END_SRC
 
+** use github flavored markdown
+
+
+ should load: (require 'ox-gfm nil t)
+
+#+begin_src emacs-lisp
+(after! org
+  :eval
+  )
+#+end_src
 
 * Windows
 
