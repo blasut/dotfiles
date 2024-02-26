@@ -16,8 +16,7 @@ export PATH="$HOME/Library/Haskell/bin:$PATH"
 #export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.6/bin
 
 # golang
-export GOPATH=$HOME/code/golang
-export PATH=$PATH:~/code/golang/bin
+export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
 
 # erlang
