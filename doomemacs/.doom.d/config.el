@@ -54,14 +54,14 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
-;; Try using babel org config with doom
-(org-babel-load-file
-   (expand-file-name "~/.doom.d/settings.org"))
-
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/notes")
+
+;; Try using babel org config with doom
+(org-babel-load-file
+ (expand-file-name "~/.doom.d/settings.org"))
+
 
 ;; C-o to open the hydra
 (setq ivy-read-action-function #'ivy-hydra-read-action)
@@ -93,11 +93,11 @@
   )
 
 (defun run-command-recipe-local ()
-    (list
-     (list :command-name "say-hello"
-           :command-line "echo Hello, World!")
+  (list
+   (list :command-name "say-hello"
+         :command-line "echo Hello, World!")
 
-     )
+   )
   )
 
 (defun run-command-recipe-package-json--get-scripts (package-json-file)
