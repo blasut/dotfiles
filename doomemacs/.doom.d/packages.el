@@ -23,15 +23,6 @@
 
 (package! visual-regexp)
 
-(package! lsp-treemacs)
-
-;; (package! run-command)
-
-(package! markdown-toc)
-
-(package! ruby-refactor)
-
-(package! ox-gfm)
 
 ;; (package! org-present
 ;;   :recipe (:host github :repo "rlister/org-present"))
