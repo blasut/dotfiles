@@ -12,7 +12,7 @@ done
 unset file
 
 # Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
+shopt -s cdspell
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -32,8 +32,8 @@ shopt -s checkwinsize
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
-    shopt -s "$option" 2> /dev/null;
-done;
+    shopt -s "$option" 2>/dev/null
+done
 
 if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
     . $(brew --prefix)/share/bash-completion/bash_completion
@@ -54,23 +54,21 @@ fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 [ -s "$HOME/.asdf/asdf.sh" ] && \. $HOME/.asdf/asdf.sh
 [ -s "$HOME/.asdf/completions/asdf.bash" ] && \. $HOME/.asdf/completions/asdf.bash
 
-[ -f /usr/local/lib/python3.9/site-packages/scripts/shell/funky.sh ] && source /usr/local/lib/python3.9/site-packages/scripts/shell/funky.sh
+# [ -f /usr/local/lib/python3.9/site-packages/scripts/shell/funky.sh ] && source /usr/local/lib/python3.9/site-packages/scripts/shell/funky.sh
 
 # Ruby version
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
+if which rbenv >/dev/null; then eval "$(rbenv init -)"; fi
 
 if which ruby >/dev/null && which gem >/dev/null; then
-  PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+    PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
 eval "$(starship init bash)"
