@@ -116,21 +116,21 @@ numbers are disabled. For relative line numbers, set this to `relative'.
 (defun blasut/compare-init ()
   "Compares the init.example.el file with the current init.el"
   (interactive)
-  (ediff "~/dotfiles/doomemacs/.doom.d/init.el" "~/dotfiles/doomemacs/.emacs.d/templates/init.example.el"))
+  (ediff "~/dotfiles/doomemacs/.doom.d/init.el" "~/dotfiles/doomemacs/.emacs.d/static/init.example.el"))
 #+end_src
 
 #+begin_src emacs-lisp
 (defun blasut/compare-config ()
-  "Compares the init.example.el file with the current init.el"
+  "Compares the config.example.el file with the current config.el"
   (interactive)
-  (ediff "~/dotfiles/doomemacs/.doom.d/config.el" "~/dotfiles/doomemacs/.emacs.d/templates/config.example.el"))
+  (ediff "~/dotfiles/doomemacs/.doom.d/config.el" "~/dotfiles/doomemacs/.emacs.d/static/config.example.el"))
 #+end_src
 
 #+begin_src emacs-lisp
 (defun blasut/compare-packages ()
-  "Compares the init.example.el file with the current init.el"
+  "Compares the packages.example.el file with the current packages.el"
   (interactive)
-  (ediff "~/dotfiles/doomemacs/.doom.d/packages.el" "~/dotfiles/doomemacs/.emacs.d/templates/packages.example.el"))
+  (ediff "~/dotfiles/doomemacs/.doom.d/packages.el" "~/dotfiles/doomemacs/.emacs.d/static/packages.example.el"))
 #+end_src
 
 * Org
