@@ -233,6 +233,15 @@
    #+END_SRC
 
 
+* Theme
+** solarized dark
+   #+BEGIN_SRC emacs-lisp
+   (use-package solarized-theme :ensure t
+     :config
+     (load-theme 'solarized-dark t))
+   #+END_SRC
+
+
 * Evil Mode
 ** evil
    #+BEGIN_SRC emacs-lisp
@@ -280,4 +289,116 @@
    #+BEGIN_SRC emacs-lisp
    (use-package magit :ensure t
      :commands magit-status)
+   #+END_SRC
+
+
+
+
+* Keybindings
+   #+BEGIN_SRC emacs-lisp
+
+;; Right option is ALT and left is META
+;(setq mac-option-key-is-meta t)
+;(setq mac-right-option-modifier nil)
+;(global-set-key (kbd "M-:") 'insert-backs)
+
+;; M is set to CMD (much easier)
+(setq mac-option-modifier nil
+mac-command-modifier 'meta
+x-select-enable-clipboard t)
+#+END_SRC
+
+** general
+   #+BEGIN_SRC emacs-lisp
+   (use-package general :ensure t
+     :config
+     (general-define-key
+      :states '(normal motion emacs)
+      :keymaps 'override
+      :prefix "SPC"
+      :non-normal-prefix "C-SPC"
+
+      ;; Special keys
+      ""     '(nil :which-key "leader")
+      "SPC"  '(execute-extended-command :which-key "M-x")
+
+      ;; A - Applications
+      "a"    '(:ignore t :which-key "Applications")
+      "ad"   '(dired :which-key "Dired")
+      "ac"   '(org-capture :which-key "Org capture")
+      "aa"   '(org-agenda :which-key "Org agenda")
+
+      ;; B - Buffer
+      "b"    '(:ignore t :which-key "Buffer")
+      "bb"   '(switch-to-buffer :which-key "Change buffer")
+      "bd"   '(kill-buffer :which-key "Delete buffer")
+      "bn"   '(next-buffer :which-key "Next buffer")
+      "bp"   '(previous-buffer :which-key "Previous buffer")
+      "bR"   '(revert-buffer :which-key "Revert buffer")
+      "bk"   '(kill-buffer :which-key "Kill buffer")
+
+      ;; E - Eval
+      "e"    '(:ignore t :which-key "Eval")
+      "eb"   '(eval-buffer :which-key "Eval Buffer")
+      "ef"   '(eval-defun :which-key "Eval Defun")
+      "er"   '(eval-region :which-key "Eval Region")
+      "ee"   '(eval-expression :which-key "Eval Expression")
+      "ec"   '(reload-config :which-key "Reload config")
+
+      ;; F - File
+      "f"    '(:ignore t :which-key "File")
+      "fc"   '(open-config :which-key "Open settings.org file")
+      "ff"   '(find-file :which-key "Find file")
+      "fs"   '(save-buffer :which-key "Save")
+      "fr"   '(recentf-open-files :which-key "Recent files")
+
+      ;; G - Git
+      "g"    '(:ignore t :which-key "Git")
+      "gs"   '(magit-status :which-key "git status")
+
+      ;; H - Help
+      "h"    '(:ignore t :which-key "Help")
+      "hi"   '(info :which-key "Info")
+      "hdb"  '(describe-bindings :which-key "Describe bindings")
+      "hdf"  '(describe-function :which-key "Describe function")
+      "hdk"  '(describe-key :which-key "Describe key")
+      "hdv"  '(describe-variable :which-key "Describe variable")
+      "hdm"  '(describe-mode :which-key "Describe mode")
+
+      ;; W - Window
+      "w"    '(:ignore t :which-key "Window")
+      "ww"   '(other-window :which-key "Switch window")
+      "wd"   '(delete-window :which-key "Delete window")
+      "wD"   '(delete-other-windows :which-key "Delete other windows")
+      "ws"   '(split-window-below :which-key "Split window below")
+      "w-"   '(split-window-below :which-key "Split window below")
+      "wv"   '(split-window-right :which-key "Split window right")
+      "w/"   '(split-window-right :which-key "Split window right")
+      "wh"   '(windmove-left :which-key "Window left")
+      "wj"   '(windmove-down :which-key "Window down")
+      "wk"   '(windmove-up :which-key "Window up")
+      "wl"   '(windmove-right :which-key "Window right")
+
+      ;; X - Text
+      "x"    '(:ignore t :which-key "Text")
+      "xd"   '(delete-trailing-whitespace :which-key "Delete trailing whitespace")
+      "xs"   '(sort-lines :which-key "Sort lines")
+      "xu"   '(downcase-region :which-key "Lower case")
+      "xU"   '(upcase-region :which-key "Upper case")
+      "xc"   '(count-words :which-key "Count words")
+
+      ;; Z - Zoom
+      "z"    '(:ignore t :which-key "Zoom")
+      "zi"   '(text-scale-increase :which-key "Text larger")
+      "zu"   '(text-scale-decrease :which-key "Text smaller")))
+   #+END_SRC
+
+** org-mode keybindings
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'evil-org
+     (general-define-key
+      :states '(normal visual)
+      :keymaps 'org-mode-map
+      "gj" 'org-next-visible-heading
+      "gk" 'org-previous-visible-heading))
    #+END_SRC
