@@ -233,6 +233,48 @@
    #+END_SRC
 
 
+* Evil Mode
+** evil
+   #+BEGIN_SRC emacs-lisp
+   (use-package evil :ensure t
+     :init
+     (setq evil-want-keybinding nil)  ; Required for evil-collection
+     :config
+     (evil-mode 1)
+     ;; Set initial states for specific modes
+     (evil-set-initial-state 'git-commit-mode 'insert))
+   #+END_SRC
+
+** evil-escape
+   Quick escape from insert mode using key sequence
+   #+BEGIN_SRC emacs-lisp
+   (use-package evil-escape :ensure t
+     :after evil
+     :config
+     (evil-escape-mode 1)
+     (setq-default evil-escape-key-sequence "fj"))
+   #+END_SRC
+
+** evil-surround
+   #+BEGIN_SRC emacs-lisp
+   (use-package evil-surround :ensure t
+     :after evil
+     :config
+     (global-evil-surround-mode 1))
+   #+END_SRC
+
+** evil-org
+   Evil keybindings for org-mode
+   #+BEGIN_SRC emacs-lisp
+   (use-package evil-org :ensure t
+     :after (evil org)
+     :hook (org-mode . evil-org-mode)
+     :config
+     (require 'evil-org-agenda)
+     (evil-org-agenda-set-keys))
+   #+END_SRC
+
+
 * Git / Magit
 ** magit
    #+BEGIN_SRC emacs-lisp
