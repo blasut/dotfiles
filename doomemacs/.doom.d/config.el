@@ -65,6 +65,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/notes")
 
+(setq debug-on-quit t)
+(setq debug-on-error t)
+
 ;; Try using babel org config with doom
 (org-babel-load-file
  (expand-file-name "~/.doom.d/settings.org"))
@@ -173,5 +176,4 @@
 ;;                    'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet)
 ;;                  (set-company-backend! 'prog-mode
 ;;                    'company-tabnine 'company-capf 'company-yasnippet)))
-
 
