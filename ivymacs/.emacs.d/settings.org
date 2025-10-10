@@ -312,6 +312,41 @@
   #+END_SRC
 
 
+* Ivy / Counsel / Swiper
+  Completion and search framework
+** ivy
+   Generic completion mechanism with fuzzy matching
+   #+BEGIN_SRC emacs-lisp
+   (use-package ivy :ensure t
+     :config
+     (ivy-mode 1)
+     (setq ivy-use-virtual-buffers t)          ; Add recent files and bookmarks to switch-buffer
+     (setq ivy-wrap t)                         ; Wrap around when reaching end of list
+     (setq ivy-count-format "(%d/%d) ")        ; Show current/total in prompt
+     (setq ivy-initial-inputs-alist nil))      ; Don't start searches with ^
+   #+END_SRC
+
+** swiper
+   Isearch replacement with overview
+   #+BEGIN_SRC emacs-lisp
+   (use-package swiper :ensure t
+     :after ivy
+     :bind (("C-s" . swiper)))                 ; Replace isearch with swiper
+   #+END_SRC
+
+** counsel
+   Collection of Ivy-enhanced versions of common Emacs commands
+   #+BEGIN_SRC emacs-lisp
+   (use-package counsel :ensure t
+     :after ivy
+     :config
+     (setq counsel-find-file-ignore-regexp "\\.DS_Store\\|.git")
+     ;; Use macOS Spotlight for locate on macOS
+     (when (eq system-type 'darwin)
+       (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind)))
+   #+END_SRC
+
+
 * Keybindings
    #+BEGIN_SRC emacs-lisp
 
@@ -338,7 +373,7 @@ x-select-enable-clipboard t)
 
       ;; Special keys
       ""     '(nil :which-key "leader")
-      "SPC"  '(execute-extended-command :which-key "M-x")
+      "SPC"  '(counsel-M-x :which-key "M-x")
 
       ;; A - Applications
       "a"    '(:ignore t :which-key "Applications")
@@ -348,7 +383,7 @@ x-select-enable-clipboard t)
 
       ;; B - Buffer
       "b"    '(:ignore t :which-key "Buffer")
-      "bb"   '(switch-to-buffer :which-key "Change buffer")
+      "bb"   '(ivy-switch-buffer :which-key "Change buffer")
       "bd"   '(kill-buffer :which-key "Delete buffer")
       "bn"   '(next-buffer :which-key "Next buffer")
       "bp"   '(previous-buffer :which-key "Previous buffer")
@@ -366,12 +401,14 @@ x-select-enable-clipboard t)
       ;; F - File
       "f"    '(:ignore t :which-key "File")
       "fc"   '(open-config :which-key "Open settings.org file")
-      "ff"   '(find-file :which-key "Find file")
+      "ff"   '(counsel-find-file :which-key "Find file")
       "fs"   '(save-buffer :which-key "Save")
-      "fr"   '(recentf-open-files :which-key "Recent files")
+      "fr"   '(counsel-recentf :which-key "Recent files")
+      "fl"   '(counsel-locate :which-key "Locate file")
 
       ;; G - Git
       "g"    '(:ignore t :which-key "Git")
+      "gg"   '(magit-status :which-key "Status")
       "gs"   '(magit-status :which-key "Status")
       "gc"   '(magit-commit :which-key "Commit")
       "gp"   '(magit-push :which-key "Push")
@@ -385,11 +422,17 @@ x-select-enable-clipboard t)
       ;; H - Help
       "h"    '(:ignore t :which-key "Help")
       "hi"   '(info :which-key "Info")
-      "hdb"  '(describe-bindings :which-key "Describe bindings")
-      "hdf"  '(describe-function :which-key "Describe function")
+      "hdb"  '(counsel-descbinds :which-key "Describe bindings")
+      "hdf"  '(counsel-describe-function :which-key "Describe function")
       "hdk"  '(describe-key :which-key "Describe key")
-      "hdv"  '(describe-variable :which-key "Describe variable")
+      "hdv"  '(counsel-describe-variable :which-key "Describe variable")
       "hdm"  '(describe-mode :which-key "Describe mode")
+
+      ;; S - Search
+      "s"    '(:ignore t :which-key "Search")
+      "ss"   '(swiper :which-key "Search in buffer")
+      "si"   '(counsel-imenu :which-key "Imenu")
+      "sy"   '(counsel-yank-pop :which-key "Yank ring")
 
       ;; W - Window
       "w"    '(:ignore t :which-key "Window")
@@ -417,6 +460,15 @@ x-select-enable-clipboard t)
       "z"    '(:ignore t :which-key "Zoom")
       "zi"   '(text-scale-increase :which-key "Text larger")
       "zu"   '(text-scale-decrease :which-key "Text smaller")))
+   #+END_SRC
+
+** evil mode keybindings
+   Use swiper for search in normal mode
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'evil
+     (general-define-key
+      :states '(normal motion)
+      "/" 'swiper))
    #+END_SRC
 
 ** org-mode keybindings
