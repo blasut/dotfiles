@@ -20,7 +20,7 @@
      (find-file "~/.emacs.d/settings.org"))
    #+END_SRC
 
-** reload-config
+** TODO reload-config
    #+BEGIN_SRC emacs-lisp
    (defun reload-config ()
      (interactive)
@@ -31,7 +31,7 @@
    #+END_SRC
 
 
-* Settings
+* TODO Settings
 
 ** utf8
    #+BEGIN_SRC emacs-lisp
@@ -365,6 +365,7 @@ x-select-enable-clipboard t)
    #+BEGIN_SRC emacs-lisp
    (use-package general :ensure t
      :config
+     ;; Main leader key (SPC)
      (general-define-key
       :states '(normal motion emacs)
       :keymaps 'override
@@ -456,10 +457,35 @@ x-select-enable-clipboard t)
       "xU"   '(upcase-region :which-key "Upper case")
       "xc"   '(count-words :which-key "Count words")
 
+      ;; M - Major mode
+      "m"    '(:ignore t :which-key "Major mode")
+
       ;; Z - Zoom
       "z"    '(:ignore t :which-key "Zoom")
       "zi"   '(text-scale-increase :which-key "Text larger")
-      "zu"   '(text-scale-decrease :which-key "Text smaller")))
+      "zu"   '(text-scale-decrease :which-key "Text smaller"))
+
+     ;; Major mode leader key - use \ as shortcut for SPC m
+     (general-create-definer my-major-mode-leader
+       :states '(normal motion emacs)
+       :keymaps 'override
+       :prefix "SPC m"
+       :non-normal-prefix "C-SPC m"
+       "" '(:ignore t :which-key "Major mode"))
+
+     (general-create-definer my-local-leader
+       :states '(normal motion emacs)
+       :keymaps 'override
+       :prefix "\\"
+       :non-normal-prefix "C-\\"
+       "" '(:ignore t :which-key "Major mode"))
+
+     ;; Make \ behave the same as SPC m by using the same definer
+     (general-def
+       :states '(normal motion emacs)
+       :keymaps 'override
+       "\\" (general-simulate-key "SPC m"
+              :which-key "Major mode")))
    #+END_SRC
 
 ** evil mode keybindings
@@ -474,9 +500,72 @@ x-select-enable-clipboard t)
 ** org-mode keybindings
    #+BEGIN_SRC emacs-lisp
    (with-eval-after-load 'evil-org
+     ;; Navigation in org-mode
      (general-define-key
       :states '(normal visual)
       :keymaps 'org-mode-map
       "gj" 'org-next-visible-heading
-      "gk" 'org-previous-visible-heading))
+      "gk" 'org-previous-visible-heading)
+
+     ;; All org-mode keybindings in one block to avoid conflicts
+     (general-define-key
+      :states '(normal motion emacs)
+      :keymaps 'org-mode-map
+      :prefix "SPC m"
+      :non-normal-prefix "C-SPC m"
+
+      ""     '(:ignore t :which-key "Org mode")
+
+      ;; Direct commands
+      "."    '(org-ctrl-c-ctrl-c :which-key "Execute at point")
+      "h"    '(org-toggle-heading :which-key "Toggle heading")
+      "i"    '(org-insert-heading :which-key "Insert heading")
+      "I"    '(org-insert-heading-after-current :which-key "Insert heading after")
+      "p"    '(org-priority :which-key "Set priority")
+      "r"    '(org-refile :which-key "Refile")
+
+      ;; TODO - using prefix
+      "t"    '(:ignore t :which-key "TODO")
+      "tt"   '(org-todo :which-key "TODO state")
+      "tT"   '(org-show-todo-tree :which-key "Show TODO tree")
+
+      ;; Dates/Deadlines - using prefix
+      "d"    '(:ignore t :which-key "Dates")
+      "dd"   '(org-deadline :which-key "Set deadline")
+      "ds"   '(org-schedule :which-key "Schedule")
+      "dt"   '(org-time-stamp :which-key "Insert timestamp")
+      "dT"   '(org-time-stamp-inactive :which-key "Insert inactive timestamp")
+
+      ;; Links - using prefix
+      "l"    '(:ignore t :which-key "Links")
+      "ll"   '(org-insert-link :which-key "Insert/edit link")
+      "ls"   '(org-store-link :which-key "Store link")
+
+      ;; Tables - using prefix (capital T to avoid conflict)
+      "T"    '(:ignore t :which-key "Tables")
+      "Ta"   '(org-table-align :which-key "Align table")
+      "Tc"   '(org-table-create :which-key "Create table")
+      "Te"   '(org-table-export :which-key "Export table")
+
+      ;; Babel/Source blocks - using prefix
+      "b"    '(:ignore t :which-key "Babel")
+      "bb"   '(org-edit-src-code :which-key "Edit source block")
+      "be"   '(org-babel-execute-src-block :which-key "Execute block")
+      "bE"   '(org-babel-execute-buffer :which-key "Execute buffer")
+      "bt"   '(org-babel-tangle :which-key "Tangle")
+
+      ;; Subtree operations - using prefix
+      "S"    '(:ignore t :which-key "Subtree")
+      "Sh"   '(org-promote-subtree :which-key "Promote subtree")
+      "Sl"   '(org-demote-subtree :which-key "Demote subtree")
+      "Sn"   '(org-narrow-to-subtree :which-key "Narrow to subtree")
+      "Sw"   '(widen :which-key "Widen")
+      "Sa"   '(org-archive-subtree :which-key "Archive subtree"))
+
+     ;; Make the same keybindings available under \ for org-mode
+     (general-define-key
+      :states '(normal motion emacs)
+      :keymaps 'org-mode-map
+      "\\" (general-simulate-key "SPC m"
+             :which-key "Org mode")))
    #+END_SRC
