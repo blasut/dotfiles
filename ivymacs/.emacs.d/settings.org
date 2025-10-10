@@ -20,10 +20,7 @@
      (find-file "~/.emacs.d/settings.org"))
    #+END_SRC
 
-** DONE reload-config
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2025-10-10 Fri 15:48]
-:END:
+** reload-config
    #+BEGIN_SRC emacs-lisp
    (defun reload-config ()
      (interactive)
@@ -31,6 +28,28 @@
        (insert-file-contents "~/.emacs.d/init.el")
        (eval-buffer))
      (open-config))
+   #+END_SRC
+
+** split-window-below-and-focus
+   Split window below and move focus to the new window, then prompt for buffer
+   #+BEGIN_SRC emacs-lisp
+   (defun split-window-below-and-focus ()
+     "Split window below and move focus to the new window"
+     (interactive)
+     (split-window-below)
+     (other-window 1)
+     (ivy-switch-buffer))
+   #+END_SRC
+
+** split-window-right-and-focus
+   Split window right and move focus to the new window, then prompt for buffer
+   #+BEGIN_SRC emacs-lisp
+   (defun split-window-right-and-focus ()
+     "Split window right and move focus to the new window"
+     (interactive)
+     (split-window-right)
+     (other-window 1)
+     (ivy-switch-buffer))
    #+END_SRC
 
 
@@ -423,12 +442,17 @@ x-select-enable-clipboard t)
 
       ;; B - Buffer
       "b"    '(:ignore t :which-key "Buffer")
-      "bb"   '(ivy-switch-buffer :which-key "Change buffer")
+      "bb"   '(ivy-switch-buffer :which-key "Switch buffer")
       "bd"   '(kill-buffer :which-key "Delete buffer")
       "bn"   '(next-buffer :which-key "Next buffer")
       "bp"   '(previous-buffer :which-key "Previous buffer")
       "bR"   '(revert-buffer :which-key "Revert buffer")
       "bk"   '(kill-buffer :which-key "Kill buffer")
+      "bs"   '(split-window-below-and-focus :which-key "Split below")
+      "bv"   '(split-window-right-and-focus :which-key "Split right")
+      "bm"   '(buffer-menu :which-key "Buffer menu")
+      "bi"   '(ibuffer :which-key "IBuffer")
+      "bK"   '(kill-matching-buffers :which-key "Kill matching buffers")
 
       ;; E - Eval
       "e"    '(:ignore t :which-key "Eval")
