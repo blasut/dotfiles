@@ -365,6 +365,27 @@
    #+END_SRC
 
 
+* Projectile
+  Project management and navigation
+  #+BEGIN_SRC emacs-lisp
+  (use-package projectile :ensure t
+    :config
+    (projectile-mode +1)
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-enable-caching t)
+    (setq projectile-indexing-method 'alien))  ; Use external tools for faster indexing
+  #+END_SRC
+
+** counsel-projectile
+   Ivy integration for projectile
+   #+BEGIN_SRC emacs-lisp
+   (use-package counsel-projectile :ensure t
+     :after (counsel projectile)
+     :config
+     (counsel-projectile-mode 1))
+   #+END_SRC
+
+
 * Keybindings
    #+BEGIN_SRC emacs-lisp
 
@@ -446,6 +467,18 @@ x-select-enable-clipboard t)
       "hdk"  '(describe-key :which-key "Describe key")
       "hdv"  '(counsel-describe-variable :which-key "Describe variable")
       "hdm"  '(describe-mode :which-key "Describe mode")
+
+      ;; P - Project
+      "p"    '(:ignore t :which-key "Project")
+      "pp"   '(counsel-projectile-switch-project :which-key "Switch project")
+      "pf"   '(counsel-projectile-find-file :which-key "Find file in project")
+      "pd"   '(counsel-projectile-find-dir :which-key "Find directory in project")
+      "pb"   '(counsel-projectile-switch-to-buffer :which-key "Switch to project buffer")
+      "ps"   '(counsel-projectile-rg :which-key "Search in project (rg)")
+      "pa"   '(projectile-add-known-project :which-key "Add known project")
+      "pr"   '(projectile-remove-known-project :which-key "Remove known project")
+      "pk"   '(projectile-kill-buffers :which-key "Kill project buffers")
+      "pI"   '(projectile-invalidate-cache :which-key "Invalidate cache")
 
       ;; S - Search
       "s"    '(:ignore t :which-key "Search")
