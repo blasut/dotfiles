@@ -184,6 +184,13 @@
 
 
 * Org mode
+** org-indent-mode
+   Enable visual indentation for org headings
+   #+BEGIN_SRC emacs-lisp
+   (setq org-startup-indented t)  ; Enable indent mode by default
+   (add-hook 'org-mode-hook 'org-indent-mode)
+   #+END_SRC
+
 ** pretty source code blocks
    #+BEGIN_SRC emacs-lisp
    (setq org-edit-src-content-indentation 0
@@ -354,7 +361,15 @@ x-select-enable-clipboard t)
 
       ;; G - Git
       "g"    '(:ignore t :which-key "Git")
-      "gs"   '(magit-status :which-key "git status")
+      "gs"   '(magit-status :which-key "Status")
+      "gc"   '(magit-commit :which-key "Commit")
+      "gp"   '(magit-push :which-key "Push")
+      "gP"   '(magit-pull :which-key "Pull")
+      "gf"   '(magit-fetch :which-key "Fetch")
+      "gb"   '(magit-branch :which-key "Branch")
+      "gl"   '(magit-log :which-key "Log")
+      "gd"   '(magit-diff :which-key "Diff")
+      "gB"   '(magit-blame :which-key "Blame")
 
       ;; H - Help
       "h"    '(:ignore t :which-key "Help")
