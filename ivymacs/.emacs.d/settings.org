@@ -177,7 +177,7 @@
 
 ** font
    #+BEGIN_SRC emacs-lisp
-   ;;(set-face-attribute 'default t :font "SOURCE CODE PRO 16")
+   (set-face-attribute 'default nil :family "JetBrains Mono" :height 160)
    #+END_SRC
 
    #+RESULTS:
@@ -299,6 +299,17 @@
    #+END_SRC
 
 
+* Which-key
+  Show available keybindings in a popup
+  #+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay 0.3)           ; Show popup after 0.3 seconds
+    (setq which-key-popup-type 'side-window)  ; Show in side window
+    (setq which-key-side-window-location 'bottom)
+    (setq which-key-sort-order 'which-key-key-order-alpha))
+  #+END_SRC
 
 
 * Keybindings
