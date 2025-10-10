@@ -20,7 +20,10 @@
      (find-file "~/.emacs.d/settings.org"))
    #+END_SRC
 
-** TODO reload-config
+** DONE reload-config
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-10-10 Fri 15:48]
+:END:
    #+BEGIN_SRC emacs-lisp
    (defun reload-config ()
      (interactive)
@@ -237,6 +240,21 @@
             "* %?" :clock-in t :clock-resume t)
            ("l" "Read it later" checkitem (file+headline (concat org-directory "/readlater.org") "Read it later")
             "[ ] %?")))
+   #+END_SRC
+
+** TODO state logging
+   Log timestamps when TODO states change
+   #+BEGIN_SRC emacs-lisp
+   ;; Define TODO keywords with logging
+   ;; @/! means: log timestamp when entering / log timestamp when leaving
+   (setq org-todo-keywords
+         '((sequence "TODO(t)" "IN-PROGRESS(p@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
+
+   ;; Log configuration
+   (setq org-log-done nil)                ; Don't add separate CLOSED timestamp
+   (setq org-log-into-drawer t)           ; Log into LOGBOOK drawer
+   (setq org-log-state-notes-insert-after-drawers nil)  ; Insert state changes after drawers
+   (setq org-log-repeat 'time)            ; Log when repeating tasks
    #+END_SRC
 
 
