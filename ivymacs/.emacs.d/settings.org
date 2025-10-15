@@ -52,8 +52,35 @@
      (ivy-switch-buffer))
    #+END_SRC
 
+** advice for evil-org to inherit TODO state
+   Advise evil-org's C-RET function to inherit TODO state from current heading
+   #+BEGIN_SRC emacs-lisp
+   (defun my-org-insert-heading-inherit-todo (orig-fun &rest args)
+     "Advice to make heading insertion inherit TODO state from current heading."
+     (let ((has-todo (save-excursion
+                       (ignore-errors
+                         (org-back-to-heading t)
+                         (org-get-todo-state)))))
+       (apply orig-fun args)
+       (when has-todo
+         ;; Manually insert TODO keyword and create LOGBOOK entry
+         (insert "TODO ")
+         (save-excursion
+           (org-back-to-heading t)
+           (end-of-line)
+           (newline)
+           (org-indent-line)
+           (insert ":LOGBOOK:\n")
+           (insert (format "- State \"TODO\"       from              [%s]\n"
+                          (format-time-string (org-time-stamp-format t t))))
+           (insert ":END:")))))
 
-* TODO Settings
+   (with-eval-after-load 'evil-org
+     (advice-add 'evil-org-org-insert-heading-respect-content-below
+                 :around #'my-org-insert-heading-inherit-todo))
+   #+END_SRC
+
+* Settings
 
 ** utf8
    #+BEGIN_SRC emacs-lisp
@@ -266,8 +293,9 @@
    #+BEGIN_SRC emacs-lisp
    ;; Define TODO keywords with logging
    ;; @/! means: log timestamp when entering / log timestamp when leaving
+   ;; ! means: log timestamp when entering
    (setq org-todo-keywords
-         '((sequence "TODO(t)" "IN-PROGRESS(p@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
+         '((sequence "TODO(t!)" "IN-PROGRESS(p@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
 
    ;; Log configuration
    (setq org-log-done nil)                ; Don't add separate CLOSED timestamp
