@@ -54,31 +54,42 @@
 
 ** advice for evil-org to inherit TODO state
    Advise evil-org's C-RET function to inherit TODO state from current heading
+   Inspired by Doom Emacs's +org--insert-item function
    #+BEGIN_SRC emacs-lisp
    (defun my-org-insert-heading-inherit-todo (orig-fun &rest args)
-     "Advice to make heading insertion inherit TODO state from current heading."
-     (let ((has-todo (save-excursion
-                       (ignore-errors
-                         (org-back-to-heading t)
-                         (org-get-todo-state)))))
+     "Advice to make heading insertion inherit TODO state from current heading.
+   Based on Doom Emacs implementation but ensures LOGBOOK entries are created."
+     (let* ((context (org-element-context))
+            (todo-keyword (org-element-property :todo-keyword context))
+            (todo-type (org-element-property :todo-type context)))
        (apply orig-fun args)
-       (when has-todo
-         ;; Manually insert TODO keyword and create LOGBOOK entry
-         (insert "TODO ")
-         (save-excursion
-           (org-back-to-heading t)
-           (end-of-line)
-           (newline)
-           (org-indent-line)
-           (insert ":LOGBOOK:\n")
-           (insert (format "- State \"TODO\"       from              [%s]\n"
-                          (format-time-string (org-time-stamp-format t t))))
-           (insert ":END:")))))
+       (when todo-keyword
+         ;; Insert TODO keyword and create LOGBOOK entry
+         ;; Following Doom's logic: if parent is DONE, create TODO instead
+         (let ((new-keyword (if (eq todo-type 'done)
+                                "TODO"  ; Don't create more DONE items
+                              todo-keyword)))
+           (insert new-keyword " ")
+           ;; Manually create LOGBOOK entry since org-todo may not log
+           ;; the initial state change
+           (save-excursion
+             (org-back-to-heading t)
+             (end-of-line)
+             (newline)
+             (org-indent-line)
+             (insert ":LOGBOOK:\n")
+             (insert (format "- State \"%s\"       from              [%s]\n"
+                            new-keyword
+                            (format-time-string (org-time-stamp-format t t))))
+             (insert ":END:"))))))
 
    (with-eval-after-load 'evil-org
      (advice-add 'evil-org-org-insert-heading-respect-content-below
                  :around #'my-org-insert-heading-inherit-todo))
    #+END_SRC
+
+** DONE hejsan svejsan
+
 
 * Settings
 

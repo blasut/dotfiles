@@ -155,3 +155,50 @@ From the settings.org header:
 > "The motivation for this project is twofold, one part is to try the ivy family of packages and the other to try using stock emacs where every package and keybinding is very clear. Sometimes spacemacs feels too big and cluttered."
 
 This is about learning and control—understanding exactly what each part of your editor does, with the elegance of Ivy's completion system and the power of Evil's modal editing.
+
+## Reference: Doom Emacs
+
+This configuration can reference Doom Emacs as a source of inspiration for features and patterns. Doom Emacs is located at `../doomemacs/.emacs.d` relative to this project.
+
+### Useful Doom Emacs Files
+
+When looking for org-mode functionality or implementation patterns:
+
+- **Org module config**: `../doomemacs/.emacs.d/modules/lang/org/config.el`
+- **Org autoload functions**: `../doomemacs/.emacs.d/modules/lang/org/autoload/org.el`
+- **Org packages**: `../doomemacs/.emacs.d/modules/lang/org/packages.el`
+
+### How to Search Doom Emacs
+
+To find implementations or patterns in Doom Emacs:
+
+```bash
+# Search for function definitions
+grep -r "defun +org" ../doomemacs/.emacs.d/modules/lang/org/
+
+# Search for keybindings
+grep -r "C-return\|C-<return>" ../doomemacs/.emacs.d/modules/lang/org/
+
+# Find all org-related autoload files
+find ../doomemacs/.emacs.d/modules/lang/org -name "*.el"
+
+# Search across all Doom modules
+grep -r "org-insert-heading" ../doomemacs/.emacs.d/modules/
+```
+
+### Key Doom Patterns Used in ivymacs
+
+1. **TODO State Inheritance** (from `+org--insert-item`):
+   - Uses `org-element-context` to get heading properties
+   - Smart logic: if parent is DONE, create TODO instead
+   - Inherits TODO keyword from parent heading
+
+2. **Custom Insert Functions** (from `+org/insert-item-below`):
+   - Create wrapper functions around org's insert commands
+   - Use advice to modify behavior instead of replacing keybindings
+   - Handle different contexts (lists, tables, headings) intelligently
+
+3. **Evil Integration**:
+   - Advice evil-org functions rather than overriding keybindings
+   - Works with evil-org's existing behavior
+   - Uses `with-eval-after-load 'evil-org` for timing
