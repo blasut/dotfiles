@@ -88,8 +88,88 @@
                  :around #'my-org-insert-heading-inherit-todo))
    #+END_SRC
 
-** DONE hejsan svejsan
+** org-dwim-at-point
+   "Do What I Mean" at point - inspired by Doom Emacs
+   #+BEGIN_SRC emacs-lisp
+   (defun my-org-dwim-at-point (&optional arg)
+     "Do-what-I-mean at point.
 
+   If on a:
+   - checkbox: toggle it
+   - TODO heading: toggle TODO state
+   - link: follow it
+   - footnote: jump to definition/reference
+   - timestamp: open agenda
+   - table: recalculate
+   - src block: execute it
+   - otherwise: cycle visibility or follow link"
+     (interactive "P")
+     (let* ((context (org-element-context))
+            (type (org-element-type context)))
+       ;; Skip over unimportant contexts
+       (while (and context (memq type '(verbatim code bold italic underline strike-through subscript superscript)))
+         (setq context (org-element-property :parent context)
+               type (org-element-type context)))
+       (pcase type
+         ;; On a headline: toggle TODO state
+         (`headline
+          (cond ((or (org-element-property :todo-type context)
+                     (org-element-property :scheduled context))
+                 (org-todo
+                  (if (eq (org-element-property :todo-type context) 'done)
+                      'todo
+                    'done)))
+                (t (org-cycle))))
+
+         ;; On a checkbox: toggle it
+         ((guard (org-element-property :checkbox (org-element-lineage context '(item) t)))
+          (org-toggle-checkbox))
+
+         ;; On a link: follow it
+         (`link
+          (org-open-at-point arg))
+
+         ;; On a timestamp: open agenda
+         ((or `planning `timestamp)
+          (org-follow-timestamp-link))
+
+         ;; On a footnote reference: jump to definition
+         (`footnote-reference
+          (org-footnote-goto-definition (org-element-property :label context)))
+
+         ;; On a footnote definition: jump to reference
+         (`footnote-definition
+          (org-footnote-goto-previous-reference (org-element-property :label context)))
+
+         ;; On a table: recalculate
+         ((or `table `table-row)
+          (if (org-at-TBLFM-p)
+              (org-table-calc-current-TBLFM)
+            (ignore-errors
+              (save-excursion
+                (goto-char (org-element-property :contents-begin context))
+                (org-call-with-arg 'org-table-recalculate (or arg t))))))
+
+         ;; On a src block: execute it
+         ((or `src-block `inline-src-block)
+          (org-babel-execute-src-block arg))
+
+         ;; Otherwise: try to follow link or cycle visibility
+         (_
+          (if (or (org-in-regexp org-ts-regexp-both nil t)
+                  (org-in-regexp org-tsr-regexp-both nil t)
+                  (org-in-regexp org-link-any-re nil t))
+              (call-interactively #'org-open-at-point)
+            (org-cycle))))))
+   #+END_SRC
+
+** DONE hejsan svejsan
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-10-15 Wed 15:30]
+- State "DONE"       from "TODO"       [2025-10-15 Wed 15:30]
+- State "DONE"       from "TODO"       [2025-10-15 Wed 15:30]
+- State "DONE"       from "TODO"       [2025-10-15 Wed 15:30]
+:END:
 
 * Settings
 
@@ -614,6 +694,12 @@ x-select-enable-clipboard t)
 ** org-mode keybindings
    #+BEGIN_SRC emacs-lisp
    (with-eval-after-load 'evil-org
+     ;; Bind RET to dwim-at-point in normal mode
+     (general-define-key
+      :states '(normal motion)
+      :keymaps 'org-mode-map
+      "RET" 'my-org-dwim-at-point)
+
      ;; Navigation in org-mode
      (general-define-key
       :states '(normal visual)
