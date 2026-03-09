@@ -88,6 +88,17 @@
                  :around #'my-org-insert-heading-inherit-todo))
    #+END_SRC
 
+** persp-switch-by-number
+   Switch to workspace by number (used for M-1 through M-9 bindings)
+   #+BEGIN_SRC emacs-lisp
+   (defun persp-switch-by-number (num)
+     "Switch to workspace by number NUM."
+     (let* ((persps (persp-names))
+            (persp-name (nth (1- num) persps)))
+       (when persp-name
+         (persp-switch persp-name))))
+   #+END_SRC
+
 ** org-dwim-at-point
    "Do What I Mean" at point - inspired by Doom Emacs
    #+BEGIN_SRC emacs-lisp
@@ -524,6 +535,65 @@
    #+END_SRC
 
 
+* Workspaces
+  Workspace management using persp-mode, inspired by Doom Emacs
+** persp-mode
+   #+BEGIN_SRC emacs-lisp
+   (use-package persp-mode :ensure t
+     :config
+     ;; Enable persp-mode
+     (persp-mode 1)
+
+     ;; Basic settings
+     (setq persp-autokill-buffer-on-remove 'kill-weak
+           persp-reset-windows-on-nil-window-conf nil
+           persp-nil-hidden t
+           persp-auto-save-fname "autosave"
+           persp-save-dir (concat user-emacs-directory "workspaces/")
+           persp-set-last-persp-for-new-frames t
+           persp-switch-to-added-buffer nil
+           persp-kill-foreign-buffer-behaviour 'kill
+           persp-remove-buffers-from-nil-persp-behaviour nil
+           persp-auto-resume-time -1  ; Don't auto-load on startup
+           persp-auto-save-opt 1)     ; Auto-save on kill
+
+     ;; Create a main workspace instead of using the nil perspective
+     (add-hook 'persp-mode-hook
+               (lambda ()
+                 (when persp-mode
+                   (let ((main-persp (persp-get-by-name "main")))
+                     (unless main-persp
+                       (persp-add-new "main"))))))
+
+     ;; Don't save TRAMP buffers or dead buffers
+     (add-hook 'persp-filter-save-buffers-functions
+               (lambda (buf)
+                 (or (not (buffer-live-p buf))
+                     (let ((dir (buffer-local-value 'default-directory buf)))
+                       (ignore-errors (file-remote-p dir))))))
+
+     ;; Integrate with projectile for per-project workspaces
+     (with-eval-after-load 'projectile
+       ;; Function to create/switch to workspace after project switch
+       (defun my-persp-switch-project-hook ()
+         "Create or switch to a workspace for the current project."
+         (when (and persp-mode (projectile-project-p))
+           (let* ((project-name (projectile-project-name))
+                  (persp-name project-name))
+             ;; Create or switch to workspace for this project
+             (unless (string= (safe-persp-name (get-current-persp)) persp-name)
+               (if (persp-get-by-name persp-name)
+                   (persp-switch persp-name)
+                 (persp-add-new persp-name))))))
+
+       ;; Hook into projectile's after-switch-project hook
+       (add-hook 'projectile-after-switch-project-hook #'my-persp-switch-project-hook)
+
+       ;; Keep the default action as find-file
+       (setq projectile-switch-project-action #'counsel-projectile-find-file)))
+   #+END_SRC
+
+
 * Keybindings
    #+BEGIN_SRC emacs-lisp
 
@@ -657,7 +727,31 @@ x-select-enable-clipboard t)
       ;; Z - Zoom
       "z"    '(:ignore t :which-key "Zoom")
       "zi"   '(text-scale-increase :which-key "Text larger")
-      "zu"   '(text-scale-decrease :which-key "Text smaller"))
+      "zu"   '(text-scale-decrease :which-key "Text smaller")
+
+      ;; TAB - Workspaces
+      "TAB"  '(:ignore t :which-key "Workspace")
+      "<tab>" '(:ignore t :which-key "Workspace")
+      "TAB TAB" '(persp-switch :which-key "Switch workspace")
+      "<tab> <tab>" '(persp-switch :which-key "Switch workspace")
+      "TAB n" '(persp-add-new :which-key "New workspace")
+      "<tab> n" '(persp-add-new :which-key "New workspace")
+      "TAB d" '(persp-kill :which-key "Delete workspace")
+      "<tab> d" '(persp-kill :which-key "Delete workspace")
+      "TAB r" '(persp-rename :which-key "Rename workspace")
+      "<tab> r" '(persp-rename :which-key "Rename workspace")
+      "TAB s" '(persp-save-state-to-file :which-key "Save workspace")
+      "<tab> s" '(persp-save-state-to-file :which-key "Save workspace")
+      "TAB l" '(persp-load-state-from-file :which-key "Load workspace")
+      "<tab> l" '(persp-load-state-from-file :which-key "Load workspace")
+      "TAB [" '(persp-prev :which-key "Previous workspace")
+      "<tab> [" '(persp-prev :which-key "Previous workspace")
+      "TAB ]" '(persp-next :which-key "Next workspace")
+      "<tab> ]" '(persp-next :which-key "Next workspace")
+      "TAB b" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
+      "<tab> b" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
+      "TAB k" '(persp-kill-buffer :which-key "Kill workspace buffer")
+      "<tab> k" '(persp-kill-buffer :which-key "Kill workspace buffer"))
 
      ;; Major mode leader key - use \ as shortcut for SPC m
      (general-create-definer my-major-mode-leader
@@ -768,4 +862,27 @@ x-select-enable-clipboard t)
       :keymaps 'org-mode-map
       "\\" (general-simulate-key "SPC m"
              :which-key "Org mode")))
+   #+END_SRC
+
+** workspace keybindings
+   Additional convenient keybindings for workspaces
+   #+BEGIN_SRC emacs-lisp
+   (with-eval-after-load 'persp-mode
+     ;; Vim-style workspace navigation
+     (general-define-key
+      :states '(normal motion)
+      "gt" 'persp-next
+      "gT" 'persp-prev)
+
+     ;; Quick numeric workspace switching (M-1 through M-9)
+     (general-define-key
+      "M-1" (lambda () (interactive) (persp-switch-by-number 1))
+      "M-2" (lambda () (interactive) (persp-switch-by-number 2))
+      "M-3" (lambda () (interactive) (persp-switch-by-number 3))
+      "M-4" (lambda () (interactive) (persp-switch-by-number 4))
+      "M-5" (lambda () (interactive) (persp-switch-by-number 5))
+      "M-6" (lambda () (interactive) (persp-switch-by-number 6))
+      "M-7" (lambda () (interactive) (persp-switch-by-number 7))
+      "M-8" (lambda () (interactive) (persp-switch-by-number 8))
+      "M-9" (lambda () (interactive) (persp-switch-by-number 9))))
    #+END_SRC

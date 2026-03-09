@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(emacs:*)",
+      "Read(//Users/lau/dotfiles/doomemacs/.emacs.d/modules/lang/org/**)",
+      "Read(//Users/lau/dotfiles/doomemacs/.emacs.d/modules/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
